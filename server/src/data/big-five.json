@@ -1,0 +1,12 @@
+[
+  {
+    "question": "I am talkative",
+    "trait": "Extraversion",
+    "reverse": false
+  },
+  {
+    "question": "I don't like large crowds",
+    "trait": "Extraversion",
+    "reverse": true
+  }
+]

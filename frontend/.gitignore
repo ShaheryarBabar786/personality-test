@@ -1,0 +1,10 @@
+node_modules/
+dist/
+.history/
+.DS_Store
+.git/
+
+.angular/cache
+.angular/cache/
+
+.vercel

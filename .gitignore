@@ -6,6 +6,8 @@
 /server/.history/
 /server/.package-lock.json/
 
+/.history
+
 # Logs
 logs
 *.log

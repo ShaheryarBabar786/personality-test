@@ -1,0 +1,93 @@
+/* Main Container */
+.visualization-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: 'Gilroy', Arial, sans-serif;
+  text-align: center;
+}
+
+/* Header Section */
+.header h1 {
+  font-size: 2rem;
+  color: #2c3e50;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.header p {
+  color: #7f8c8d;
+  margin-bottom: 30px;
+  font-size: 1.1rem;
+}
+
+/* Content Box */
+.content-box {
+  border-radius: 12px;
+  padding: 30px;
+}
+
+/* Text Section */
+.text-section {
+  margin-bottom: 30px;
+}
+
+.text-section h2 {
+  font-size: 1.5rem;
+  color: #3498db;
+  margin-bottom: 15px;
+}
+
+.text-section p {
+  color: #34495e;
+  line-height: 1.6;
+  font-size: 1.1rem;
+}
+
+/* Action Section */
+.action-section {
+  margin: 30px 0;
+  position: relative;
+}
+
+/* Notification Box */
+.notification-box {
+  background-color: #f8f9fa;
+  border-left: 4px solid #3498db;
+  padding: 15px;
+  margin-top: 20px;
+  text-align: left;
+  border-radius: 4px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.notification-header {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.notification-header span {
+  color: #2c3e50;
+  font-weight: 500;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #7f8c8d;
+  padding: 0 5px;
+}
+
+.close-btn:hover {
+  color: #e74c3c;
+}
+
+/* Progress Section */
+.progress-section {
+  margin-top: 40px;
+}

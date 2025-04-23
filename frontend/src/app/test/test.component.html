@@ -1,1 +1,27 @@
-<p>test works!</p>
+<div class="visualization-container">
+  <!-- <div class="header">
+    <h1>Personality Visualization</h1>
+    <p>Fill out these tests to compare your personality to your prospects!</p>
+  </div> -->
+  <div class="row">
+    <div class="col-md-6"><lib-primary-btn [hoverOutline]="false">MBTI TEST</lib-primary-btn></div>
+    <div class="col-md-6"><lib-primary-btn [hoverOutline]="false">Big 5</lib-primary-btn></div>
+  </div>
+
+  <div class="content-box">
+    <div class="action-section">
+      <button>Go To Admin Screen</button>
+
+      <div class="notification-box">
+        <div class="notification-header">
+          <span>Setup availability schedule</span>
+          <button (click)="closeNotification()" class="close-btn">×</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="progress-section" style="text-align: center">
+      <lib-circle-progress [max]="max" [value]="value" [imageUrl]="imageUrl"> </lib-circle-progress>
+    </div>
+  </div>
+</div>

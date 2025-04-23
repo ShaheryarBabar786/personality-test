@@ -1,1 +1,42 @@
-<p>admin works! </p>
+<div class="admin-container">
+  <!-- Language Selection -->
+  <div class="language-selection">
+    <label>
+      <input type="radio" name="language" value="english" [(ngModel)]="selectedLanguage" />
+      English
+    </label>
+
+    <label>
+      <input type="radio" name="language" value="french" [(ngModel)]="selectedLanguage" />
+      French
+    </label>
+
+    <label>
+      <input type="radio" name="language" value="spanish" [(ngModel)]="selectedLanguage" />
+      Spanish
+    </label>
+  </div>
+
+  <!-- Test Result JSON Input -->
+  <div class="form-group">
+    <label>Test result from the last test taken (JSON format):</label>
+    <textarea class="json-input" [(ngModel)]="testData" placeholder="Paste JSON test results here"></textarea>
+  </div>
+
+  <!-- Go to Test Runner Button -->
+  <button class="test-runner-btn" (click)="goToTestRunner()">Go to Test Runner</button>
+
+  <!-- Text Update Fields - ALWAYS VISIBLE -->
+  <div class="text-updates-section">
+    <!-- Input fields - always shown -->
+    <div *ngFor="let update of textUpdates; let i = index" class="text-update">
+      <span>{{ update.id }}</span>
+      <input type="text" [(ngModel)]="update.value" />
+    </div>
+
+    <div class="button-group">
+      <button class="add-btn" (click)="addNewTextUpdate()">+ Add More</button>
+      <button class="save-btn" (click)="saveTextUpdates()">Save Updates</button>
+    </div>
+  </div>
+</div>

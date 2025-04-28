@@ -1,0 +1,52 @@
+{
+    "id": "mbti",
+    "name": "mbti Test",
+    "type": "mbti",
+    "scoringType": "sum",
+    "description": "Measures five broad personality traits",
+    "questions": [
+      {
+        "id": "q1",
+        "text": "I am outgoing outside.",
+        "translations": {
+          "French": "Je suis extravertiaef.",
+          "Spanish": "Soy extrovertidoqerwa."
+        },
+        "isReversed": false,
+        "target": "extraversion",
+        "weight": 1
+      },
+      {
+        "id": "q2",
+        "text": "I avoid socializingewad.",
+        "translations": {
+          "French": "J'évite de socialiser.",
+          "Spanish": "Evito socializar."
+        },
+        "isReversed": true,
+        "target": "extraversion",
+        "weight": 1
+      }
+    ],
+    "outcomes": [
+      {
+        "id": "openness",
+        "name": "Openness",
+        "translations": {
+          "French": "Ouverture",
+          "Spanish": "Apertura"
+        },
+        "description": "Openness to experience"
+      },
+      {
+        "id": "conscientiousness",
+        "name": "Conscientiousness",
+        "translations": {
+          "French": "Conscience",
+          "Spanish": "Responsabilidad"
+        },
+        "description": "Tendency to be organized and dependable"
+      }
+    ],
+    "customScoring": ""
+  }

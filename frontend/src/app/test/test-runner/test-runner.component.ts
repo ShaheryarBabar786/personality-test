@@ -88,7 +88,6 @@ export class TestRunnerComponent {
 
   submitTest() {
     const results = this.scoringService.calculateScore(this.testConfig, this.testForm.value.answers);
-    // Save results or navigate to visualization
   }
 
   private updateProgress() {

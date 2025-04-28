@@ -12,6 +12,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { TestModule } from './test/test.module';
 
+import { } from 'nextsapien-component-lib';
+
 export const httpLoaderFactory = (http: HttpBackend): TranslateHttpLoader => new TranslateHttpLoader(new HttpClient(http), './assets/i18n/', '.json');
 
 @NgModule({
@@ -34,7 +36,7 @@ export const httpLoaderFactory = (http: HttpBackend): TranslateHttpLoader => new
     }),
     AppRoutingModule,
     TestModule,
-    FormsModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent],

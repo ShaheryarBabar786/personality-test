@@ -1,93 +1,130 @@
-/* Main Container */
 .visualization-container {
-  max-width: 800px;
   margin: 0 auto;
   padding: 20px;
   font-family: 'Gilroy', Arial, sans-serif;
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
-
-/* Header Section */
 .header h1 {
-  font-size: 2rem;
-  color: #2c3e50;
-  margin-bottom: 10px;
-  font-weight: 600;
-}
-
-.header p {
-  color: #7f8c8d;
-  margin-bottom: 30px;
-  font-size: 1.1rem;
-}
-
-/* Content Box */
-.content-box {
-  border-radius: 12px;
-  padding: 30px;
-}
-
-/* Text Section */
-.text-section {
-  margin-bottom: 30px;
-}
-
-.text-section h2 {
-  font-size: 1.5rem;
-  color: #3498db;
-  margin-bottom: 15px;
-}
-
-.text-section p {
-  color: #34495e;
-  line-height: 1.6;
-  font-size: 1.1rem;
-}
-
-/* Action Section */
-.action-section {
-  margin: 30px 0;
-  position: relative;
-}
-
-/* Notification Box */
-.notification-box {
-  background-color: #f8f9fa;
-  border-left: 4px solid #3498db;
-  padding: 15px;
-  margin-top: 20px;
+  font-family: 'Gilroy', Arial, sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 150%;
+  letter-spacing: -0.011em;
+  color: #ffffff;
+  margin: 0;
+  font-size: 12px !important;
+  margin: 0 0 30px 0;
+  align-self: flex-start;
   text-align: left;
-  border-radius: 4px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.notification-header {
-  display: flex;
-  justify-content: space-between;
   width: 100%;
 }
 
-.notification-header span {
-  color: #2c3e50;
+.test-selection {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  width: 100%;
+  margin-bottom: 30px;
+}
+
+.test-card {
+  width: 100%;
+}
+
+.test-card lib-primary-btn,
+.test-card button {
+  width: 100%;
+  padding: 12px 0;
+  font-size: 16px;
   font-weight: 500;
+  text-transform: uppercase;
+}
+
+.notification-box {
+  width: 100%;
+  background-color: #f8f9fa;
+  border-left: 4px solid #3498db;
+  padding: 16px;
+  margin-bottom: 30px;
+  border-radius: 4px;
+  text-align: left;
+}
+
+.notification-header {
+  position: relative;
+}
+
+.notification-header span {
+  display: block;
+  font-weight: 500;
+  color: #2c3e50;
+  margin-bottom: 8px;
+}
+
+.notification-header p {
+  color: #7f8c8d;
+  margin: 0;
+  line-height: 1.5;
 }
 
 .close-btn {
+  position: absolute;
+  top: 0;
+  right: 0;
   background: none;
   border: none;
-  font-size: 1.5rem;
+  font-size: 24px;
   cursor: pointer;
   color: #7f8c8d;
-  padding: 0 5px;
+  line-height: 1;
 }
 
-.close-btn:hover {
-  color: #e74c3c;
+/* Admin Button - Center aligned */
+.action-section {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
 }
 
-/* Progress Section */
-.progress-section {
-  margin-top: 40px;
+.action-section button {
+  padding: 12px 24px;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-weight: 500;
+  cursor: pointer;
+  font-size: 16px;
+}
+@media (min-width: 769px) and (max-width: 1024px) {
+  .notification-box {
+    width: 95%;
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .visualization-container {
+    padding: 10px;
+  }
+  .test-selection {
+    grid-template-columns: repeat(2, 1fr); /* 2 equal columns */
+    gap: 5px;
+  }
+
+  .header h1 {
+    font-size: 28px;
+  }
+  .notification-box {
+    width: 90%;
+    padding: 10px;
+    margin: auto;
+  }
+  ::ng-deep lib-primary-btn button {
+    font-size: 10px !important;
+    padding: 8px 16px !important;
+  }
 }

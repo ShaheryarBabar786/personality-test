@@ -1,8 +1,6 @@
-<!-- test.component.html -->
-<div class="visualization-container">
+<div class="visualization-container container">
   <div class="header">
     <h1>Personality Visualization</h1>
-    <p>Fill out these tests to compare your personality to your prospects!</p>
   </div>
 
   <div class="test-selection">
@@ -10,18 +8,18 @@
       <lib-primary-btn [hoverOutline]="false" (click)="startTest(test.id)">
         {{ test.name | uppercase }}
       </lib-primary-btn>
-      <p>{{ test.description }}</p>
+    </div>
+  </div>
+
+  <div *ngIf="showNotification" class="notification-box">
+    <div class="notification-header">
+      <span>Setup availability schedule</span>
+      <p>Fill out these tests to compare your<br />personality to your prospects!</p>
+      <button (click)="closeNotification()" class="close-btn">×</button>
     </div>
   </div>
 
   <div class="action-section">
-    <lib-primary-btn (click)="goToAdmin()">Go To Admin Screen</lib-primary-btn>
-
-    <div *ngIf="showNotification" class="notification-box">
-      <div class="notification-header">
-        <span>Setup availability schedule</span>
-        <button (click)="closeNotification()" class="close-btn">×</button>
-      </div>
-    </div>
+    <button (click)="goToAdmin()">Go To Admin Screen</button>
   </div>
 </div>

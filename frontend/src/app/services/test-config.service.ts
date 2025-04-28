@@ -1,7 +1,7 @@
 // test-config.service.ts
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { environment } from '../../environments/environment'; // Import environment
 import { TestConfig } from '../shared/models/test-config.model';
 
@@ -17,8 +17,17 @@ export class TestConfigService {
     return this.http.get<TestConfig[]>(`${this.apiUrl}`); // GET /personality
   }
 
-  getTestConfig(testId: string): Observable<TestConfig> {
-    return this.http.get<TestConfig>(`${this.apiUrl}/${testId}`); // GET /personality/:id
+  // getTestConfig(testId: string): Observable<TestConfig> {
+  //   return this.http.get<TestConfig>(`${this.apiUrl}/${testId}`); // GET /personality/:id
+  // }
+  getTestConfig(testId: string): Observable<any> {
+    console.log('Requesting test:', testId);
+    return this.http.get<any>(`${this.apiUrl}/${testId}`).pipe(
+      tap({
+        next: (res) => console.log('Received test config:', res),
+        error: (err) => console.error('Error fetching test:', err),
+      }),
+    );
   }
 
   createTestConfig(test: TestConfig): Observable<any> {

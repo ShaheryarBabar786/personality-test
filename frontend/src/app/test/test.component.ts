@@ -22,7 +22,6 @@ export class TestComponent {
   loadTests() {
     this.testConfigService.getTestList().subscribe({
       next: (tests) => {
-        console.log('Loaded tests:', tests); // Check if data arrives
         this.tests = tests;
       },
       error: (err) => {
@@ -33,7 +32,6 @@ export class TestComponent {
 
   startTest(testId: string) {
     this.router.navigate(['/test-runner', testId]);
-    console.log('testID', testId);
   }
 
   goToAdmin() {

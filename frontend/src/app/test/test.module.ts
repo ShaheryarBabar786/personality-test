@@ -6,14 +6,18 @@ import { ResultComponent } from './result/result.component';
 import { TestRunnerComponent } from './test-runner/test-runner.component';
 import { TestComponent } from './test.component';
 
+
+
 @NgModule({
   declarations: [ResultComponent, TestRunnerComponent, TestComponent],
   imports: [
-    CommonModule, // <-- Add this line
+    CommonModule, 
     ButtonsModule,
     LibModalModule,
     CircleProgressModule,
     ReactiveFormsModule,
+    
+
   ],
   providers: [],
   bootstrap: [],

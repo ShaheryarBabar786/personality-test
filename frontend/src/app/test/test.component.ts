@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { TestConfigService } from '../services/test-config.service';
 
 @Component({
   selector: 'app-test',
@@ -7,12 +9,38 @@ import { Component } from '@angular/core';
   styleUrl: './test.component.css',
 })
 export class TestComponent {
-  showNotification: boolean = true;
-  max: number = 100;
-  value: number = 65; // Example value
-  imageUrl: string = './../../assets/images.jpg'; // Your image path
+  showNotification = true;
+  tests: any[] = [];
 
-  closeNotification(): void {
+  constructor(
+    private router: Router,
+    private testConfigService: TestConfigService,
+  ) {
+    this.loadTests();
+  }
+
+  loadTests() {
+    this.testConfigService.getTestList().subscribe({
+      next: (tests) => {
+        console.log('Loaded tests:', tests); // Check if data arrives
+        this.tests = tests;
+      },
+      error: (err) => {
+        console.error('Error loading tests:', err); // Check for errors
+      },
+    });
+  }
+
+  startTest(testId: string) {
+    this.router.navigate(['/test-runner', testId]);
+    console.log('testID', testId);
+  }
+
+  goToAdmin() {
+    this.router.navigate(['/admin']);
+  }
+
+  closeNotification() {
     this.showNotification = false;
   }
 }

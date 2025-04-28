@@ -9,7 +9,7 @@ const routes: Routes = [
   { path: '', component: AdminComponent },
   { path: 'test', component: TestComponent },
   { path: 'result', component: ResultComponent },
-  { path: 'test-runner', component: TestRunnerComponent },
+  { path: 'test-runner/:testId', component: TestRunnerComponent },
 ];
 
 @NgModule({

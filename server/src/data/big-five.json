@@ -1,12 +1,52 @@
-[
-  {
-    "question": "I am talkative",
-    "trait": "Extraversion",
-    "reverse": false
-  },
-  {
-    "question": "I don't like large crowds",
-    "trait": "Extraversion",
-    "reverse": true
-  }
-]
+{
+  "id": "big-five",
+  "name": "Big Five Personality Test",
+  "type": "Big Five",
+  "scoringType": "sum",
+  "description": "Measures five broad personality traits",
+  "questions": [
+    {
+      "id": "q1",
+      "text": "I am outgoing.",
+      "translations": {
+        "French": "Je suis extraverti.",
+        "Spanish": "Soy extrovertido."
+      },
+      "isReversed": false,
+      "target": "extraversion",
+      "weight": 1
+    },
+    {
+      "id": "q2",
+      "text": "I avoid socializing.",
+      "translations": {
+        "French": "J'évite de socialiser.",
+        "Spanish": "Evito socializar."
+      },
+      "isReversed": true,
+      "target": "extraversion",
+      "weight": 1
+    }
+  ],
+  "outcomes": [
+    {
+      "id": "openness",
+      "name": "Openness",
+      "translations": {
+        "French": "Ouverture",
+        "Spanish": "Apertura"
+      },
+      "description": "Openness to experience"
+    },
+    {
+      "id": "conscientiousness",
+      "name": "Conscientiousness",
+      "translations": {
+        "French": "Conscience",
+        "Spanish": "Responsabilidad"
+      },
+      "description": "Tendency to be organized and dependable"
+    }
+  ],
+  "customScoring": ""
+}

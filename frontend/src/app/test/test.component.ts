@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { ModalService } from '../services/modal.service';
 import { TestConfigService } from '../services/test-config.service';
 
 @Component({
@@ -11,10 +12,14 @@ import { TestConfigService } from '../services/test-config.service';
 export class TestComponent {
   showNotification = true;
   tests: any[] = [];
+  isSelected = false;
+  modalOpen = false;
+  selectedTestId: string | null = null;
 
   constructor(
     private router: Router,
     private testConfigService: TestConfigService,
+    private modalService: ModalService,
   ) {
     this.loadTests();
   }
@@ -25,13 +30,27 @@ export class TestComponent {
         this.tests = tests;
       },
       error: (err) => {
-        console.error('Error loading tests:', err); // Check for errors
+        console.error('Error loading tests:', err);
       },
     });
   }
 
   startTest(testId: string) {
-    this.router.navigate(['/test-runner', testId]);
+    this.selectedTestId = testId;
+    this.modalOpen = true;
+  }
+
+  closeModal() {
+    this.modalOpen = false;
+    this.selectedTestId = null;
+  }
+
+  onRadioChange(state: boolean) {
+    this.isSelected = state;
+  }
+
+  toggleRadio() {
+    this.isSelected = !this.isSelected;
   }
 
   goToAdmin() {

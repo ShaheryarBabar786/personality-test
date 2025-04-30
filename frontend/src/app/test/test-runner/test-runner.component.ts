@@ -1,7 +1,7 @@
 // test-runner.component.ts
-import { Component } from '@angular/core';
+// test-runner-modal.component.ts
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
 import { ScoringService } from '../../services/scoring.service';
 import { TestConfigService } from '../../services/test-config.service';
 
@@ -12,13 +12,15 @@ import { TestConfigService } from '../../services/test-config.service';
   styleUrl: './test-runner.component.css',
 })
 export class TestRunnerComponent {
+  @Input() testId: string | null = null;
+  @Output() close = new EventEmitter<void>();
+
   testForm: FormGroup;
   testConfig: any;
   currentQuestionIndex = 0;
   progress = 0;
 
   constructor(
-    private route: ActivatedRoute,
     private testConfigService: TestConfigService,
     private fb: FormBuilder,
     private scoringService: ScoringService,
@@ -29,13 +31,12 @@ export class TestRunnerComponent {
   }
 
   ngOnInit() {
-    const testId = this.route.snapshot.paramMap.get('testId');
-    if (!testId) {
-      console.error('No test ID provided');
-      // Optionally redirect back
-      return;
+    if (this.testId) {
+      this.loadTestConfig(this.testId);
     }
+  }
 
+  loadTestConfig(testId: string) {
     this.testConfigService.getTestConfig(testId).subscribe({
       next: (config) => {
         this.testConfig = config;
@@ -43,7 +44,6 @@ export class TestRunnerComponent {
       },
       error: (err) => {
         console.error('Failed to load test config:', err);
-        // Handle error (show message, redirect, etc.)
       },
     });
   }
@@ -75,6 +75,7 @@ export class TestRunnerComponent {
       this.scrollToQuestion();
     }
   }
+
   getOptionLabel(value: number): string {
     const labels: { [key: number]: string } = {
       1: 'Strongly Disagree',
@@ -88,6 +89,11 @@ export class TestRunnerComponent {
 
   submitTest() {
     const results = this.scoringService.calculateScore(this.testConfig, this.testForm.value.answers);
+    this.closeModal();
+  }
+
+  closeModal() {
+    this.close.emit();
   }
 
   private updateProgress() {

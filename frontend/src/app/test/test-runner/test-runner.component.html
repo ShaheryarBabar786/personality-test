@@ -1,45 +1,33 @@
-<!-- test-runner.component.html -->
 <div class="test-runner-container">
   <div class="test-header">
     <h1>{{ testConfig?.name }}</h1>
-    <p>{{ testConfig?.description }}</p>
-  </div>
-
-  <div class="progress-container">
-    <!-- <lib-progress-bar [value]="progress" [max]="100"></lib-progress-bar> -->
   </div>
 
   <form [formGroup]="testForm">
     <div class="questions-container">
-      <div *ngFor="let question of testConfig?.questions; let i = index" class="question-card" [class.active]="i === currentQuestionIndex" id="question-{{ i }}">
-        <h3>{{ question.text }}</h3>
-        <!-- <div class="options">
-          <lib-radio-button
-            *ngFor="let option of [1, 2, 3, 4, 5]"
-            [value]="option"
-            [name]="'q' + i"
-            [label]="getOptionLabel(option)"
-            [formControl]="answers.at(i)"
-            formControlName="answers"
-          ></lib-radio-button>
-        </div> -->
-        <div class="options">
-          <div class="form-check" *ngFor="let option of [1, 2, 3, 4, 5]; let optIndex = index">
-            <input class="form-check-input" type="radio" [id]="'option_' + i + '_' + optIndex" [value]="option" [name]="'question_' + i" [formControl]="answers.at(i)" />
-            <label class="form-check-label" [for]="'option_' + i + '_' + optIndex">
-              {{ getOptionLabel(option) }}
-            </label>
+      <div *ngFor="let question of testConfig?.questions; let i = index" class="question-card" [class.active]="i === currentQuestionIndex">
+        <div class="question-text">
+          <p *ngFor="let line of question.text.split('\n')">{{ line }}</p>
+        </div>
+        <div class="options-container">
+          <div class="options-row">
+            <span class="option-label">Disagree</span>
+            <div class="radio-options">
+              <label *ngFor="let option of [1, 2, 3, 4, 5]">
+                <input type="radio" [value]="option" [name]="'question_' + i" [formControl]="answers.at(i)" />
+                <span class="radio-circle"></span>
+              </label>
+            </div>
+            <span class="option-label">Agree</span>
           </div>
         </div>
       </div>
     </div>
 
     <div class="navigation-buttons">
-      <lib-primary-btn *ngIf="currentQuestionIndex > 0" (click)="prevQuestion()" [outline]="true"> Previous </lib-primary-btn>
-
-      <lib-primary-btn *ngIf="currentQuestionIndex < testConfig?.questions.length - 1" (click)="nextQuestion()"> Next </lib-primary-btn>
-
-      <lib-primary-btn *ngIf="currentQuestionIndex === testConfig?.questions.length - 1" (click)="submitTest()"> Submit </lib-primary-btn>
+      <button *ngIf="currentQuestionIndex > 0" (click)="prevQuestion()" class="nav-button prev">Previous</button>
+      <button *ngIf="currentQuestionIndex < testConfig?.questions.length - 1" (click)="nextQuestion()" class="nav-button next">Next</button>
+      <button *ngIf="currentQuestionIndex === testConfig?.questions.length - 1" (click)="submitTest()" class="nav-button submit">Submit</button>
     </div>
   </form>
 </div>

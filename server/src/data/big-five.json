@@ -1,6 +1,6 @@
 {
   "id": "big-five",
-  "name": "Big Five Personality Test",
+  "name": "Big 5",
   "type": "Big Five",
   "scoringType": "sum",
   "description": "Measures five broad personality traits",

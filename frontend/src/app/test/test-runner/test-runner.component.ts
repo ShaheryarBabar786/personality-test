@@ -1,6 +1,6 @@
 // test-runner.component.ts
 // test-runner-modal.component.ts
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { ScoringService } from '../../services/scoring.service';
 import { TestConfigService } from '../../services/test-config.service';
@@ -24,6 +24,7 @@ export class TestRunnerComponent {
     private testConfigService: TestConfigService,
     private fb: FormBuilder,
     private scoringService: ScoringService,
+    private cdRef: ChangeDetectorRef,
   ) {
     this.testForm = this.fb.group({
       answers: this.fb.array([]),
@@ -46,6 +47,21 @@ export class TestRunnerComponent {
         console.error('Failed to load test config:', err);
       },
     });
+  }
+  get answeredQuestionsCount(): number {
+    return this.answers.controls.filter((control) => control.value !== null).length;
+  }
+
+  ngAfterViewInit() {
+    this.answers.valueChanges.subscribe(() => {
+      // Force update the progress bar
+      setTimeout(() => {
+        this.cdRef.detectChanges();
+      });
+    });
+  }
+  get progressPercentage(): number {
+    return this.testConfig?.questions?.length ? (this.answeredQuestionsCount / this.testConfig.questions.length) * 100 : 0;
   }
 
   get answers() {

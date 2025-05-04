@@ -1,6 +1,6 @@
 {
     "id": "mbti",
-    "name": "mbti Test",
+    "name": "MBTI Test",
     "type": "mbti",
     "scoringType": "sum",
     "description": "Measures five broad personality traits",
@@ -26,7 +26,52 @@
         "isReversed": true,
         "target": "extraversion",
         "weight": 1
+      },
+      {
+        "id": "q3",
+        "text": "I avoid socializingewad.",
+        "translations": {
+          "French": "J'évite de socialiser.",
+          "Spanish": "Evito socializar."
+        },
+        "isReversed": true,
+        "target": "extraversion",
+        "weight": 1
+      },
+      {
+        "id": "q4",
+        "text": "I avoid socializingewad.",
+        "translations": {
+          "French": "J'évite de socialiser.",
+          "Spanish": "Evito socializar."
+        },
+        "isReversed": true,
+        "target": "extraversion",
+        "weight": 1
+      },
+      {
+        "id": "q5",
+        "text": "I avoid socializingewad.",
+        "translations": {
+          "French": "J'évite de socialiser.",
+          "Spanish": "Evito socializar."
+        },
+        "isReversed": true,
+        "target": "extraversion",
+        "weight": 1
+      },
+      {
+        "id": "q6",
+        "text": "I avoid socializingewad.",
+        "translations": {
+          "French": "J'évite de socialiser.",
+          "Spanish": "Evito socializar."
+        },
+        "isReversed": true,
+        "target": "extraversion",
+        "weight": 1
       }
+      
     ],
     "outcomes": [
       {

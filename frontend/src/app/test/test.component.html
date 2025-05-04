@@ -1,5 +1,5 @@
 <!-- test.component.html -->
-<div class="visualization-container container">
+<div class="visualization-container container centered-container mt-5">
   <div class="header">
     <h1>Personality Visualization</h1>
   </div>
@@ -13,27 +13,32 @@
   </div>
 
   <div *ngIf="showNotification" class="notification-box">
-    <div class="notification-header">
-      <span>Setup availability schedule</span>
-      <p>Fill out these tests to compare your<br />personality to your prospects!</p>
-      <button (click)="closeNotification()" class="close-btn">×</button>
+    <div class="notification-content">
+      <div class="info-icon">i</div>
+      <div class="notification-text">
+        <div class="notification-title">Personality Visualization</div>
+        <div class="notification-message">Fill out these tests to compare your personality to your prospects!</div>
+      </div>
+      <button class="close-notification-btn" (click)="closeNotification()">×</button>
+      <div class="loading-bar">
+        <div class="loading-progress"></div>
+      </div>
     </div>
   </div>
+  <div class="mt-5"></div>
+
+  <lib-circle-progress [imageUrl]="imageUrl" [partialColors]="progressColors" [hideProgress]="true" [max]="1" [value]="0"></lib-circle-progress>
 
   <div class="action-section">
     <button (click)="goToAdmin()">Go To Admin Screen</button>
   </div>
 
-  <lib-radio-button [radioButtonState]="isSelected" (radioButtonStateChange)="onRadioChange($event)" (click)="toggleRadio()"> </lib-radio-button>
-
-  <!-- Modal Backdrop -->
   <div *ngIf="modalOpen" class="modal-backdrop" (click)="closeModal()"></div>
 
-  <!-- Modal Content -->
   <div *ngIf="modalOpen" class="modal-content">
-    <div class="modal-header">
+    <!-- <div class="modal-header">
       <button class="close-modal-btn" (click)="closeModal()">×</button>
-    </div>
+    </div> -->
     <div class="modal-body">
       <app-test-runner [testId]="selectedTestId" (close)="closeModal()"></app-test-runner>
     </div>

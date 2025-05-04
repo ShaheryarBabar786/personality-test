@@ -2,6 +2,11 @@
   <div class="test-header">
     <h1>{{ testConfig?.name }}</h1>
   </div>
+  <div class="progress-container">
+    <div class="progress-bar">
+      <div class="progress-completed" [style.width.%]="progressPercentage"></div>
+    </div>
+  </div>
 
   <form [formGroup]="testForm">
     <div class="questions-container">
@@ -11,14 +16,14 @@
         </div>
         <div class="options-container">
           <div class="options-row">
-            <span class="option-label">Disagree</span>
+            <!-- <span class="option-label">Disagree</span> -->
             <div class="radio-options">
               <label *ngFor="let option of [1, 2, 3, 4, 5]">
                 <input type="radio" [value]="option" [name]="'question_' + i" [formControl]="answers.at(i)" />
                 <span class="radio-circle"></span>
               </label>
             </div>
-            <span class="option-label">Agree</span>
+            <!-- <span class="option-label">Agree</span> -->
           </div>
         </div>
       </div>

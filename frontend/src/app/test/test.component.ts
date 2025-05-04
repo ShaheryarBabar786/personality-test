@@ -15,6 +15,10 @@ export class TestComponent {
   isSelected = false;
   modalOpen = false;
   selectedTestId: string | null = null;
+  max: number = 1;
+  value: number = 0;
+  imageUrl: string =
+    'assets/african-american-boy-with-black-power-hair-yellow-smiling-black-kid-with-black-power-hair-black-boy-with-black-power-hair-african-descent_63135-682.jpg';
 
   constructor(
     private router: Router,
@@ -23,6 +27,10 @@ export class TestComponent {
   ) {
     this.loadTests();
   }
+  progressColors = {
+    background: '#000000', // Black circle
+    foreground: '#000000', // Black progress (if applicable)
+  };
 
   loadTests() {
     this.testConfigService.getTestList().subscribe({
@@ -38,11 +46,13 @@ export class TestComponent {
   startTest(testId: string) {
     this.selectedTestId = testId;
     this.modalOpen = true;
+    this.toggleBodyScroll(false);
   }
 
   closeModal() {
     this.modalOpen = false;
     this.selectedTestId = null;
+    this.toggleBodyScroll(true);
   }
 
   onRadioChange(state: boolean) {
@@ -55,6 +65,13 @@ export class TestComponent {
 
   goToAdmin() {
     this.router.navigate(['/admin']);
+  }
+  private toggleBodyScroll(enable: boolean): void {
+    if (enable) {
+      document.body.style.overflow = 'auto';
+    } else {
+      document.body.style.overflow = 'hidden';
+    }
   }
 
   closeNotification() {

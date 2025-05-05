@@ -48,6 +48,9 @@ export class TestRunnerComponent {
       },
     });
   }
+  selectOption(questionIndex: number, optionValue: number) {
+    this.answers.at(questionIndex).setValue(optionValue);
+  }
   get answeredQuestionsCount(): number {
     return this.answers.controls.filter((control) => control.value !== null).length;
   }
@@ -66,6 +69,23 @@ export class TestRunnerComponent {
 
   get answers() {
     return this.testForm.get('answers') as FormArray;
+  }
+
+  onRadioChange(questionIndex: number, optionValue: number, isSelected: boolean) {
+    if (isSelected) {
+      this.answers.at(questionIndex).setValue(optionValue);
+    } else {
+      // If radio is deselected (only works if radioDeselectable is true)
+      this.answers.at(questionIndex).setValue(null);
+    }
+  }
+  handleRadioChange(questionIndex: number, optionValue: number, newState: boolean) {
+    if (newState) {
+      this.answers.at(questionIndex).setValue(optionValue);
+    } else {
+      // Only if radioDeselectable is true in the component
+      this.answers.at(questionIndex).setValue(null);
+    }
   }
 
   private initForm() {

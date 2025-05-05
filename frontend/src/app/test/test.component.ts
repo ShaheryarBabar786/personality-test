@@ -64,7 +64,7 @@ export class TestComponent {
   }
 
   goToAdmin() {
-    this.router.navigate(['/admin']);
+    this.router.navigate(['/']);
   }
   private toggleBodyScroll(enable: boolean): void {
     if (enable) {

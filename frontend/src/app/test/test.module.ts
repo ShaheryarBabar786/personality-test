@@ -1,7 +1,16 @@
 import { CommonModule } from '@angular/common'; // <-- Add this
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { ButtonsModule, CircleProgressModule, FormFieldModule, LibAutoDelegationModalComponent, LibModalModule, ProgressBarModule, ToggleModule } from 'nextsapien-component-lib';
+import {
+  ButtonsModule,
+  CircleProgressModule,
+  FormFieldModule,
+  LibAutoDelegationModalComponent,
+  LibModalModule,
+  ProgressBarModule,
+  SectionSeparatorComponent,
+  ToggleModule,
+} from 'nextsapien-component-lib';
 import { ResultComponent } from './result/result.component';
 import { TestRunnerComponent } from './test-runner/test-runner.component';
 import { TestComponent } from './test.component';
@@ -18,6 +27,7 @@ import { TestComponent } from './test.component';
     FormFieldModule,
     ToggleModule,
     ProgressBarModule,
+    SectionSeparatorComponent,
   ],
   providers: [],
   bootstrap: [],

@@ -1,97 +1,153 @@
 {
-    "id": "mbti",
-    "name": "MBTI Test",
-    "type": "mbti",
-    "scoringType": "sum",
-    "description": "Measures five broad personality traits",
-    "questions": [
-      {
-        "id": "q1",
-        "text": "I am outgoing outside.",
-        "translations": {
-          "French": "Je suis extravertiaef.",
-          "Spanish": "Soy extrovertidoqerwa."
-        },
-        "isReversed": false,
-        "target": "extraversion",
-        "weight": 1
+  "id": "mbti",
+  "name": "MBTI test",
+  "type": "MBTI",
+  "scoringType": "compare",
+  "description": "Measures psychological preferences in how people perceive the world",
+  "questions": [
+    {
+      "id": "q1",
+      "text": "You enjoy vibrant social events with many people.",
+      "translations": {
+        "French": "Vous aimez les événements sociaux animés avec beaucoup de monde.",
+        "Spanish": "Disfrutas de eventos sociales vibrantes con mucha gente."
       },
-      {
-        "id": "q2",
-        "text": "I avoid socializingewad.",
-        "translations": {
-          "French": "J'évite de socialiser.",
-          "Spanish": "Evito socializar."
-        },
-        "isReversed": true,
-        "target": "extraversion",
-        "weight": 1
+      "isReversed": false,
+      "target": "E",
+      "weight": 1
+    },
+    {
+      "id": "q2",
+      "text": "You often spend time exploring unrealistic ideas.",
+      "translations": {
+        "French": "Vous passez souvent du temps à explorer des idées irréalistes.",
+        "Spanish": "A menudo pasas tiempo explorando ideas poco realistas."
       },
-      {
-        "id": "q3",
-        "text": "I avoid socializingewad.",
-        "translations": {
-          "French": "J'évite de socialiser.",
-          "Spanish": "Evito socializar."
-        },
-        "isReversed": true,
-        "target": "extraversion",
-        "weight": 1
+      "isReversed": false,
+      "target": "N",
+      "weight": 1
+    },
+    {
+      "id": "q3",
+      "text": "Your decisions are based more on feelings than facts.",
+      "translations": {
+        "French": "Vos décisions sont plus basées sur des sentiments que sur des faits.",
+        "Spanish": "Tus decisiones se basan más en sentimientos que en hechos."
       },
-      {
-        "id": "q4",
-        "text": "I avoid socializingewad.",
-        "translations": {
-          "French": "J'évite de socialiser.",
-          "Spanish": "Evito socializar."
-        },
-        "isReversed": true,
-        "target": "extraversion",
-        "weight": 1
+      "isReversed": true,
+      "target": "T",
+      "weight": 1
+    },
+    {
+      "id": "q4",
+      "text": "You prefer to have a schedule and stick to it.",
+      "translations": {
+        "French": "Vous préférez avoir un emploi du temps et vous y tenir.",
+        "Spanish": "Prefieres tener un horario y ceñirte a él."
       },
-      {
-        "id": "q5",
-        "text": "I avoid socializingewad.",
-        "translations": {
-          "French": "J'évite de socialiser.",
-          "Spanish": "Evito socializar."
-        },
-        "isReversed": true,
-        "target": "extraversion",
-        "weight": 1
+      "isReversed": false,
+      "target": "J",
+      "weight": 1
+    },
+    {
+      "id": "q5",
+      "text": "You feel energized after spending time alone.",
+      "translations": {
+        "French": "Vous vous sentez énergisé après avoir passé du temps seul.",
+        "Spanish": "Te sientes energizado después de pasar tiempo solo."
       },
-      {
-        "id": "q6",
-        "text": "I avoid socializingewad.",
-        "translations": {
-          "French": "J'évite de socialiser.",
-          "Spanish": "Evito socializar."
-        },
-        "isReversed": true,
-        "target": "extraversion",
-        "weight": 1
-      }
-      
-    ],
-    "outcomes": [
-      {
-        "id": "openness",
-        "name": "Openness",
-        "translations": {
-          "French": "Ouverture",
-          "Spanish": "Apertura"
-        },
-        "description": "Openness to experience"
+      "isReversed": false,
+      "target": "I",
+      "weight": 1
+    }
+  ],
+  "outcomes": [
+    {
+      "id": "E",
+      "name": "Extraversion",
+      "translations": {
+        "French": "Extraversion",
+        "Spanish": "Extraversión"
       },
-      {
-        "id": "conscientiousness",
-        "name": "Conscientiousness",
-        "translations": {
-          "French": "Conscience",
-          "Spanish": "Responsabilidad"
-        },
-        "description": "Tendency to be organized and dependable"
-      }
-    ],
-    "customScoring": ""
-  }
+      "description": "Focus on outer world of people and things"
+    },
+    {
+      "id": "I",
+      "name": "Introversion",
+      "translations": {
+        "French": "Introversion",
+        "Spanish": "Introversión"
+      },
+      "description": "Focus on inner world of ideas and reflections"
+    },
+    {
+      "id": "S",
+      "name": "Sensing",
+      "translations": {
+        "French": "Sensation",
+        "Spanish": "Sensación"
+      },
+      "description": "Focus on concrete information from senses"
+    },
+    {
+      "id": "N",
+      "name": "Intuition",
+      "translations": {
+        "French": "Intuition",
+        "Spanish": "Intuición"
+      },
+      "description": "Focus on patterns and possibilities"
+    },
+    {
+      "id": "T",
+      "name": "Thinking",
+      "translations": {
+        "French": "Pensée",
+        "Spanish": "Pensamiento"
+      },
+      "description": "Decide based on logic and objective analysis"
+    },
+    {
+      "id": "F",
+      "name": "Feeling",
+      "translations": {
+        "French": "Sentiment",
+        "Spanish": "Sentimiento"
+      },
+      "description": "Decide based on personal values and harmony"
+    },
+    {
+      "id": "J",
+      "name": "Judging",
+      "translations": {
+        "French": "Jugement",
+        "Spanish": "Juicio"
+      },
+      "description": "Prefer planned and organized approach"
+    },
+    {
+      "id": "P",
+      "name": "Perceiving",
+      "translations": {
+        "French": "Perception",
+        "Spanish": "Percepción"
+      },
+      "description": "Prefer flexible and spontaneous approach"
+    }
+  ],
+  "customScoring": "",
+  "results": [
+    {
+      "timestamp": "2025-05-05T23:19:11.547Z",
+      "testId": "mbti",
+      "testName": "MBTI test",
+      "finalResult": "ISFP"
+    },
+    {
+      "timestamp": "2025-05-05T23:27:29.685Z",
+      "testId": "mbti",
+      "testName": "MBTI test",
+      "finalResult": "ISTJ"
+    }
+  ]
+}

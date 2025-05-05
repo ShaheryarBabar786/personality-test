@@ -19,6 +19,11 @@ export interface Outcome {
   name: string;
   translations: Translations;
   description: string;
+  score?: number;
+  maxPossible?: number;
+  percentage?: number;
+  rawScore?: number;
+  normalizedScore?: number;
 }
 
 export interface TestConfig {

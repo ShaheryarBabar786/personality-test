@@ -2,43 +2,41 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, tap } from 'rxjs';
-import { environment } from '../../environments/environment'; // Import environment
+import { environment } from '../../environments/environment';
 import { TestConfig } from '../shared/models/test-config.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TestConfigService {
-  private apiUrl = `${environment.apiUrl}/personality`; // NestJS endpoint
+  private apiUrl = `${environment.apiUrl}/personality`;
 
   constructor(private http: HttpClient) {}
 
   getTestList(): Observable<TestConfig[]> {
-    return this.http.get<TestConfig[]>(`${this.apiUrl}`); // GET /personality
+    return this.http.get<TestConfig[]>(`${this.apiUrl}`);
   }
-
-  // getTestConfig(testId: string): Observable<TestConfig> {
-  //   return this.http.get<TestConfig>(`${this.apiUrl}/${testId}`); // GET /personality/:id
-  // }
   getTestConfig(testId: string): Observable<any> {
-    console.log('Requesting test:', testId);
     return this.http.get<any>(`${this.apiUrl}/${testId}`).pipe(
       tap({
-        next: (res) => console.log('Received test config:', res),
+        next: (res) => console.log('Data received'),
         error: (err) => console.error('Error fetching test:', err),
       }),
     );
   }
+  storeTestResults(results: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/results`, results);
+  }
 
   createTestConfig(test: TestConfig): Observable<any> {
-    return this.http.post(`${this.apiUrl}`, test); // POST /personality
+    return this.http.post(`${this.apiUrl}`, test);
   }
 
   updateTestConfig(test: TestConfig): Observable<any> {
-    return this.http.put(`${this.apiUrl}/${test.id}`, test); // PUT /personality/:id
+    return this.http.put(`${this.apiUrl}/${test.id}`, test);
   }
 
   deleteTestConfig(testId: string): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/${testId}`); // DELETE /personality/:id
+    return this.http.delete(`${this.apiUrl}/${testId}`);
   }
 }

@@ -1,7 +1,8 @@
 <div class="test-runner-container">
-  <div class="test-header">
+  <div class="test-header mt-2">
     <h1>{{ testConfig?.name }}</h1>
   </div>
+
   <div class="progress-container">
     <div class="progress-bar">
       <div class="progress-completed" [style.width.%]="progressPercentage"></div>
@@ -15,17 +16,6 @@
           <p *ngFor="let line of question.text.split('\n')">{{ line }}</p>
         </div>
 
-        <!-- <div class="options-container">
-          <div class="options-row">
-            <span class="option-label">Disagree</span>
-            <div class="radio-options">
-              <div *ngFor="let option of [1, 2, 3, 4, 5]" class="radio-option">
-                <lib-radio-button [radioButtonState]="answers.at(i).value === option" (click)="selectOption(i, option)"> </lib-radio-button>
-              </div>
-            </div>
-            <span class="option-label">Agree</span>
-          </div>
-        </div> -->
         <div class="options-container">
           <div class="options-row">
             <div class="label-container">
@@ -56,9 +46,8 @@
     </div>
 
     <div class="navigation-buttons">
-      <button *ngIf="currentQuestionIndex > 0" (click)="prevQuestion()" class="nav-button prev">Previous</button>
-      <button *ngIf="currentQuestionIndex < testConfig?.questions.length - 1" (click)="nextQuestion()" class="nav-button next">Next</button>
-      <button *ngIf="currentQuestionIndex === testConfig?.questions.length - 1" (click)="submitTest()" class="nav-button submit">Submit</button>
+      <!-- <button (click)="submitTest()" class="nav-button submit">Submit</button> -->
+      <lib-primary-btn (click)="submitTest()"> Submit </lib-primary-btn>
     </div>
   </form>
 </div>

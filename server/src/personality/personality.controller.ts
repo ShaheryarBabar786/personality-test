@@ -1,5 +1,5 @@
 // personality.controller.ts
-import { Controller, Get, Param, Post, Body, Put, Delete } from '@nestjs/common';
+import { Controller, Get, Param, Post, Body, Put, Delete, BadRequestException } from '@nestjs/common';
 import { PersonalityService } from './personality.service';
 import { TestConfigDto } from '../test-config.dto';
 
@@ -41,9 +41,25 @@ export class PersonalityController {
   getMBTI() {
     return this.personalityService.getMBTI();
   }
+  @Get('types/weighted-test')
+  getEITEST() {
+    return this.personalityService.getEITEST();
+  }
 
   @Post('score/:testId')
   calculateScore(@Param('testId') testId: string, @Body() answers: any[]) {
     return this.personalityService.calculateScore(testId, answers);
   }
+  @Post('results')
+async storeResults(@Body() body: { 
+  testId: string,
+  testName: string,
+  timestamp: string,
+  finalResult: string
+}) {
+  if (!body.testId || !body.testName || !body.timestamp || !body.finalResult) {
+    throw new BadRequestException('Missing required fields');
+  }
+  return this.personalityService.storeTestResults(body);
+}
 }

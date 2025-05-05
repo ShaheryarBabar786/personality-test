@@ -18,9 +18,13 @@
   </div>
 
   <!-- Test Result JSON Input -->
+  <!-- Add this near your textarea in admin.component.html -->
   <div class="form-group">
-    <label>Test result from the last test taken (JSON format):</label>
-    <textarea class="json-input" [(ngModel)]="testData" placeholder="Paste JSON test results here"></textarea>
+    <div class="textarea-header">
+      <label>Test result from the last test taken (JSON format):</label>
+      <button (click)="refreshResults()" class="refresh-btn">↻ Refresh</button>
+    </div>
+    <textarea class="json-input" [(ngModel)]="testData" placeholder="No test results available" readonly></textarea>
   </div>
 
   <!-- Go to Test Runner Button -->

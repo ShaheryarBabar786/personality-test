@@ -5,7 +5,7 @@
   </div>
 
   <div class="test-selection">
-    <div *ngFor="let test of tests" class="test-card">
+    <div *ngFor="let test of tests" class="test-card mt-2">
       <lib-primary-btn [hoverOutline]="false" (click)="startTest(test.id)">
         {{ test.name | uppercase }}
       </lib-primary-btn>

@@ -28,14 +28,15 @@ export class TestComponent {
     this.loadTests();
   }
   progressColors = {
-    background: '#000000', // Black circle
-    foreground: '#000000', // Black progress (if applicable)
+    background: '#000000',
+    foreground: '#000000',
   };
 
   loadTests() {
     this.testConfigService.getTestList().subscribe({
       next: (tests) => {
         this.tests = tests;
+        console.log('Available tests:', tests);
       },
       error: (err) => {
         console.error('Error loading tests:', err);

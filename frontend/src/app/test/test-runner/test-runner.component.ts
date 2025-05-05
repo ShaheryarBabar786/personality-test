@@ -1,30 +1,32 @@
 // test-runner.component.ts
-// test-runner-modal.component.ts
-import { ChangeDetectorRef, Component, EventEmitter, Input, Output } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
+import { ResultsService } from 'src/app/services/result-service.service';
 import { ScoringService } from '../../services/scoring.service';
 import { TestConfigService } from '../../services/test-config.service';
+import { TestConfig } from '../../shared/models/test-config.model';
 
 @Component({
   selector: 'app-test-runner',
-  standalone: false,
   templateUrl: './test-runner.component.html',
-  styleUrl: './test-runner.component.css',
+  styleUrls: ['./test-runner.component.css'],
 })
-export class TestRunnerComponent {
+export class TestRunnerComponent implements OnInit, AfterViewInit {
   @Input() testId: string | null = null;
   @Output() close = new EventEmitter<void>();
 
   testForm: FormGroup;
-  testConfig: any;
+  testConfig: TestConfig | null = null;
   currentQuestionIndex = 0;
-  progress = 0;
+  selectedLanguage = 'english'; // Default language
 
   constructor(
     private testConfigService: TestConfigService,
     private fb: FormBuilder,
     private scoringService: ScoringService,
-    private cdRef: ChangeDetectorRef,
+    private router: Router,
+    private resultsService: ResultsService,
   ) {
     this.testForm = this.fb.group({
       answers: this.fb.array([]),
@@ -35,6 +37,10 @@ export class TestRunnerComponent {
     if (this.testId) {
       this.loadTestConfig(this.testId);
     }
+  }
+
+  ngAfterViewInit() {
+    this.scrollToQuestion();
   }
 
   loadTestConfig(testId: string) {
@@ -48,58 +54,33 @@ export class TestRunnerComponent {
       },
     });
   }
+
+  initForm() {
+    this.answers.clear();
+    this.testConfig?.questions.forEach(() => {
+      this.answers.push(this.fb.control(null));
+    });
+  }
+
   selectOption(questionIndex: number, optionValue: number) {
     this.answers.at(questionIndex).setValue(optionValue);
   }
+
+  get answers(): FormArray {
+    return this.testForm.get('answers') as FormArray;
+  }
+
   get answeredQuestionsCount(): number {
     return this.answers.controls.filter((control) => control.value !== null).length;
   }
 
-  ngAfterViewInit() {
-    this.answers.valueChanges.subscribe(() => {
-      // Force update the progress bar
-      setTimeout(() => {
-        this.cdRef.detectChanges();
-      });
-    });
-  }
   get progressPercentage(): number {
     return this.testConfig?.questions?.length ? (this.answeredQuestionsCount / this.testConfig.questions.length) * 100 : 0;
   }
 
-  get answers() {
-    return this.testForm.get('answers') as FormArray;
-  }
-
-  onRadioChange(questionIndex: number, optionValue: number, isSelected: boolean) {
-    if (isSelected) {
-      this.answers.at(questionIndex).setValue(optionValue);
-    } else {
-      // If radio is deselected (only works if radioDeselectable is true)
-      this.answers.at(questionIndex).setValue(null);
-    }
-  }
-  handleRadioChange(questionIndex: number, optionValue: number, newState: boolean) {
-    if (newState) {
-      this.answers.at(questionIndex).setValue(optionValue);
-    } else {
-      // Only if radioDeselectable is true in the component
-      this.answers.at(questionIndex).setValue(null);
-    }
-  }
-
-  private initForm() {
-    this.answers.clear();
-    this.testConfig.questions.forEach(() => {
-      this.answers.push(this.fb.control(null));
-    });
-    this.updateProgress();
-  }
-
   nextQuestion() {
-    if (this.currentQuestionIndex < this.testConfig.questions.length - 1) {
+    if (this.testConfig && this.currentQuestionIndex < this.testConfig.questions.length - 1) {
       this.currentQuestionIndex++;
-      this.updateProgress();
       this.scrollToQuestion();
     }
   }
@@ -107,37 +88,107 @@ export class TestRunnerComponent {
   prevQuestion() {
     if (this.currentQuestionIndex > 0) {
       this.currentQuestionIndex--;
-      this.updateProgress();
       this.scrollToQuestion();
     }
   }
 
+  scrollToQuestion() {
+    setTimeout(() => {
+      const element = document.getElementById(`question-${this.currentQuestionIndex}`);
+      element?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 100);
+  }
+
   getOptionLabel(value: number): string {
-    const labels: { [key: number]: string } = {
-      1: 'Strongly Disagree',
-      2: 'Disagree',
-      3: 'Neutral',
-      4: 'Agree',
-      5: 'Strongly Agree',
+    const labels: Record<number, string> = {
+      1: this.getTranslation('Strongly Disagree'),
+      2: this.getTranslation('Disagree'),
+      3: this.getTranslation('Neutral'),
+      4: this.getTranslation('Agree'),
+      5: this.getTranslation('Strongly Agree'),
     };
     return labels[value] || '';
   }
 
+  getTranslatedText(text: string | { translations: any }): string {
+    if (typeof text === 'string') return text;
+    return text.translations?.[this.selectedLanguage] || text;
+  }
+
+  getTranslation(key: string): string {
+    return key;
+  }
+
+  // submitTest() {
+  //   if (!this.testConfig) {
+  //     console.error('Test config not loaded or form incomplete');
+  //     return;
+  //   }
+
+  //   // Get answers (default to 3 if null)
+  //   const answers = this.answers.value.map((val: number | null) => val ?? 3);
+
+  //   // Calculate scores
+  //   const results = this.scoringService.calculateScore(this.testConfig, answers);
+
+  //   // Log results to console
+  //   console.log('Test Results:', {
+  //     testId: this.testConfig.id,
+  //     testName: this.testConfig.name,
+  //     answers: answers,
+  //     calculatedResults: results,
+  //   });
+
+  //   // Detailed breakdown
+  //   console.group('Detailed Results Breakdown');
+  //   console.log('Outcomes:', results.outcomes);
+  //   console.log('Final Result:', results.result);
+  //   if (results.detailedResult) {
+  //     console.log('Detailed Analysis:', results.detailedResult);
+  //   }
+  //   console.groupEnd();
+
+  //   // Close modal and navigate
+  //   this.closeModal();
+  //   this.router.navigate(['/'], {
+  //     state: { testResults: results },
+  //   });
+  // }
   submitTest() {
-    const results = this.scoringService.calculateScore(this.testConfig, this.testForm.value.answers);
-    this.closeModal();
+    if (!this.testConfig) {
+      console.error('Test config not loaded or form incomplete');
+      return;
+    }
+
+    const answers = this.answers.value.map((val: number | null) => val ?? 3);
+
+    const calculatedResults = this.scoringService.calculateScore(this.testConfig, answers);
+    const resultPayload = {
+      testId: this.testConfig.id,
+      testName: this.testConfig.name,
+      timestamp: new Date().toISOString(),
+      finalResult: calculatedResults.result,
+    };
+
+    this.testConfigService.storeTestResults(resultPayload).subscribe({
+      next: () => {
+        console.log('Results saved successfully');
+        this.closeModal();
+        this.router.navigate(['/'], {
+          state: { testResults: resultPayload },
+        });
+      },
+      error: (err) => {
+        console.error('Failed to save results:', err);
+        this.closeModal();
+        this.router.navigate(['/'], {
+          state: { testResults: resultPayload },
+        });
+      },
+    });
   }
 
   closeModal() {
     this.close.emit();
-  }
-
-  private updateProgress() {
-    this.progress = ((this.currentQuestionIndex + 1) / this.testConfig.questions.length) * 100;
-  }
-
-  private scrollToQuestion() {
-    const element = document.getElementById(`question-${this.currentQuestionIndex}`);
-    element?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 }

@@ -118,6 +118,28 @@ h2 {
 .save-btn:hover {
   background-color: #e68a00;
 }
+/* Add to admin.component.css */
+.textarea-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.refresh-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  padding: 2px 8px;
+}
+
+.json-input {
+  font-family: monospace;
+  white-space: pre;
+  overflow-wrap: normal;
+  overflow-x: auto;
+}
 
 @media (min-width: 1024px) {
   .admin-container {

@@ -1,16 +1,16 @@
 {
   "id": "big-five",
-  "name": "Big 5",
+  "name": "Big Five",
   "type": "Big Five",
   "scoringType": "sum",
-  "description": "Measures five broad personality traits",
+  "description": "Measures five broad personality dimensions",
   "questions": [
     {
       "id": "q1",
-      "text": "I am outgoing.",
+      "text": "I am the life of the party.",
       "translations": {
-        "French": "Je suis extraverti.",
-        "Spanish": "Soy extrovertido."
+        "French": "Je suis l'âme de la fête.",
+        "Spanish": "Soy el alma de la fiesta."
       },
       "isReversed": false,
       "target": "extraversion",
@@ -18,13 +18,46 @@
     },
     {
       "id": "q2",
-      "text": "I avoid socializing.",
+      "text": "I feel little concern for others.",
       "translations": {
-        "French": "J'évite de socialiser.",
-        "Spanish": "Evito socializar."
+        "French": "Je me soucie peu des autres.",
+        "Spanish": "Me preocupo poco por los demás."
       },
       "isReversed": true,
-      "target": "extraversion",
+      "target": "agreeableness",
+      "weight": 1
+    },
+    {
+      "id": "q3",
+      "text": "I am always prepared.",
+      "translations": {
+        "French": "Je suis toujours préparé.",
+        "Spanish": "Siempre estoy preparado."
+      },
+      "isReversed": false,
+      "target": "conscientiousness",
+      "weight": 1
+    },
+    {
+      "id": "q4",
+      "text": "I get stressed out easily.",
+      "translations": {
+        "French": "Je stresse facilement.",
+        "Spanish": "Me estreso fácilmente."
+      },
+      "isReversed": true,
+      "target": "neuroticism",
+      "weight": 1
+    },
+    {
+      "id": "q5",
+      "text": "I have a rich vocabulary.",
+      "translations": {
+        "French": "J'ai un vocabulaire riche.",
+        "Spanish": "Tengo un vocabulario rico."
+      },
+      "isReversed": false,
+      "target": "openness",
       "weight": 1
     }
   ],
@@ -36,7 +69,7 @@
         "French": "Ouverture",
         "Spanish": "Apertura"
       },
-      "description": "Openness to experience"
+      "description": "Openness to experience (inventive/curious vs. consistent/cautious)"
     },
     {
       "id": "conscientiousness",
@@ -45,8 +78,43 @@
         "French": "Conscience",
         "Spanish": "Responsabilidad"
       },
-      "description": "Tendency to be organized and dependable"
+      "description": "Conscientiousness (efficient/organized vs. easy-going/careless)"
+    },
+    {
+      "id": "extraversion",
+      "name": "Extraversion",
+      "translations": {
+        "French": "Extraversion",
+        "Spanish": "Extraversión"
+      },
+      "description": "Extraversion (outgoing/energetic vs. solitary/reserved)"
+    },
+    {
+      "id": "agreeableness",
+      "name": "Agreeableness",
+      "translations": {
+        "French": "Agréabilité",
+        "Spanish": "Amabilidad"
+      },
+      "description": "Agreeableness (friendly/compassionate vs. challenging/detached)"
+    },
+    {
+      "id": "neuroticism",
+      "name": "Neuroticism",
+      "translations": {
+        "French": "Névrosisme",
+        "Spanish": "Neuroticismo"
+      },
+      "description": "Neuroticism (sensitive/nervous vs. secure/confident)"
     }
   ],
-  "customScoring": ""
+  "customScoring": "",
+  "results": [
+    {
+      "timestamp": "2025-05-05T23:18:32.055Z",
+      "testId": "big-five",
+      "testName": "Big Five",
+      "finalResult": "Openness: 6/5 (120%), Conscientiousness: 6/5 (120%), Extraversion: 3/5 (60%), Agreeableness: 0/5 (0%), Neuroticism: 3/5 (60%)"
+    }
+  ]
 }

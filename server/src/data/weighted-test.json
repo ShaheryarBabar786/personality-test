@@ -1,0 +1,55 @@
+{
+  "id": "weighted-test",
+  "name": "EI Test",
+  "type": "EI",
+  "scoringType": "weighted",
+  "description": "Measures emotional awareness and social skills",
+  "questions": [
+    {
+      "id": "q1",
+      "text": "I can easily recognize how others are feeling.",
+      "translations": {
+        "French": "Je reconnais facilement les émotions des autres.",
+        "Spanish": "Puedo reconocer fácilmente cómo se sienten los demás."
+      },
+      "isReversed": false,
+      "target": "empathy",
+      "weight": 1.5
+    },
+    {
+      "id": "q2",
+      "text": "I struggle to control my anger.",
+      "translations": {
+        "French": "J'ai du mal à contrôler ma colère.",
+        "Spanish": "Me cuesta controlar mi enojo."
+      },
+      "isReversed": true,
+      "target": "self_control",
+      "weight": 1
+    }
+  ],
+  "outcomes": [
+    {
+      "id": "empathy",
+      "name": "Empathy",
+      "translations": {
+        "French": "Empathie",
+        "Spanish": "Empatía"
+      },
+      "description": "Ability to understand others' emotions"
+    },
+    {
+      "id": "self_control",
+      "name": "Self-Control",
+      "description": "Ability to regulate emotions"
+    }
+  ],
+  "results": [
+    {
+      "timestamp": "2025-05-05T23:19:36.108Z",
+      "testId": "weighted-test",
+      "testName": "EI Test",
+      "finalResult": "Empathy (36%)"
+    }
+  ]
+}

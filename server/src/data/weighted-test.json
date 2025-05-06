@@ -6,17 +6,6 @@
   "description": "Measures emotional awareness and social skills",
   "questions": [
     {
-      "id": "q1",
-      "text": "I can easily recognize how others are feeling.",
-      "translations": {
-        "French": "Je reconnais facilement les émotions des autres.",
-        "Spanish": "Puedo reconocer fácilmente cómo se sienten los demás."
-      },
-      "isReversed": false,
-      "target": "empathy",
-      "weight": 1.5
-    },
-    {
       "id": "q2",
       "text": "I struggle to control my anger.",
       "translations": {
@@ -26,6 +15,17 @@
       "isReversed": true,
       "target": "self_control",
       "weight": 1
+    },
+    {
+      "id": "q1746560925386",
+      "text": "the new question has been added",
+      "target": "empathy",
+      "isReversed": true,
+      "weight": 1.5,
+      "translations": {
+        "french": "the new question",
+        "spanish": "the new question"
+      }
     }
   ],
   "outcomes": [
@@ -50,6 +50,12 @@
       "testId": "weighted-test",
       "testName": "EI Test",
       "finalResult": "Empathy (36%)"
+    },
+    {
+      "timestamp": "2025-05-06T22:43:38.488Z",
+      "testId": "weighted-test",
+      "testName": "EI Test",
+      "finalResult": "Empathy (24%)"
     }
   ]
 }

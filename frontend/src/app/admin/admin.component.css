@@ -37,11 +37,14 @@ h2 {
 
 .json-input {
   width: 100%;
-  height: 150px;
+  height: 200px !important;
+  min-height: 200px !important;
   padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-
+  border: 1px solid #555;
+  border-radius: 5px;
+  background-color: #333;
+  color: white;
+  font-family: monospace;
   resize: vertical;
 }
 
@@ -134,11 +137,16 @@ h2 {
   padding: 2px 8px;
 }
 
+/* admin.component.css */
 .json-input {
-  font-family: monospace;
-  white-space: pre;
-  overflow-wrap: normal;
-  overflow-x: auto;
+  color: white; /* Set text color to white */
+  background-color: #333; /* Optional: Dark background for better contrast */
+  width: 100%;
+  min-height: 300px;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #555;
+  font-family: monospace; /* Optional: Better for JSON/data display */
 }
 
 @media (min-width: 1024px) {
@@ -154,4 +162,159 @@ h2 {
   .text-update input {
     min-width: 300px;
   }
+}
+/* Add these styles to your existing admin.component.css */
+
+.test-editor {
+  background: #2a2a2a;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.question-item {
+  background: #333;
+  padding: 15px;
+  margin-bottom: 15px;
+  border-radius: 6px;
+}
+
+.question-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.question-details {
+  display: flex;
+  gap: 15px;
+  font-size: 0.9em;
+  color: #ccc;
+}
+
+.question-editor {
+  background: #333;
+  padding: 20px;
+  border-radius: 6px;
+  margin-top: 20px;
+}
+
+.question-editor h5 {
+  margin-top: 0;
+}
+
+button {
+  padding: 3px 8px;
+  background: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #45a049;
+}
+
+button[disabled] {
+  background: #666;
+  cursor: not-allowed;
+}
+
+.save-btn {
+  background: #2196f3;
+}
+
+.save-btn:hover {
+  background: #0b7dda;
+}
+
+.add-btn {
+  background: #ff9800;
+}
+
+.add-btn:hover {
+  background: #e68a00;
+}
+.form-group textarea {
+  color: #ffffff;
+}
+.form-group select {
+  width: 100%;
+}
+
+.test-name {
+  font-weight: bold;
+  color: #4fc3f7;
+  font-size: 1.1em;
+}
+
+.test-date {
+  font-weight: bold;
+}
+
+.test-result {
+  font-size: 1.05em;
+}
+/* Modal styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: #2a2a2a;
+  padding: 30px;
+  border-radius: 8px;
+  max-width: 800px;
+  width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  scrollbar-width: thin;
+  scrollbar-color: #555 #2a2a2a;
+}
+/* Thin scrollbar styles */
+.modal-content::-webkit-scrollbar {
+  width: 6px; /* Adjust thickness as needed */
+}
+
+.modal-content::-webkit-scrollbar-track {
+  background: #2a2a2a;
+}
+
+.modal-content::-webkit-scrollbar-thumb {
+  background: #555;
+  border-radius: 3px;
+}
+
+.modal-content::-webkit-scrollbar-thumb:hover {
+  background: #777;
+}
+
+.close-modal {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: transparent;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: white;
+}
+
+/* Make sure the test editor in modal looks good */
+.modal-content .test-editor {
+  background: transparent;
+  padding: 0;
+  margin: 0;
 }

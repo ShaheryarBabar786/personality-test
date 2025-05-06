@@ -154,6 +154,35 @@ export class PersonalityService {
     }
   }
 
+  // Add this to personality.service.ts
+async getAllTestsWithResults() {
+  try {
+    if (!fs.existsSync(this.dataDir)) {
+      fs.mkdirSync(this.dataDir, { recursive: true });
+      return [];
+    }
+
+    const files = fs.readdirSync(this.dataDir)
+      .filter(file => file.endsWith('.json'));
+
+    const allTests = await Promise.all(files.map(async file => {
+      const filePath = path.join(this.dataDir, file);
+      try {
+        const data = fs.readFileSync(filePath, 'utf8');
+        return JSON.parse(data);
+      } catch (error) {
+        console.error(`Failed to parse ${file}:`, error.message);
+        return null;
+      }
+    }));
+
+    return allTests.filter(test => test !== null);
+  } catch (error) {
+    console.error('getAllTestsWithResults error:', error);
+    throw error;
+  }
+}
+
   private calculateSumScore(testConfig: any, answers: any[]): any {
     const outcomes = testConfig.outcomes.map(outcome => ({
       ...outcome,

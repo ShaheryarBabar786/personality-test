@@ -64,8 +64,13 @@ export class TestRunnerComponent implements OnInit, AfterViewInit {
 
   selectOption(questionIndex: number, optionValue: number) {
     this.answers.at(questionIndex).setValue(optionValue);
-  }
 
+    // Only auto-scroll if not the last question
+    if (questionIndex < this.testConfig!.questions.length - 1) {
+      this.currentQuestionIndex = questionIndex + 1;
+      this.scrollToQuestion();
+    }
+  }
   get answers(): FormArray {
     return this.testForm.get('answers') as FormArray;
   }
@@ -92,10 +97,22 @@ export class TestRunnerComponent implements OnInit, AfterViewInit {
     }
   }
 
+  // scrollToQuestion() {
+  //   setTimeout(() => {
+  //     const element = document.getElementById(`question-${this.currentQuestionIndex}`);
+  //     element?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  //   }, 100);
+  // }
   scrollToQuestion() {
     setTimeout(() => {
       const element = document.getElementById(`question-${this.currentQuestionIndex}`);
-      element?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      if (element) {
+        element.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start',
+          inline: 'nearest',
+        });
+      }
     }, 100);
   }
 

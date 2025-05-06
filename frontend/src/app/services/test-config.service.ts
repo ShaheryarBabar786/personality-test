@@ -35,6 +35,10 @@ export class TestConfigService {
   updateTestConfig(test: TestConfig): Observable<any> {
     return this.http.put(`${this.apiUrl}/${test.id}`, test);
   }
+  // Add this to test-config.service.ts
+  getAllTestResults(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}`);
+  }
 
   deleteTestConfig(testId: string): Observable<any> {
     return this.http.delete(`${this.apiUrl}/${testId}`);

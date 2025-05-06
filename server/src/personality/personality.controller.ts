@@ -7,10 +7,11 @@ import { TestConfigDto } from '../test-config.dto';
 export class PersonalityController {
   constructor(private readonly personalityService: PersonalityService) {}
 
-  @Get()
-  getAllTests() {
-    return this.personalityService.getAllTests();
-  }
+  // In personality.controller.ts
+@Get()
+getAllTests() {
+  return this.personalityService.getAllTestsWithResults();
+}
 
   @Get(':id')
   getTest(@Param('id') id: string) {

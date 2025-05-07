@@ -6,7 +6,7 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class LanguageService {
   private currentLanguage = 'english';
-  languageChanged = new EventEmitter<void>(); // Add this event emitter
+  languageChanged = new EventEmitter<void>();
 
   constructor(private translate: TranslateService) {
     translate.setDefaultLang('en');
@@ -35,7 +35,7 @@ export class LanguageService {
 
     this.translate.use(langCode);
     localStorage.setItem('selectedLanguage', language);
-    this.languageChanged.emit(); // Emit event when language changes
+    this.languageChanged.emit();
   }
 
   getCurrentLanguage(): string {

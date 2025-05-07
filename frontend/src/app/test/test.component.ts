@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { LanguageService } from '../services/language.service';
 import { ModalService } from '../services/modal.service';
 import { TestConfigService } from '../services/test-config.service';
+import { TestRunnerComponent } from './test-runner/test-runner.component';
 
 @Component({
   selector: 'app-test',
@@ -12,6 +13,7 @@ import { TestConfigService } from '../services/test-config.service';
   styleUrl: './test.component.css',
 })
 export class TestComponent {
+  @ViewChild(TestRunnerComponent) testRunner!: TestRunnerComponent;
   showNotification = true;
   tests: any[] = [];
   isSelected = false;
@@ -48,10 +50,28 @@ export class TestComponent {
     });
   }
 
+  // startTest(testId: string) {
+  //   this.selectedTestId = testId;
+  //   this.modalOpen = true;
+  //   this.toggleBodyScroll(false);
+  // }
   startTest(testId: string) {
     this.selectedTestId = testId;
     this.modalOpen = true;
     this.toggleBodyScroll(false);
+
+    // Reset scroll after modal opens
+    setTimeout(() => {
+      const modalContent = document.querySelector('.modal-content');
+      if (modalContent) {
+        modalContent.scrollTop = 0;
+      }
+
+      // Also reset the test runner's scroll
+      if (this.testRunner) {
+        this.testRunner.scrollToTop();
+      }
+    }, 100); // Small delay to ensure DOM is ready
   }
 
   closeModal() {

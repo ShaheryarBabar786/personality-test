@@ -56,6 +56,12 @@
       "testId": "weighted-test",
       "testName": "EI Test",
       "finalResult": "Empathy (24%)"
+    },
+    {
+      "timestamp": "2025-05-07T09:41:00.601Z",
+      "testId": "weighted-test",
+      "testName": "EI Test",
+      "finalResult": "Self-Control (24%)"
     }
   ]
 }

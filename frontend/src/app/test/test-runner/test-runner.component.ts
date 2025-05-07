@@ -1,5 +1,5 @@
 // test-runner.component.ts
-import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
@@ -17,11 +17,14 @@ import { TestConfig } from '../../shared/models/test-config.model';
 export class TestRunnerComponent implements OnInit, AfterViewInit {
   @Input() testId: string | null = null;
   @Output() close = new EventEmitter<void>();
+  @ViewChild('topContainer') topContainer!: ElementRef;
 
   testForm: FormGroup;
   testConfig: TestConfig | null = null;
   currentQuestionIndex = 0;
   selectedLanguage = 'english'; // Default language
+
+  private hasInitialized = false;
 
   constructor(
     private testConfigService: TestConfigService,
@@ -51,6 +54,7 @@ export class TestRunnerComponent implements OnInit, AfterViewInit {
   }
   ngAfterViewInit() {
     this.scrollToQuestion();
+    this.scrollToTop();
   }
 
   loadTestConfig(testId: string) {
@@ -118,7 +122,7 @@ export class TestRunnerComponent implements OnInit, AfterViewInit {
           inline: 'nearest',
         });
       }
-    }, 100);
+    }, 50);
   }
 
   getOptionLabel(value: number): string {
@@ -148,10 +152,21 @@ export class TestRunnerComponent implements OnInit, AfterViewInit {
   getTranslatedText(text: string | { translations: any }): string {
     if (typeof text === 'string') return text;
     return text.translations?.[this.selectedLanguage] || text;
+  } // In test-runner.component.ts
+  resetScrollPosition() {
+    this.hasInitialized = false;
+    this.scrollToTop();
   }
 
   getTranslation(key: string): string {
     return key;
+  }
+  scrollToTop() {
+    setTimeout(() => {
+      if (this.topContainer?.nativeElement) {
+        this.topContainer.nativeElement.scrollTop = 0;
+      }
+    });
   }
 
   submitTest() {

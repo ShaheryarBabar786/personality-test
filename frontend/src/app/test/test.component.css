@@ -196,12 +196,13 @@
   z-index: 1001;
   width: 80%;
   height: 80vh;
-  overflow-y: auto;
+  overflow: hidden;
   /* padding: 20px; */
   border: none;
   scrollbar-width: thin;
   scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
   scroll-behavior: smooth;
+  border-top: 2px solid white !important;
 }
 .modal-content::-webkit-scrollbar {
   width: 6px;
@@ -272,6 +273,10 @@
 }
 .modal-body {
   padding: 0;
+}
+.modal-body {
+  height: 100%;
+  overflow-y: auto;
 }
 
 ::ng-deep lib-primary-btn button {

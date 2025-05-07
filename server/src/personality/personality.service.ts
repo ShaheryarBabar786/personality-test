@@ -317,20 +317,42 @@ async getTestWithLanguage(id: string, language: string = 'english'): Promise<any
   if (!testConfig) return null;
 
   // Process questions with translations
+  // if (testConfig.questions) {
+  //   testConfig.questions = testConfig.questions.map(question => {
+  //     if (question.translations) {
+  //       switch (language) {
+  //         case 'french':
+  //           question.text = question.translations.French || question.text;
+  //           break;
+  //         case 'spanish':
+  //           question.text = question.translations.Spanish || question.text;
+  //           break;
+  //         // default remains English
+  //       }
+  //     }
+  //     return question;
+  //   });
+  // }
   if (testConfig.questions) {
     testConfig.questions = testConfig.questions.map(question => {
-      if (question.translations) {
-        switch (language) {
+      const newQuestion = { ...question }; // Create a copy to avoid mutation
+      
+      if (newQuestion.translations) {
+        switch (language.toLowerCase()) {
           case 'french':
-            question.text = question.translations.French || question.text;
+            newQuestion.text = newQuestion.translations.French || 
+                             newQuestion.translations.french || 
+                             newQuestion.text;
             break;
           case 'spanish':
-            question.text = question.translations.Spanish || question.text;
+            newQuestion.text = newQuestion.translations.Spanish || 
+                             newQuestion.translations.spanish || 
+                             newQuestion.text;
             break;
-          // default remains English
+          // Add more languages as needed
         }
       }
-      return question;
+      return newQuestion;
     });
   }
 

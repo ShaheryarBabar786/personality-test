@@ -24,6 +24,9 @@ h2 {
   gap: 5px;
   cursor: pointer;
 }
+.language-selection label input {
+  box-shadow: none;
+}
 
 .form-group {
   margin-bottom: 20px;

@@ -42,7 +42,6 @@ export class TestComponent {
     this.testConfigService.getTestList().subscribe({
       next: (tests) => {
         this.tests = tests;
-        console.log('Available tests:', tests);
       },
       error: (err) => {
         console.error('Error loading tests:', err);

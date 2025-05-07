@@ -7,90 +7,112 @@
   "questions": [
     {
       "id": "q1",
-      "text": "I am the life of the party oko again testieoiows",
-      "translations": {
-        "French": "french",
-        "Spanish": "spanish"
-      },
-      "isReversed": true,
-      "target": "openness",
-      "weight": 1
-    },
-    {
-      "id": "q2",
-      "text": "Question 2",
-      "target": "openness",
-      "isReversed": true,
-      "weight": 1,
-      "translations": {
-        "french": "french erfhoerhfoer",
-        "spanish": "spanish ssbhhhssgjsd"
-      }
-    },
-    {
-      "id": "q1746607762554",
-      "text": "Question 3",
-      "target": "conscientiousness",
-      "isReversed": true,
-      "weight": 1,
-      "translations": {
-        "french": "french rehfeurfhr",
-        "spanish": "sspanish trndnvvjkntrk"
-      }
-    },
-    {
-      "id": "q1746607786859",
-      "text": "Question 4",
-      "target": "conscientiousness",
-      "isReversed": true,
-      "weight": 1,
-      "translations": {
-        "french": "french tkevjkjkvbrkj",
-        "spanish": "spanish trvhiofhkhvet"
-      }
-    },
-    {
-      "id": "q1746607819667",
-      "text": "question 5 ",
-      "target": "openness",
+      "text": "I am the life of the party",
+      "target": "extraversion",
       "isReversed": false,
       "weight": 1,
       "translations": {
-        "french": "french etvhfuiehuue",
-        "spanish": "spanish rvkdighfiviegveiv"
+        "french": "Je suis le centre de l'attention lors des soirées",
+        "spanish": "Soy el alma de la fiesta"
       }
     },
     {
-      "id": "q1746607862734",
-      "text": "question 6",
-      "target": "neuroticism",
-      "isReversed": true,
-      "weight": 1,
-      "translations": {
-        "french": "question 6",
-        "spanish": "question 6"
-      }
-    },
-    {
-      "id": "q1746607886529",
-      "text": "question 7",
+      "id": "q2",
+      "text": "I feel little concern for others",
       "target": "agreeableness",
       "isReversed": true,
       "weight": 1,
       "translations": {
-        "french": "question 7 french",
-        "spanish": "question 7 spaish"
+        "french": "Je me soucie peu des autres",
+        "spanish": "Me preocupo poco por los demás"
       }
     },
     {
-      "id": "q1746607910839",
-      "text": "questio 8 ",
+      "id": "q3",
+      "text": "I am always prepared",
+      "target": "conscientiousness",
+      "isReversed": false,
+      "weight": 1,
+      "translations": {
+        "french": "Je suis toujours préparé",
+        "spanish": "Siempre estoy preparado"
+      }
+    },
+    {
+      "id": "q4",
+      "text": "I get stressed out easily",
       "target": "neuroticism",
       "isReversed": false,
       "weight": 1,
       "translations": {
-        "french": "question 8",
-        "spanish": "question 8"
+        "french": "Je suis facilement stressé",
+        "spanish": "Me estreso fácilmente"
+      }
+    },
+    {
+      "id": "q5",
+      "text": "I have a rich vocabulary",
+      "target": "openness",
+      "isReversed": false,
+      "weight": 1,
+      "translations": {
+        "french": "J'ai un vocabulaire riche",
+        "spanish": "Tengo un vocabulario amplio"
+      }
+    },
+    {
+      "id": "q6",
+      "text": "I don't talk a lot",
+      "target": "extraversion",
+      "isReversed": true,
+      "weight": 1,
+      "translations": {
+        "french": "Je ne parle pas beaucoup",
+        "spanish": "No hablo mucho"
+      }
+    },
+    {
+      "id": "q7",
+      "text": "I am interested in people",
+      "target": "agreeableness",
+      "isReversed": false,
+      "weight": 1,
+      "translations": {
+        "french": "Je m'intéresse aux autres",
+        "spanish": "Me intereso por las personas"
+      }
+    },
+    {
+      "id": "q8",
+      "text": "I leave my belongings around",
+      "target": "conscientiousness",
+      "isReversed": true,
+      "weight": 1,
+      "translations": {
+        "french": "Je laisse mes affaires traîner",
+        "spanish": "Dejo mis cosas por todas partes"
+      }
+    },
+    {
+      "id": "q9",
+      "text": "I am relaxed most of the time",
+      "target": "neuroticism",
+      "isReversed": true,
+      "weight": 1,
+      "translations": {
+        "french": "Je suis détendu la plupart du temps",
+        "spanish": "Estoy relajado la mayor parte del tiempo"
+      }
+    },
+    {
+      "id": "q10",
+      "text": "I have difficulty understanding abstract ideas",
+      "target": "openness",
+      "isReversed": true,
+      "weight": 1,
+      "translations": {
+        "french": "J'ai du mal à comprendre les idées abstraites",
+        "spanish": "Me cuesta entender las ideas abstractas"
       }
     }
   ],
@@ -144,22 +166,10 @@
   "customScoring": "",
   "results": [
     {
-      "timestamp": "2025-05-07T09:17:06.515Z",
+      "timestamp": "2025-05-07T10:48:31.951Z",
       "testId": "big-five",
       "testName": "Big Five",
-      "finalResult": "Apertura: 11/15 (73%), Responsabilidad: 7/10 (70%), Extraversión: 0/0 (NaN%), Amabilidad: 2/5 (40%), Neuroticismo: 9/10 (90%)"
-    },
-    {
-      "timestamp": "2025-05-07T09:32:07.297Z",
-      "testId": "big-five",
-      "testName": "Big Five",
-      "finalResult": "Ouverture: 6/15 (40%), Conscience: 5/10 (50%), Extraversion: 0/0 (NaN%), Agréabilité: 5/5 (100%), Névrosisme: 4/10 (40%)"
-    },
-    {
-      "timestamp": "2025-05-07T09:40:06.457Z",
-      "testId": "big-five",
-      "testName": "Big Five",
-      "finalResult": "Openness: 8/15 (53%), Conscientiousness: 6/10 (60%), Extraversion: 0/0 (NaN%), Agreeableness: 3/5 (60%), Neuroticism: 7/10 (70%)"
+      "finalResult": "Ouverture: 5/10 (50%), Conscience: 8/10 (80%), Extraversion: 9/10 (90%), Agréabilité: 2/10 (20%), Névrosisme: 5/10 (50%)"
     }
   ]
 }

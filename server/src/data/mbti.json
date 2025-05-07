@@ -179,6 +179,12 @@
       "testId": "mbti",
       "testName": "MBTI test",
       "finalResult": "ESFP"
+    },
+    {
+      "timestamp": "2025-05-07T10:49:01.424Z",
+      "testId": "mbti",
+      "testName": "MBTI test",
+      "finalResult": "ESFP"
     }
   ]
 }

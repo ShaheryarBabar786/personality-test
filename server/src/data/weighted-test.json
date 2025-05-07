@@ -6,26 +6,114 @@
   "description": "Measures emotional awareness and social skills",
   "questions": [
     {
-      "id": "q2",
-      "text": "I struggle to control my anger.",
+      "id": "q1",
+      "text": "I remain calm under pressure.",
       "translations": {
-        "French": "J'ai du mal à contrôler ma colère.",
-        "Spanish": "Me cuesta controlar mi enojo."
+        "French": "Je reste calme sous pression.",
+        "Spanish": "Me mantengo calmado bajo presión."
       },
-      "isReversed": true,
+      "isReversed": false,
       "target": "self_control",
       "weight": 1
     },
     {
-      "id": "q1746560925386",
-      "text": "the new question has been added",
-      "target": "empathy",
-      "isReversed": true,
-      "weight": 1.5,
+      "id": "q2",
+      "text": "I struggle to understand how others feel.",
       "translations": {
-        "french": "the new question",
-        "spanish": "the new question"
-      }
+        "French": "J'ai du mal à comprendre ce que ressentent les autres.",
+        "Spanish": "Me cuesta entender cómo se sienten los demás."
+      },
+      "isReversed": true,
+      "target": "empathy",
+      "weight": 1.5
+    },
+    {
+      "id": "q3",
+      "text": "I find it easy to express my emotions.",
+      "translations": {
+        "French": "J'exprime facilement mes émotions.",
+        "Spanish": "Expreso fácilmente mis emociones."
+      },
+      "isReversed": false,
+      "target": "emotional_expression",
+      "weight": 1
+    },
+    {
+      "id": "q4",
+      "text": "I often overreact to situations.",
+      "translations": {
+        "French": "Je réagis souvent de manière excessive aux situations.",
+        "Spanish": "A menudo reacciono de forma exagerada ante las situaciones."
+      },
+      "isReversed": true,
+      "target": "self_control",
+      "weight": 1.5
+    },
+    {
+      "id": "q5",
+      "text": "I try to see things from other people's perspectives.",
+      "translations": {
+        "French": "J'essaie de voir les choses du point de vue des autres.",
+        "Spanish": "Trato de ver las cosas desde la perspectiva de los demás."
+      },
+      "isReversed": false,
+      "target": "empathy",
+      "weight": 1
+    },
+    {
+      "id": "q6",
+      "text": "I bottle up my emotions instead of expressing them.",
+      "translations": {
+        "French": "Je refoule mes émotions au lieu de les exprimer.",
+        "Spanish": "Reprimo mis emociones en lugar de expresarlas."
+      },
+      "isReversed": true,
+      "target": "emotional_expression",
+      "weight": 1.5
+    },
+    {
+      "id": "q7",
+      "text": "I adapt well to changing emotional situations.",
+      "translations": {
+        "French": "Je m'adapte bien aux situations émotionnelles changeantes.",
+        "Spanish": "Me adapto bien a situaciones emocionales cambiantes."
+      },
+      "isReversed": false,
+      "target": "adaptability",
+      "weight": 1
+    },
+    {
+      "id": "q8",
+      "text": "I find it hard to motivate myself.",
+      "translations": {
+        "French": "J'ai du mal à me motiver.",
+        "Spanish": "Me cuesta motivarme."
+      },
+      "isReversed": true,
+      "target": "motivation",
+      "weight": 1.5
+    },
+    {
+      "id": "q9",
+      "text": "I take time to reflect on my feelings.",
+      "translations": {
+        "French": "Je prends le temps de réfléchir à mes sentiments.",
+        "Spanish": "Me tomo tiempo para reflexionar sobre mis sentimientos."
+      },
+      "isReversed": false,
+      "target": "self_awareness",
+      "weight": 1
+    },
+    {
+      "id": "q10",
+      "text": "I lose my temper easily.",
+      "translations": {
+        "French": "Je perds facilement mon sang-froid.",
+        "Spanish": "Pierdo fácilmente los estribos."
+      },
+      "isReversed": true,
+      "target": "self_control",
+      "weight": 1.5
     }
   ],
   "outcomes": [
@@ -46,22 +134,10 @@
   ],
   "results": [
     {
-      "timestamp": "2025-05-05T23:19:36.108Z",
+      "timestamp": "2025-05-07T10:49:37.604Z",
       "testId": "weighted-test",
       "testName": "EI Test",
-      "finalResult": "Empathy (36%)"
-    },
-    {
-      "timestamp": "2025-05-06T22:43:38.488Z",
-      "testId": "weighted-test",
-      "testName": "EI Test",
-      "finalResult": "Empathy (24%)"
-    },
-    {
-      "timestamp": "2025-05-07T09:41:00.601Z",
-      "testId": "weighted-test",
-      "testName": "EI Test",
-      "finalResult": "Self-Control (24%)"
+      "finalResult": "Self-Control (14%)"
     }
   ]
 }

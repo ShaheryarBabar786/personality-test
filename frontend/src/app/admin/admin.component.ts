@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { LanguageService } from '../services/language.service';
 import { ResultsService } from '../services/result-service.service';
 import { TestConfigService } from '../services/test-config.service';
 import { TestConfig } from '../shared/models/test-config.model';
@@ -26,9 +27,10 @@ export class AdminComponent {
     private router: Router,
     private resultsService: ResultsService,
     private testConfigService: TestConfigService,
+    public languageService: LanguageService,
   ) {
     this.adminForm = this.fb.group({
-      language: ['english'],
+      language: [this.languageService.getCurrentLanguage()],
       testResultJson: [''],
     });
     this.loadTests();
@@ -42,6 +44,9 @@ export class AdminComponent {
     this.testConfigService.getTestList().subscribe((tests) => {
       this.testList = tests;
     });
+  }
+  onLanguageChange(language: string) {
+    this.languageService.setLanguage(language);
   }
 
   loadAllTestResults(): void {

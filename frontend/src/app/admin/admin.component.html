@@ -2,65 +2,66 @@
   <!-- Language Selection -->
   <div class="language-selection">
     <label>
-      <input type="radio" name="language" value="english" [(ngModel)]="selectedLanguage" />
-      English
+      <input type="radio" name="language" value="english" [checked]="languageService.getCurrentLanguage() === 'english'" (change)="onLanguageChange('english')" />
+      {{ 'ADMIN.LANGUAGE.ENGLISH' | translate }}
     </label>
     <label>
-      <input type="radio" name="language" value="french" [(ngModel)]="selectedLanguage" />
-      French
+      <input type="radio" name="language" value="french" [checked]="languageService.getCurrentLanguage() === 'french'" (change)="onLanguageChange('french')" />
+      {{ 'ADMIN.LANGUAGE.FRENCH' | translate }}
     </label>
     <label>
-      <input type="radio" name="language" value="spanish" [(ngModel)]="selectedLanguage" />
-      Spanish
+      <input type="radio" name="language" value="spanish" [checked]="languageService.getCurrentLanguage() === 'spanish'" (change)="onLanguageChange('spanish')" />
+      {{ 'ADMIN.LANGUAGE.SPANISH' | translate }}
     </label>
   </div>
 
   <!-- Existing Test Results Section -->
   <div class="form-group mt-5">
     <div class="textarea-header">
-      <label>Test Results History:</label>
-      <button (click)="refreshResults()" class="refresh-btn">↻ Refresh</button>
+      <label>{{ 'ADMIN.TEST_RESULTS.HISTORY' | translate }}</label>
+      <button (click)="refreshResults()" class="refresh-btn">{{ 'ADMIN.TEST_RESULTS.REFRESH' | translate }}</button>
     </div>
-    <textarea class="json-input" [(ngModel)]="testData" placeholder="No test results available" readonly></textarea>
+    <textarea class="json-input" [(ngModel)]="testData" [placeholder]="'ADMIN.TEST_RESULTS.NO_RESULTS' | translate" readonly></textarea>
   </div>
 
-  <button class="test-runner-btn" (click)="goToTestRunner()">Go to Test Runner</button>
+  <button class="test-runner-btn" (click)="goToTestRunner()">{{ 'ADMIN.BUTTONS.TEST_RUNNER' | translate }}</button>
 
   <div class="form-group mt-5">
-    <label>Select Test to Edit:</label>
+    <label>{{ 'ADMIN.TEST_SELECT.LABEL' | translate }}</label>
     <select [(ngModel)]="selectedTestId" (change)="onTestSelect()">
-      <option [ngValue]="null">-- Select Test --</option>
+      <option [ngValue]="null">{{ 'ADMIN.TEST_SELECT.PLACEHOLDER' | translate }}</option>
       <option *ngFor="let test of testList" [value]="test.id">{{ test.name }}</option>
     </select>
   </div>
+
   <div *ngIf="selectedTest" class="modal-overlay">
     <div class="modal-content">
       <button class="close-modal" (click)="closeModal()">×</button>
-      <h3>Editing: {{ selectedTest.name }}</h3>
+      <h3>{{ 'ADMIN.TEST_EDITOR.TITLE' | translate }}: {{ selectedTest.name }}</h3>
 
       <div class="form-group">
-        <label>Test Name:</label>
+        <label>{{ 'ADMIN.TEST_EDITOR.NAME' | translate }}</label>
         <input type="text" [(ngModel)]="selectedTest.name" />
       </div>
 
       <div class="form-group">
-        <label>Description:</label>
+        <label>{{ 'ADMIN.TEST_EDITOR.DESCRIPTION' | translate }}</label>
         <textarea [(ngModel)]="selectedTest.description"></textarea>
       </div>
 
       <div class="form-group">
-        <label>Scoring Type:</label>
+        <label>{{ 'ADMIN.TEST_EDITOR.SCORING_TYPE' | translate }}</label>
         <select [(ngModel)]="selectedTest.scoringType" disabled>
           <option value="sum">Sum (Big Five)</option>
           <option value="compare">Compare (MBTI)</option>
           <option value="weighted">Weighted (EI Test)</option>
         </select>
-        <small>Scoring type can't be changed after creation</small>
+        <small>{{ 'ADMIN.TEST_EDITOR.SCORING_NOTE' | translate }}</small>
       </div>
 
       <!-- Questions Section -->
       <div class="questions-section">
-        <h4>Questions</h4>
+        <h4>{{ 'ADMIN.TEST_EDITOR.QUESTIONS' | translate }}</h4>
 
         <!-- Questions List -->
         <div *ngFor="let question of selectedTest.questions; let i = index" class="question-item">
@@ -69,13 +70,13 @@
               ><strong>Q{{ i + 1 }}:</strong> {{ question.text || 'No text' }}</span
             >
             <div>
-              <button (click)="editQuestion(i)">Edit</button>
-              <button (click)="removeQuestion(i)">Delete</button>
+              <button (click)="editQuestion(i)">{{ 'ADMIN.TEST_EDITOR.EDIT-BUTTON-TEXT' | translate }}</button>
+              <button (click)="removeQuestion(i)">{{ 'ADMIN.TEST_EDITOR.DELETE-BUTTON-TEXT' | translate }}</button>
             </div>
           </div>
           <div class="question-details">
-            <span>Target: {{ question.target }}</span>
-            <span>Reversed: {{ question.isReversed ? 'Yes' : 'No' }}</span>
+            <span>{{ 'ADMIN.TEST_EDITOR.TARGET' | translate }}: {{ question.target }}</span>
+            <span>{{ 'ADMIN.TEST_EDITOR.REVERSED' | translate }}: {{ question.isReversed ? 'Yes' : 'No' }}</span>
             <span *ngIf="selectedTest.scoringType === 'weighted'">Weight: {{ question.weight }}</span>
           </div>
         </div>
@@ -85,7 +86,7 @@
           <h5>{{ editingQuestionIndex !== null ? 'Edit Question' : 'Add New Question' }}</h5>
 
           <div class="form-group">
-            <label>Question Text:</label>
+            <label>{{ 'ADMIN.TEST_EDITOR.QUESTION_TEXT' | translate }}</label>
             <textarea [(ngModel)]="newQuestion.text" placeholder="Enter question text"></textarea>
           </div>
 
@@ -100,37 +101,37 @@
           <div class="form-group">
             <label>
               <input type="checkbox" [(ngModel)]="newQuestion.isReversed" />
-              Reverse Scoring (1=5, 2=4, etc.)
+              {{ 'ADMIN.TEST_EDITOR.REVERSE_SCORING' | translate }}
             </label>
           </div>
 
           <div class="form-group" *ngIf="selectedTest.scoringType === 'weighted'">
-            <label>Question Weight:</label>
+            <label>{{ 'ADMIN.TEST_EDITOR.QUESTION_WEIGHT' | translate }}</label>
             <input type="number" [(ngModel)]="newQuestion.weight" min="0.1" step="0.1" />
           </div>
 
           <!-- Translations -->
           <div class="form-group">
-            <label>French Translation:</label>
+            <label>{{ 'ADMIN.TEST_EDITOR.FRENCH_TRANSLATION' | translate }}</label>
             <input type="text" [(ngModel)]="newQuestion.translations.french" />
           </div>
 
           <div class="form-group">
-            <label>Spanish Translation:</label>
+            <label>{{ 'ADMIN.TEST_EDITOR.SPANISH_TRANSLATION' | translate }}</label>
             <input type="text" [(ngModel)]="newQuestion.translations.spanish" />
           </div>
 
           <div class="button-group">
-            <button *ngIf="editingQuestionIndex !== null" (click)="updateQuestion()">Update Question</button>
-            <button *ngIf="editingQuestionIndex === null" (click)="addQuestion()">Add Question</button>
-            <button *ngIf="editingQuestionIndex !== null" (click)="cancelEdit()">Cancel</button>
+            <button *ngIf="editingQuestionIndex !== null" (click)="updateQuestion()">{{ 'ADMIN.TEST_EDITOR.EDIT_QUESTION' | translate }}</button>
+            <button *ngIf="editingQuestionIndex === null" (click)="addQuestion()">{{ 'ADMIN.TEST_EDITOR.ADD_QUESTION' | translate }}</button>
+            <button *ngIf="editingQuestionIndex !== null" (click)="cancelEdit()">{{ 'ADMIN.TEST_EDITOR.CANCEL' | translate }}</button>
           </div>
         </div>
       </div>
 
       <!-- Save Test Button -->
       <div class="form-group">
-        <button class="save-btn" (click)="saveTest()">Save Test Changes</button>
+        <button class="save-btn" (click)="saveTest()">{{ 'ADMIN.TEST_EDITOR.SAVE_CHANGES' | translate }}</button>
       </div>
     </div>
   </div>

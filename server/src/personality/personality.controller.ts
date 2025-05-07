@@ -1,5 +1,5 @@
 // personality.controller.ts
-import { Controller, Get, Param, Post, Body, Put, Delete, BadRequestException } from '@nestjs/common';
+import { Controller, Get, Param, Post, Body, Put, Delete, BadRequestException, Query } from '@nestjs/common';
 import { PersonalityService } from './personality.service';
 import { TestConfigDto } from '../test-config.dto';
 
@@ -12,11 +12,7 @@ export class PersonalityController {
 getAllTests() {
   return this.personalityService.getAllTestsWithResults();
 }
-
-  @Get(':id')
-  getTest(@Param('id') id: string) {
-    return this.personalityService.getTest(id);
-  }
+  
 
   @Post()
   createTest(@Body() testConfig: TestConfigDto) {
@@ -62,5 +58,10 @@ async storeResults(@Body() body: {
     throw new BadRequestException('Missing required fields');
   }
   return this.personalityService.storeTestResults(body);
+}
+
+@Get(':id')
+getTest(@Param('id') id: string, @Query('lang') language?: string) {
+  return this.personalityService.getTestWithLanguage(id, language);
 }
 }

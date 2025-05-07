@@ -1,1 +1,65 @@
-{}
+{
+  "ADMIN": {
+    "TITLE": "Administración de pruebas",
+    "LANGUAGE": {
+      "ENGLISH": "Inglés",
+      "FRENCH": "Francés",
+      "SPANISH": "Español"
+    },
+    "TEST_RESULTS": {
+      "HISTORY": "Historial de resultados:",
+      "REFRESH": "↻ Actualizar",
+      "NO_RESULTS": "No hay resultados disponibles"
+    },
+    "TEST_SELECT": {
+      "LABEL": "Seleccionar prueba:",
+      "PLACEHOLDER": "-- Seleccionar --"
+    },
+    "TEST_EDITOR": {
+      "TITLE": "Editando",
+      "NAME": "Nombre de la prueba:",
+      "DESCRIPTION": "Descripción:",
+      "SCORING_TYPE": "Tipo de puntuación:",
+      "SCORING_NOTE": "El tipo de puntuación no se puede cambiar después de la creación",
+      "QUESTIONS": "Preguntas",
+      "ADD_QUESTION": "Añadir pregunta",
+      "EDIT_QUESTION": "Editar pregunta",
+      "EDIT-BUTTON-TEXT": "Editar",
+      "DELETE-BUTTON-TEXT": "Eliminar",
+
+      "QUESTION_TEXT": "Texto de la pregunta:",
+      "TARGET": "Objetivo",
+      "TARGET_OUTCOME": "Resultado objetivo:",
+      "TARGET_PLACEHOLDER": "-- Seleccionar --",
+      "REVERSED": "Invertido",
+      "REVERSE_SCORING": "Puntuación inversa (1=5, 2=4, etc.)",
+      "QUESTION_WEIGHT": "Peso de la pregunta:",
+      "FRENCH_TRANSLATION": "Traducción francesa:",
+      "SPANISH_TRANSLATION": "Traducción española:",
+      "UPDATE": "Actualizar",
+      "ADD": "Añadir",
+      "CANCEL": "Cancelar",
+      "DELETE_CONFIRM": "¿Estás seguro de que quieres eliminar esta pregunta?",
+      "SAVE_CHANGES": "Guardar cambios"
+    },
+    "BUTTONS": {
+      "TEST_RUNNER": "Ir al Probador",
+      "ADMIN": "Ir a Administración"
+    }
+  },
+  "TEST": {
+    "TITLE": "Visualización de personalidad",
+    "NOTIFICATION": {
+      "TITLE": "Visualización de personalidad",
+      "MESSAGE": "¡Complete estas pruebas para comparar su personalidad con sus prospectos!"
+    },
+    "OPTIONS": {
+      "STRONGLY_DISAGREE": "Muy en desacuerdo",
+      "DISAGREE": "En desacuerdo",
+      "NEUTRAL": "Neutral",
+      "AGREE": "De acuerdo",
+      "STRONGLY_AGREE": "Muy de acuerdo"
+    },
+    "SUBMIT": "Presentar"
+  }
+}

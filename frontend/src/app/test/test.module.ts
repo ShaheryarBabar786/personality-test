@@ -11,6 +11,7 @@ import {
   SectionSeparatorComponent,
   ToggleModule,
 } from 'nextsapien-component-lib';
+import { SharedModule } from '../shared/shared.module';
 import { ResultComponent } from './result/result.component';
 import { TestRunnerComponent } from './test-runner/test-runner.component';
 import { TestComponent } from './test.component';
@@ -28,6 +29,7 @@ import { TestComponent } from './test.component';
     ToggleModule,
     ProgressBarModule,
     SectionSeparatorComponent,
+    SharedModule,
   ],
   providers: [],
   bootstrap: [],

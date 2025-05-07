@@ -1,1 +1,66 @@
-{}
+{
+  "ADMIN": {
+    "TITLE": "Administration des tests",
+    "LANGUAGE": {
+      "ENGLISH": "Anglais",
+      "FRENCH": "Français",
+      "SPANISH": "Espagnol"
+    },
+    "TEST_RESULTS": {
+      "HISTORY": "Historique des résultats:",
+      "REFRESH": "↻ Actualiser",
+      "NO_RESULTS": "Aucun résultat disponible"
+    },
+    "TEST_SELECT": {
+      "LABEL": "Sélectionner un test:",
+      "PLACEHOLDER": "-- Sélectionner --"
+    },
+    "TEST_EDITOR": {
+      "TITLE": "Édition",
+      "NAME": "Nom du test:",
+      "DESCRIPTION": "Description:",
+      "SCORING_TYPE": "Type de notation:",
+      "SCORING_NOTE": "Le type de notation ne peut pas être modifié après création",
+      "QUESTIONS": "Questions",
+      "ADD_QUESTION": "Ajouter une question",
+      "EDIT_QUESTION": "Modifier la question",
+      "EDIT-BUTTON-TEXT": "Modifier",
+      "DELETE-BUTTON-TEXT": "Supprimer",
+
+      "QUESTION_TEXT": "Texte de la question:",
+      "TARGET": "Cible",
+      "TARGET_OUTCOME": "Résultat cible:",
+      "TARGET_PLACEHOLDER": "-- Sélectionner --",
+      "REVERSED": "Inversé",
+      "REVERSE_SCORING": "Notation inversée (1=5, 2=4, etc.)",
+      "QUESTION_WEIGHT": "Poids de la question:",
+      "FRENCH_TRANSLATION": "Traduction française:",
+      "SPANISH_TRANSLATION": "Traduction espagnole:",
+      "UPDATE": "Mettre à jour",
+      "ADD": "Ajouter",
+      "CANCEL": "Annuler",
+      "DELETE_CONFIRM": "Êtes-vous sûr de vouloir supprimer cette question?",
+      "SAVE_CHANGES": "Enregistrer les modifications"
+    },
+    "BUTTONS": {
+      "TEST_RUNNER": "Aller au Testeur",
+      "ADMIN": "Aller à l'administration"
+    }
+  },
+  "TEST": {
+    "TITLE": "Visualisation de personnalité",
+    "NOTIFICATION": {
+      "TITLE": "Visualisation de personnalité",
+      "MESSAGE": "Remplissez ces tests pour comparer votre personnalité à vos prospects!"
+    },
+    "OPTIONS": {
+      "STRONGLY_DISAGREE": "Fortement en désaccord",
+      "DISAGREE": "En désaccord",
+      "NEUTRAL": "Neutre",
+      "AGREE": "D'accord",
+      "STRONGLY_AGREE": "Tout à fait d'accord"
+    },
+
+    "SUBMIT": "Soumettre"
+  }
+}

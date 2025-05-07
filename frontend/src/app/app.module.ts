@@ -15,6 +15,9 @@ import { TestModule } from './test/test.module';
 import {} from 'nextsapien-component-lib';
 
 export const httpLoaderFactory = (http: HttpBackend): TranslateHttpLoader => new TranslateHttpLoader(new HttpClient(http), './assets/i18n/', '.json');
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+}
 
 @NgModule({
   declarations: [AppComponent, AdminComponent],
@@ -30,8 +33,8 @@ export const httpLoaderFactory = (http: HttpBackend): TranslateHttpLoader => new
       defaultLanguage: 'en',
       loader: {
         provide: TranslateLoader,
-        useFactory: httpLoaderFactory,
-        deps: [HttpBackend],
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient],
       },
     }),
     AppRoutingModule,

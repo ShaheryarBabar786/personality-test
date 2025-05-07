@@ -19,7 +19,7 @@
         <div class="options-container">
           <div class="options-row">
             <div class="label-container">
-              <span class="option-label">Disagree</span>
+              <span class="option-label">{{ 'TEST.OPTIONS.DISAGREE' | translate }}</span>
             </div>
 
             <div class="radio-pyramid">
@@ -36,7 +36,7 @@
             </div>
 
             <div class="label-container">
-              <span class="option-label">Agree</span>
+              <span class="option-label">{{ 'TEST.OPTIONS.AGREE' | translate }}</span>
             </div>
           </div>
         </div>
@@ -46,8 +46,7 @@
     </div>
 
     <div class="navigation-buttons">
-      <!-- <button (click)="submitTest()" class="nav-button submit">Submit</button> -->
-      <lib-primary-btn (click)="submitTest()"> Submit </lib-primary-btn>
+      <lib-primary-btn (click)="submitTest()">{{ 'TEST.SUBMIT' | translate }}</lib-primary-btn>
     </div>
   </form>
 </div>

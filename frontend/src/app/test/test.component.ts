@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
+import { LanguageService } from '../services/language.service';
 import { ModalService } from '../services/modal.service';
 import { TestConfigService } from '../services/test-config.service';
 
@@ -24,6 +26,8 @@ export class TestComponent {
     private router: Router,
     private testConfigService: TestConfigService,
     private modalService: ModalService,
+    public languageService: LanguageService,
+    public translate: TranslateService,
   ) {
     this.loadTests();
   }

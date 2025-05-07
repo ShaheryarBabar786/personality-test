@@ -16,8 +16,11 @@ export class TestConfigService {
   getTestList(): Observable<TestConfig[]> {
     return this.http.get<TestConfig[]>(`${this.apiUrl}`);
   }
-  getTestConfig(testId: string): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/${testId}`).pipe(
+
+  getTestConfig(testId: string, language?: string): Observable<any> {
+    const params = language ? { lang: language } : {};
+
+    return this.http.get<any>(`${this.apiUrl}/${testId}`, { params }).pipe(
       tap({
         next: (res) => console.log('Data received'),
         error: (err) => console.error('Error fetching test:', err),
@@ -35,7 +38,6 @@ export class TestConfigService {
   updateTestConfig(test: TestConfig): Observable<any> {
     return this.http.put(`${this.apiUrl}/${test.id}`, test);
   }
-  // Add this to test-config.service.ts
   getAllTestResults(): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}`);
   }

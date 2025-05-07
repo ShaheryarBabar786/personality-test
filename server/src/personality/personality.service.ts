@@ -310,4 +310,50 @@ async getAllTestsWithResults() {
       }))
     };
   }
+
+  // Add this method to PersonalityService
+async getTestWithLanguage(id: string, language: string = 'english'): Promise<any> {
+  const testConfig = await this.readTestConfig(id);
+  if (!testConfig) return null;
+
+  // Process questions with translations
+  if (testConfig.questions) {
+    testConfig.questions = testConfig.questions.map(question => {
+      if (question.translations) {
+        switch (language) {
+          case 'french':
+            question.text = question.translations.French || question.text;
+            break;
+          case 'spanish':
+            question.text = question.translations.Spanish || question.text;
+            break;
+          // default remains English
+        }
+      }
+      return question;
+    });
+  }
+
+  // Process outcomes with translations
+  if (testConfig.outcomes) {
+    testConfig.outcomes = testConfig.outcomes.map(outcome => {
+      if (outcome.translations) {
+        switch (language) {
+          case 'french':
+            outcome.name = outcome.translations.French || outcome.name;
+            outcome.description = outcome.translations.French || outcome.description;
+            break;
+          case 'spanish':
+            outcome.name = outcome.translations.Spanish || outcome.name;
+            outcome.description = outcome.translations.Spanish || outcome.description;
+            break;
+          // default remains English
+        }
+      }
+      return outcome;
+    });
+  }
+
+  return testConfig;
+}
 }

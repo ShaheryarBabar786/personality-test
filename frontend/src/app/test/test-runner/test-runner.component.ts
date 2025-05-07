@@ -2,6 +2,8 @@
 import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
+import { LanguageService } from 'src/app/services/language.service';
 import { ResultsService } from 'src/app/services/result-service.service';
 import { ScoringService } from '../../services/scoring.service';
 import { TestConfigService } from '../../services/test-config.service';
@@ -27,6 +29,8 @@ export class TestRunnerComponent implements OnInit, AfterViewInit {
     private scoringService: ScoringService,
     private router: Router,
     private resultsService: ResultsService,
+    public languageService: LanguageService,
+    public translate: TranslateService, // Add this
   ) {
     this.testForm = this.fb.group({
       answers: this.fb.array([]),
@@ -37,14 +41,21 @@ export class TestRunnerComponent implements OnInit, AfterViewInit {
     if (this.testId) {
       this.loadTestConfig(this.testId);
     }
-  }
 
+    // Subscribe to language changes
+    this.languageService.languageChanged.subscribe(() => {
+      if (this.testId) {
+        this.loadTestConfig(this.testId);
+      }
+    });
+  }
   ngAfterViewInit() {
     this.scrollToQuestion();
   }
 
   loadTestConfig(testId: string) {
-    this.testConfigService.getTestConfig(testId).subscribe({
+    const currentLanguage = this.languageService.getCurrentLanguage();
+    this.testConfigService.getTestConfig(testId, currentLanguage).subscribe({
       next: (config) => {
         this.testConfig = config;
         this.initForm();
@@ -97,12 +108,6 @@ export class TestRunnerComponent implements OnInit, AfterViewInit {
     }
   }
 
-  // scrollToQuestion() {
-  //   setTimeout(() => {
-  //     const element = document.getElementById(`question-${this.currentQuestionIndex}`);
-  //     element?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  //   }, 100);
-  // }
   scrollToQuestion() {
     setTimeout(() => {
       const element = document.getElementById(`question-${this.currentQuestionIndex}`);
@@ -118,13 +123,26 @@ export class TestRunnerComponent implements OnInit, AfterViewInit {
 
   getOptionLabel(value: number): string {
     const labels: Record<number, string> = {
-      1: this.getTranslation('Strongly Disagree'),
-      2: this.getTranslation('Disagree'),
-      3: this.getTranslation('Neutral'),
-      4: this.getTranslation('Agree'),
-      5: this.getTranslation('Strongly Agree'),
+      1: this.translate.instant('TEST.OPTIONS.STRONGLY_DISAGREE'),
+      2: this.translate.instant('TEST.OPTIONS.DISAGREE'),
+      3: this.translate.instant('TEST.OPTIONS.NEUTRAL'),
+      4: this.translate.instant('TEST.OPTIONS.AGREE'),
+      5: this.translate.instant('TEST.OPTIONS.STRONGLY_AGREE'),
     };
     return labels[value] || '';
+  }
+  getTranslatedQuestionText(question: any): string {
+    if (typeof question.text === 'string') return question.text;
+
+    const currentLang = this.languageService.getCurrentLanguage();
+    switch (currentLang) {
+      case 'french':
+        return question.translations?.French || question.text;
+      case 'spanish':
+        return question.translations?.Spanish || question.text;
+      default:
+        return question.text;
+    }
   }
 
   getTranslatedText(text: string | { translations: any }): string {
@@ -136,41 +154,6 @@ export class TestRunnerComponent implements OnInit, AfterViewInit {
     return key;
   }
 
-  // submitTest() {
-  //   if (!this.testConfig) {
-  //     console.error('Test config not loaded or form incomplete');
-  //     return;
-  //   }
-
-  //   // Get answers (default to 3 if null)
-  //   const answers = this.answers.value.map((val: number | null) => val ?? 3);
-
-  //   // Calculate scores
-  //   const results = this.scoringService.calculateScore(this.testConfig, answers);
-
-  //   // Log results to console
-  //   console.log('Test Results:', {
-  //     testId: this.testConfig.id,
-  //     testName: this.testConfig.name,
-  //     answers: answers,
-  //     calculatedResults: results,
-  //   });
-
-  //   // Detailed breakdown
-  //   console.group('Detailed Results Breakdown');
-  //   console.log('Outcomes:', results.outcomes);
-  //   console.log('Final Result:', results.result);
-  //   if (results.detailedResult) {
-  //     console.log('Detailed Analysis:', results.detailedResult);
-  //   }
-  //   console.groupEnd();
-
-  //   // Close modal and navigate
-  //   this.closeModal();
-  //   this.router.navigate(['/'], {
-  //     state: { testResults: results },
-  //   });
-  // }
   submitTest() {
     if (!this.testConfig) {
       console.error('Test config not loaded or form incomplete');

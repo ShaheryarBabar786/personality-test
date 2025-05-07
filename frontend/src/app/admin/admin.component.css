@@ -140,16 +140,15 @@ h2 {
   padding: 2px 8px;
 }
 
-/* admin.component.css */
 .json-input {
-  color: white; /* Set text color to white */
-  background-color: #333; /* Optional: Dark background for better contrast */
+  color: white;
+  background-color: #333;
   width: 100%;
   min-height: 300px;
   padding: 10px;
   border-radius: 5px;
   border: 1px solid #555;
-  font-family: monospace; /* Optional: Better for JSON/data display */
+  font-family: monospace;
 }
 
 @media (min-width: 1024px) {
@@ -166,7 +165,6 @@ h2 {
     min-width: 300px;
   }
 }
-/* Add these styles to your existing admin.component.css */
 
 .test-editor {
   background: #2a2a2a;
@@ -260,7 +258,7 @@ button[disabled] {
 .test-result {
   font-size: 1.05em;
 }
-/* Modal styles */
+
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -286,9 +284,8 @@ button[disabled] {
   scrollbar-width: thin;
   scrollbar-color: #555 #2a2a2a;
 }
-/* Thin scrollbar styles */
 .modal-content::-webkit-scrollbar {
-  width: 6px; /* Adjust thickness as needed */
+  width: 6px;
 }
 
 .modal-content::-webkit-scrollbar-track {
@@ -315,7 +312,6 @@ button[disabled] {
   color: white;
 }
 
-/* Make sure the test editor in modal looks good */
 .modal-content .test-editor {
   background: transparent;
   padding: 0;

@@ -22,7 +22,7 @@ export class TestRunnerComponent implements OnInit, AfterViewInit {
   testForm: FormGroup;
   testConfig: TestConfig | null = null;
   currentQuestionIndex = 0;
-  selectedLanguage = 'english'; // Default language
+  selectedLanguage = 'english';
 
   private hasInitialized = false;
 
@@ -33,7 +33,7 @@ export class TestRunnerComponent implements OnInit, AfterViewInit {
     private router: Router,
     private resultsService: ResultsService,
     public languageService: LanguageService,
-    public translate: TranslateService, // Add this
+    public translate: TranslateService,
   ) {
     this.testForm = this.fb.group({
       answers: this.fb.array([]),
@@ -80,7 +80,6 @@ export class TestRunnerComponent implements OnInit, AfterViewInit {
   selectOption(questionIndex: number, optionValue: number) {
     this.answers.at(questionIndex).setValue(optionValue);
 
-    // Only auto-scroll if not the last question
     if (questionIndex < this.testConfig!.questions.length - 1) {
       this.currentQuestionIndex = questionIndex + 1;
       this.scrollToQuestion();
@@ -118,11 +117,20 @@ export class TestRunnerComponent implements OnInit, AfterViewInit {
       if (element) {
         element.scrollIntoView({
           behavior: 'smooth',
-          block: 'start',
+          block: 'center',
           inline: 'nearest',
         });
       }
     }, 50);
+  }
+  shouldHighlightDisagree(questionIndex: number): boolean {
+    const answer = this.answers.at(questionIndex).value;
+    return answer !== null && answer <= 3;
+  }
+
+  shouldHighlightAgree(questionIndex: number): boolean {
+    const answer = this.answers.at(questionIndex).value;
+    return answer !== null && answer >= 5;
   }
 
   getOptionLabel(value: number): string {
@@ -152,7 +160,7 @@ export class TestRunnerComponent implements OnInit, AfterViewInit {
   getTranslatedText(text: string | { translations: any }): string {
     if (typeof text === 'string') return text;
     return text.translations?.[this.selectedLanguage] || text;
-  } // In test-runner.component.ts
+  }
   resetScrollPosition() {
     this.hasInitialized = false;
     this.scrollToTop();

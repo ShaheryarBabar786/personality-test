@@ -39,7 +39,7 @@
 
 .progress-completed {
   height: 100%;
-  background-color: #ffffff;
+  background-color: #f53c70;
   border-radius: 2px;
   transition: width 0.3s ease;
 }
@@ -52,10 +52,25 @@
   line-height: 150%;
   letter-spacing: -0.011em;
   color: #a8a8a8;
+  transition: color 0.3s ease;
 }
 .options-container {
   margin-top: 25px;
   width: 100%;
+}
+.question-card {
+  opacity: 0.7;
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease;
+}
+
+.question-card.active {
+  opacity: 1;
+  transform: scale(1.02);
+}
+.question-card.active .question-text {
+  color: #ffffff;
 }
 
 .options-row {
@@ -82,6 +97,13 @@
   color: rgba(255, 255, 255, 0.7);
   white-space: nowrap;
   margin-top: 5px;
+  transition: color 0.3s ease;
+}
+.option-label.highlight {
+  color: #ffffff !important;
+  font-weight: 600;
+  background-color: none !important;
+  background-color: transparent !important;
 }
 .radio-pyramid {
   display: flex;
@@ -193,7 +215,6 @@
   }
 }
 
-/* Radio button sizes (consistent across devices) */
 .radio-option.size-4 lib-radio-button {
   width: 14px;
   height: 14px;

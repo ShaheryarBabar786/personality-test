@@ -1,4 +1,4 @@
-// personality.controller.ts
+
 import { Controller, Get, Param, Post, Body, Put, Delete, BadRequestException, Query } from '@nestjs/common';
 import { PersonalityService } from './personality.service';
 import { TestConfigDto } from '../test-config.dto';
@@ -6,8 +6,7 @@ import { TestConfigDto } from '../test-config.dto';
 @Controller('personality')
 export class PersonalityController {
   constructor(private readonly personalityService: PersonalityService) {}
-
-  // In personality.controller.ts
+  
 @Get()
 getAllTests() {
   return this.personalityService.getAllTestsWithResults();

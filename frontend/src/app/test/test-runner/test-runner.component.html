@@ -19,7 +19,7 @@
         <div class="options-container">
           <div class="options-row">
             <div class="label-container">
-              <span class="option-label">{{ 'TEST.OPTIONS.DISAGREE' | translate }}</span>
+              <span class="option-label" [class.highlight]="shouldHighlightDisagree(i)">{{ 'TEST.OPTIONS.DISAGREE' | translate }}</span>
             </div>
 
             <div class="radio-pyramid">
@@ -36,7 +36,7 @@
             </div>
 
             <div class="label-container">
-              <span class="option-label">{{ 'TEST.OPTIONS.AGREE' | translate }}</span>
+              <span class="option-label" [class.highlight]="shouldHighlightAgree(i)">{{ 'TEST.OPTIONS.AGREE' | translate }}</span>
             </div>
           </div>
         </div>

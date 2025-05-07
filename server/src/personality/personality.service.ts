@@ -154,7 +154,6 @@ export class PersonalityService {
     }
   }
 
-  // Add this to personality.service.ts
 async getAllTestsWithResults() {
   try {
     if (!fs.existsSync(this.dataDir)) {
@@ -311,31 +310,13 @@ async getAllTestsWithResults() {
     };
   }
 
-  // Add this method to PersonalityService
 async getTestWithLanguage(id: string, language: string = 'english'): Promise<any> {
   const testConfig = await this.readTestConfig(id);
   if (!testConfig) return null;
 
-  // Process questions with translations
-  // if (testConfig.questions) {
-  //   testConfig.questions = testConfig.questions.map(question => {
-  //     if (question.translations) {
-  //       switch (language) {
-  //         case 'french':
-  //           question.text = question.translations.French || question.text;
-  //           break;
-  //         case 'spanish':
-  //           question.text = question.translations.Spanish || question.text;
-  //           break;
-  //         // default remains English
-  //       }
-  //     }
-  //     return question;
-  //   });
-  // }
   if (testConfig.questions) {
     testConfig.questions = testConfig.questions.map(question => {
-      const newQuestion = { ...question }; // Create a copy to avoid mutation
+      const newQuestion = { ...question }; 
       
       if (newQuestion.translations) {
         switch (language.toLowerCase()) {
@@ -349,14 +330,12 @@ async getTestWithLanguage(id: string, language: string = 'english'): Promise<any
                              newQuestion.translations.spanish || 
                              newQuestion.text;
             break;
-          // Add more languages as needed
         }
       }
       return newQuestion;
     });
   }
 
-  // Process outcomes with translations
   if (testConfig.outcomes) {
     testConfig.outcomes = testConfig.outcomes.map(outcome => {
       if (outcome.translations) {
@@ -369,7 +348,6 @@ async getTestWithLanguage(id: string, language: string = 'english'): Promise<any
             outcome.name = outcome.translations.Spanish || outcome.name;
             outcome.description = outcome.translations.Spanish || outcome.description;
             break;
-          // default remains English
         }
       }
       return outcome;

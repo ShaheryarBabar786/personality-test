@@ -50,28 +50,21 @@ export class TestComponent {
     });
   }
 
-  // startTest(testId: string) {
-  //   this.selectedTestId = testId;
-  //   this.modalOpen = true;
-  //   this.toggleBodyScroll(false);
-  // }
   startTest(testId: string) {
     this.selectedTestId = testId;
     this.modalOpen = true;
     this.toggleBodyScroll(false);
 
-    // Reset scroll after modal opens
     setTimeout(() => {
       const modalContent = document.querySelector('.modal-content');
       if (modalContent) {
         modalContent.scrollTop = 0;
       }
 
-      // Also reset the test runner's scroll
       if (this.testRunner) {
         this.testRunner.scrollToTop();
       }
-    }, 100); // Small delay to ensure DOM is ready
+    }, 100);
   }
 
   closeModal() {

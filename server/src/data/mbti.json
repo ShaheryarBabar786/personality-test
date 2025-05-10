@@ -7,15 +7,13 @@
   "questions": [
     {
       "id": "q1",
-      "text": "You enjoy vibrant social events with many people.okkokokkoko again",
+      "text": "You enjoy vibrant social events with many people.",
       "translations": {
         "French": "Vous aimez les événements sociaux animés avec beaucoup de monde.",
-        "Spanish": "Disfrutas de eventos sociales vibrantes con mucha gente.",
-        "french": "okok",
-        "spanish": "okok"
+        "Spanish": "Disfrutas de eventos sociales vibrantes con mucha gente."
       },
       "isReversed": false,
-      "target": "N",
+      "target": "E",
       "weight": 1
     },
     {
@@ -31,47 +29,91 @@
     },
     {
       "id": "q3",
-      "text": "Your decisions are based more on feelings than facts.",
+      "text": "You prefer to focus on details rather than the big picture.",
       "translations": {
-        "French": "Vos décisions sont plus basées sur des sentiments que sur des faits.",
-        "Spanish": "Tus decisiones se basan más en sentimientos que en hechos."
+        "French": "Vous préférez vous concentrer sur les détails plutôt que sur la vue d'ensemble.",
+        "Spanish": "Prefieres enfocarte en los detalles más que en la visión general."
       },
-      "isReversed": true,
-      "target": "T",
+      "isReversed": false,
+      "target": "S",
       "weight": 1
     },
     {
       "id": "q4",
-      "text": "You prefer to have a schedule and stick to it.",
+      "text": "You make decisions based on your feelings.",
       "translations": {
-        "French": "Vous préférez avoir un emploi du temps et vous y tenir.",
-        "Spanish": "Prefieres tener un horario y ceñirte a él."
+        "French": "Vous prenez des décisions en fonction de vos sentiments.",
+        "Spanish": "Tomas decisiones basadas en tus sentimientos."
+      },
+      "isReversed": false,
+      "target": "F",
+      "weight": 1
+    },
+    {
+      "id": "q5",
+      "text": "You like to have a detailed plan before doing anything.",
+      "translations": {
+        "French": "Vous aimez avoir un plan détaillé avant de faire quoi que ce soit.",
+        "Spanish": "Te gusta tener un plan detallado antes de hacer cualquier cosa."
       },
       "isReversed": false,
       "target": "J",
       "weight": 1
     },
     {
-      "id": "q5",
-      "text": "You feel energized after spending time alone.",
+      "id": "q6",
+      "text": "You enjoy being spontaneous.",
       "translations": {
-        "French": "Vous vous sentez énergisé après avoir passé du temps seul.",
-        "Spanish": "Te sientes energizado después de pasar tiempo solo."
+        "French": "Vous aimez être spontané(e).",
+        "Spanish": "Disfrutas siendo espontáneo/a."
+      },
+      "isReversed": false,
+      "target": "P",
+      "weight": 1
+    },
+    {
+      "id": "q7",
+      "text": "You prefer to reflect before speaking.",
+      "translations": {
+        "French": "Vous préférez réfléchir avant de parler.",
+        "Spanish": "Prefieres reflexionar antes de hablar."
       },
       "isReversed": false,
       "target": "I",
       "weight": 1
     },
     {
-      "id": "q1746559870671",
-      "text": "the new question has been added",
-      "target": "J",
-      "isReversed": true,
-      "weight": 1,
+      "id": "q8",
+      "text": "You trust reason over emotions when making decisions.",
       "translations": {
-        "french": "judge",
-        "spanish": "judge"
-      }
+        "French": "Vous faites confiance à la raison plutôt qu'aux émotions pour prendre des décisions.",
+        "Spanish": "Confías en la razón más que en las emociones al tomar decisiones."
+      },
+      "isReversed": false,
+      "target": "T",
+      "weight": 1
+    },
+    {
+      "id": "q9",
+      "text": "You enjoy discussing abstract theories.",
+      "translations": {
+        "French": "Vous aimez discuter de théories abstraites.",
+        "Spanish": "Disfrutas discutiendo teorías abstractas."
+      },
+      "isReversed": false,
+      "target": "N",
+      "weight": 1
+    },
+    {
+      "id": "q10",
+      "text": "You prefer concrete facts over interpretations.",
+      "translations": {
+        "French": "Vous préférez les faits concrets aux interprétations.",
+        "Spanish": "Prefieres los hechos concretos sobre las interpretaciones."
+      },
+      "isReversed": false,
+      "target": "S",
+      "weight": 1
     }
   ],
   "outcomes": [
@@ -151,40 +193,28 @@
   "customScoring": "",
   "results": [
     {
-      "timestamp": "2025-05-05T23:19:11.547Z",
+      "timestamp": "2025-05-07T15:28:16.387Z",
       "testId": "mbti",
       "testName": "MBTI test",
-      "finalResult": "ISFP"
+      "finalResult": "ESFJ"
     },
     {
-      "timestamp": "2025-05-05T23:27:29.685Z",
+      "timestamp": "2025-05-07T15:28:53.969Z",
       "testId": "mbti",
       "testName": "MBTI test",
       "finalResult": "ISTJ"
     },
     {
-      "timestamp": "2025-05-06T18:47:13.173Z",
+      "timestamp": "2025-05-10T20:03:52.392Z",
       "testId": "mbti",
       "testName": "MBTI test",
-      "finalResult": "ESTJ"
+      "finalResult": "ISTJ"
     },
     {
-      "timestamp": "2025-05-06T23:14:35.416Z",
+      "timestamp": "2025-05-10T20:08:57.586Z",
       "testId": "mbti",
       "testName": "MBTI test",
-      "finalResult": "ESFP"
-    },
-    {
-      "timestamp": "2025-05-07T09:40:40.670Z",
-      "testId": "mbti",
-      "testName": "MBTI test",
-      "finalResult": "ESFP"
-    },
-    {
-      "timestamp": "2025-05-07T10:49:01.424Z",
-      "testId": "mbti",
-      "testName": "MBTI test",
-      "finalResult": "ESFP"
+      "finalResult": "ISFJ"
     }
   ]
 }

@@ -177,6 +177,39 @@ export class TestRunnerComponent implements OnInit, AfterViewInit {
     });
   }
 
+  // submitTest() {
+  //   if (!this.testConfig) {
+  //     console.error('Test config not loaded or form incomplete');
+  //     return;
+  //   }
+
+  //   const answers = this.answers.value.map((val: number | null) => val ?? 3);
+
+  //   const calculatedResults = this.scoringService.calculateScore(this.testConfig, answers);
+  //   const resultPayload = {
+  //     testId: this.testConfig.id,
+  //     testName: this.testConfig.name,
+  //     timestamp: new Date().toISOString(),
+  //     finalResult: calculatedResults.result,
+  //   };
+
+  //   this.testConfigService.storeTestResults(resultPayload).subscribe({
+  //     next: () => {
+  //       console.log('Results saved successfully');
+  //       this.closeModal();
+  //       this.router.navigate(['/'], {
+  //         state: { testResults: resultPayload },
+  //       });
+  //     },
+  //     error: (err) => {
+  //       console.error('Failed to save results:', err);
+  //       this.closeModal();
+  //       this.router.navigate(['/'], {
+  //         state: { testResults: resultPayload },
+  //       });
+  //     },
+  //   });
+  // }
   submitTest() {
     if (!this.testConfig) {
       console.error('Test config not loaded or form incomplete');
@@ -192,6 +225,9 @@ export class TestRunnerComponent implements OnInit, AfterViewInit {
       timestamp: new Date().toISOString(),
       finalResult: calculatedResults.result,
     };
+
+    // Set the current test ID before storing results
+    this.testConfigService.setCurrentTestId(this.testConfig.id);
 
     this.testConfigService.storeTestResults(resultPayload).subscribe({
       next: () => {

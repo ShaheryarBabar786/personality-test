@@ -7,7 +7,7 @@
     <div *ngFor="let test of tests" class="test-card mt-2">
       <lib-primary-btn [hoverOutline]="false" (click)="startTest(test.id)">
         {{ test.name | uppercase }}
-      </lib-primary-btn>dd
+      </lib-primary-btn>
     </div>
   </div>
 
@@ -28,8 +28,12 @@
 
   <lib-circle-progress [imageUrl]="imageUrl" [partialColors]="progressColors" [hideProgress]="true" [max]="1" [value]="0"></lib-circle-progress>
 
-  <div class="action-section">
+  <!-- <div class="action-section">
     <button (click)="goToAdmin()">{{ 'ADMIN.BUTTONS.ADMIN' | translate }}</button>
+  </div> -->
+
+  <div class="action-section mt-5">
+    <lib-primary-btn [hoverOutline]="false" (click)="goToAdmin()"> admin </lib-primary-btn>
   </div>
 
   <div *ngIf="modalOpen" class="modal-backdrop" (click)="closeModal()"></div>

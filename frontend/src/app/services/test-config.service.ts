@@ -1,7 +1,7 @@
 // test-config.service.ts
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, tap } from 'rxjs';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { TestConfig } from '../shared/models/test-config.model';
 
@@ -44,5 +44,12 @@ export class TestConfigService {
 
   deleteTestConfig(testId: string): Observable<any> {
     return this.http.delete(`${this.apiUrl}/${testId}`);
+  }
+  // Add this to your TestConfigService
+  private currentTestIdSubject = new BehaviorSubject<string | null>(null);
+  currentTestId$ = this.currentTestIdSubject.asObservable();
+
+  setCurrentTestId(testId: string) {
+    this.currentTestIdSubject.next(testId);
   }
 }

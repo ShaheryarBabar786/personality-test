@@ -38,6 +38,11 @@ export class AdminComponent {
 
   ngOnInit() {
     this.loadAllTestResults();
+    this.testConfigService.currentTestId$.subscribe((testId) => {
+      if (testId) {
+        this.loadAllTestResults(testId);
+      }
+    });
   }
 
   loadTests() {
@@ -49,10 +54,12 @@ export class AdminComponent {
     this.languageService.setLanguage(language);
   }
 
-  loadAllTestResults(): void {
+  loadAllTestResults(testId?: string): void {
     this.testConfigService.getAllTestResults().subscribe({
       next: (allResults) => {
-        this.formatResults(allResults);
+        // Filter results by testId if provided
+        const filteredResults = testId ? allResults.filter((test) => test.id === testId) : allResults;
+        this.formatResults(filteredResults);
       },
       error: (err) => {
         console.error('Error loading test results:', err);
@@ -66,14 +73,14 @@ export class AdminComponent {
 
     allResults.forEach((testConfig) => {
       if (testConfig.results && testConfig.results.length > 0) {
-        formattedResults += `Test Name: ${testConfig.name}\n`;
+        // Show only the latest result for each test
+        const latestResult = [...testConfig.results].sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime())[0];
 
-        testConfig.results.forEach((result: any) => {
-          const dateOnly = result.timestamp.split('T')[0];
-          formattedResults += `Test Date: ${dateOnly}\n`;
-          formattedResults += `Test Result: ${result.finalResult}\n`;
-          formattedResults += '---------------------------------\n';
-        });
+        const dateOnly = latestResult.timestamp.split('T')[0];
+        formattedResults += `Test Name: ${testConfig.name}\n`;
+        formattedResults += `Test Date: ${dateOnly}\n`;
+        formattedResults += `Test Result: ${latestResult.finalResult}\n`;
+        formattedResults += '---------------------------------\n';
       }
     });
 
@@ -194,6 +201,11 @@ export class AdminComponent {
 
   goToTestRunner(): void {
     this.router.navigate(['/test']);
+  }
+
+  showAllResults() {
+    this.testConfigService.setCurrentTestId(null);
+    this.loadAllTestResults();
   }
 
   refreshResults() {

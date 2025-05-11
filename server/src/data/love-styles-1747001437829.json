@@ -1,0 +1,109 @@
+{
+  "id": "love-styles-1747001437829",
+  "name": "7 Love Styles Test",
+  "type": "love-styles",
+  "scoringType": "weighted",
+  "description": "this is the test",
+  "questions": [
+    {
+      "id": "q1747001600751",
+      "text": "question one has also been added ",
+      "target": "agape",
+      "isReversed": true,
+      "weight": 1,
+      "translations": {
+        "french": "okeowcjoisd",
+        "spanish": "vefc j sjd"
+      }
+    }
+  ],
+  "outcomes": [
+    {
+      "id": "eros",
+      "name": "Eros",
+      "description": "Passionate, romantic love",
+      "translations": {
+        "French": "",
+        "Spanish": ""
+      }
+    },
+    {
+      "id": "ludus",
+      "name": "Ludus",
+      "description": "Game-playing love",
+      "translations": {
+        "English": "Ludus",
+        "French": "",
+        "Spanish": ""
+      }
+    },
+    {
+      "id": "storge",
+      "name": "Storge",
+      "description": "Friendship-based love",
+      "translations": {
+        "English": "Storge",
+        "French": "",
+        "Spanish": ""
+      }
+    },
+    {
+      "id": "pragma",
+      "name": "Pragma",
+      "description": "Practical, logical love",
+      "translations": {
+        "English": "Pragma",
+        "French": "",
+        "Spanish": ""
+      }
+    },
+    {
+      "id": "mania",
+      "name": "Mania",
+      "description": "Possessive, dependent love",
+      "translations": {
+        "English": "Mania",
+        "French": "",
+        "Spanish": ""
+      }
+    },
+    {
+      "id": "agape",
+      "name": "Agape",
+      "description": "Selfless, altruistic love",
+      "translations": {
+        "English": "Agape",
+        "French": "",
+        "Spanish": ""
+      }
+    },
+    {
+      "id": "philia",
+      "name": "Philia",
+      "description": "Deep friendship",
+      "translations": {
+        "English": "Philia",
+        "French": "",
+        "Spanish": ""
+      }
+    },
+    {
+      "id": "",
+      "name": "",
+      "description": "no des",
+      "translations": {
+        "french": "okoko",
+        "spanish": "okoo"
+      }
+    }
+  ],
+  "customScoring": "",
+  "results": [
+    {
+      "timestamp": "2025-05-11T22:14:22.577Z",
+      "testId": "love-styles-1747001437829",
+      "testName": "7 Love Styles Test",
+      "finalResult": "Agape (40%)"
+    }
+  ]
+}

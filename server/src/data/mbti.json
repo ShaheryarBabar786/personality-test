@@ -7,12 +7,12 @@
   "questions": [
     {
       "id": "q1",
-      "text": "You enjoy vibrant social events with many people.",
+      "text": "You enjoy vibrant social events with many people. aiaiiai",
       "translations": {
         "French": "Vous aimez les événements sociaux animés avec beaucoup de monde.",
         "Spanish": "Disfrutas de eventos sociales vibrantes con mucha gente."
       },
-      "isReversed": false,
+      "isReversed": true,
       "target": "E",
       "weight": 1
     },

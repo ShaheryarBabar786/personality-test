@@ -7,15 +7,18 @@
   font-family: monospace;
 }
 
-h2 {
-  color: #333;
-  text-align: center;
+h2,
+h3,
+h4,
+h5 {
+  color: #ffffff;
 }
 
 .language-selection {
   display: flex;
   justify-content: center;
   gap: 20px;
+  margin-bottom: 20px;
 }
 
 .language-selection label {
@@ -24,6 +27,7 @@ h2 {
   gap: 5px;
   cursor: pointer;
 }
+
 .language-selection label input {
   box-shadow: none;
 }
@@ -36,6 +40,23 @@ h2 {
   display: block;
   margin-bottom: 8px;
   font-weight: bold;
+  color: #ffffff;
+}
+
+input,
+textarea,
+select {
+  width: 100%;
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid #555;
+  background-color: #333;
+  color: white;
+}
+
+textarea {
+  min-height: 100px;
+  resize: vertical;
 }
 
 .json-input {
@@ -54,7 +75,7 @@ h2 {
 .test-runner-btn {
   display: block;
   width: 200px;
-  margin: 20px auto;
+  margin: 5px auto;
   padding: 10px;
   background-color: #4caf50;
   color: white;
@@ -67,49 +88,52 @@ h2 {
 .test-runner-btn:hover {
   background-color: #45a049;
 }
-
-.text-updates-section {
-  border-top: 1px solid #eee;
-  padding-top: 20px;
-}
-
-.text-updates-section h3 {
-  margin-bottom: 15px;
-}
-
-.text-update {
-  display: flex;
-  align-items: center;
-  margin: 0;
-}
-
-.text-update span {
-  width: 100px;
-}
-.text-update input {
-  flex: 1;
-  padding: 8px;
-  border: 1px solid #ddd;
+.new-test {
+  display: block;
+  width: 200px;
+  margin: 0px auto;
+  padding: 10px;
+  background-color: #1a26d8;
+  color: white;
+  border: none;
   border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
 }
 
+.new-test:hover {
+  background-color: #161fa3;
+}
 .button-group {
   display: flex;
   gap: 10px;
   margin-top: 15px;
 }
 
-.add-btn,
-.save-btn {
+.btn {
   padding: 8px 15px;
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  font-size: 14px;
 }
 
-.add-btn {
+.btn-primary {
   background-color: #2196f3;
   color: white;
+}
+
+.btn-primary:hover {
+  background-color: #0b7dda;
+}
+
+.btn-secondary {
+  background-color: #6c757d;
+  color: white;
+}
+
+.btn-secondary:hover {
+  background-color: #5a6268;
 }
 
 .save-btn {
@@ -117,19 +141,14 @@ h2 {
   color: white;
 }
 
-.add-btn:hover {
-  background-color: #0b7dda;
-}
-
 .save-btn:hover {
   background-color: #e68a00;
 }
-/* Add to admin.component.css */
+
 .textarea-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 8px;
 }
 
 .refresh-btn {
@@ -138,127 +157,10 @@ h2 {
   cursor: pointer;
   font-size: 1rem;
   padding: 2px 8px;
-}
-
-.json-input {
-  color: white;
-  background-color: #333;
-  width: 100%;
-  min-height: 300px;
-  padding: 10px;
-  border-radius: 5px;
-  border: 1px solid #555;
-  font-family: monospace;
-}
-
-@media (min-width: 1024px) {
-  .admin-container {
-    max-width: 800px;
-    padding: 30px;
-  }
-
-  .json-input {
-    height: 150px;
-  }
-
-  .text-update input {
-    min-width: 300px;
-  }
-}
-
-.test-editor {
-  background: #2a2a2a;
-  padding: 20px;
-  border-radius: 8px;
-  margin-bottom: 20px;
-}
-
-.question-item {
-  background: #333;
-  padding: 15px;
-  margin-bottom: 15px;
-  border-radius: 6px;
-}
-
-.question-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 10px;
-}
-
-.question-details {
-  display: flex;
-  gap: 15px;
-  font-size: 0.9em;
-  color: #ccc;
-}
-
-.question-editor {
-  background: #333;
-  padding: 20px;
-  border-radius: 6px;
-  margin-top: 20px;
-}
-
-.question-editor h5 {
-  margin-top: 0;
-}
-
-button {
-  padding: 3px 8px;
-  background: #4caf50;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-button:hover {
-  background: #45a049;
-}
-
-button[disabled] {
-  background: #666;
-  cursor: not-allowed;
-}
-
-.save-btn {
-  background: #2196f3;
-}
-
-.save-btn:hover {
-  background: #0b7dda;
-}
-
-.add-btn {
-  background: #ff9800;
-}
-
-.add-btn:hover {
-  background: #e68a00;
-}
-.form-group textarea {
   color: #ffffff;
 }
-.form-group select {
-  width: 100%;
-}
 
-.test-name {
-  font-weight: bold;
-  color: #4fc3f7;
-  font-size: 1.1em;
-}
-
-.test-date {
-  font-weight: bold;
-}
-
-.test-result {
-  font-size: 1.05em;
-}
-
+/* Modal styles */
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -281,9 +183,8 @@ button[disabled] {
   max-height: 90vh;
   overflow-y: auto;
   position: relative;
-  scrollbar-width: thin;
-  scrollbar-color: #555 #2a2a2a;
 }
+
 .modal-content::-webkit-scrollbar {
   width: 6px;
 }
@@ -312,8 +213,76 @@ button[disabled] {
   color: white;
 }
 
-.modal-content .test-editor {
-  background: transparent;
-  padding: 0;
-  margin: 0;
+/* Question and Outcome sections */
+.questions-section,
+.outcomes-section {
+  margin-top: 20px;
+  padding: 15px;
+  background: #333;
+  border-radius: 6px;
 }
+
+.question-item,
+.outcome-item {
+  background: #444;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 4px;
+}
+
+.question-header,
+.outcome-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.question-details,
+.outcome-details {
+  display: flex;
+  gap: 15px;
+  font-size: 0.9em;
+  color: #ccc;
+}
+
+.question-editor,
+.outcome-editor {
+  background: #444;
+  padding: 15px;
+  border-radius: 4px;
+  margin-top: 15px;
+}
+
+.preset-info {
+  background: #444;
+  padding: 10px;
+  border-radius: 4px;
+  font-size: 0.9em;
+  color: #ccc;
+}
+
+small {
+  color: #aaa;
+  font-size: 0.8em;
+  display: block;
+  margin-top: 5px;
+}
+
+/* Responsive adjustments */
+/* @media (max-width: 768px) {
+  .admin-container {
+    padding: 10px;
+  }
+
+  .language-selection {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .question-details,
+  .outcome-details {
+    flex-direction: column;
+    gap: 5px;
+  }
+} */

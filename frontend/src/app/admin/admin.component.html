@@ -15,17 +15,74 @@
     </label>
   </div>
 
-  <!-- Existing Test Results Section -->
   <div class="form-group mt-5">
     <div class="textarea-header">
       <label>{{ 'ADMIN.TEST_RESULTS.HISTORY' | translate }}</label>
-      <button (click)="refreshResults()" class="refresh-btn">{{ 'ADMIN.TEST_RESULTS.REFRESH' | translate }}</button>
+      <!-- <button (click)="showAllResults()" class="btn btn-secondary mr-2">
+        {{ 'ADMIN.TEST_RESULTS.SHOW_ALL' | translate }}
+      </button> -->
+      <button (click)="showAllResults()" class="refresh-btn">{{ 'ADMIN.TEST_RESULTS.REFRESH' | translate }}</button>
     </div>
     <textarea class="json-input" [(ngModel)]="testData" [placeholder]="'ADMIN.TEST_RESULTS.NO_RESULTS' | translate" readonly></textarea>
   </div>
 
   <button class="test-runner-btn" (click)="goToTestRunner()">{{ 'ADMIN.BUTTONS.TEST_RUNNER' | translate }}</button>
 
+  <!-- Test Creation Modal -->
+  <div class="modal-overlay" *ngIf="showCreationModal">
+    <div class="modal-content">
+      <button class="close-modal" (click)="closeCreationModal()">×</button>
+      <h3>{{ 'ADMIN.TEST_EDITOR.CREATE_NEW_TEST' | translate }}</h3>
+
+      <div class="form-group">
+        <label>{{ 'ADMIN.TEST_EDITOR.TEST_TYPE' | translate }}</label>
+        <select [(ngModel)]="newTestType" (change)="onTestTypeChange()">
+          <option value="custom">Custom Test</option>
+          <option value="big-five">Big Five Personality Test</option>
+          <option value="mbti">16 Personality Types (MBTI)</option>
+          <option value="enneagram">Enneagram Personality Test</option>
+          <option value="disc">DISC Assessment</option>
+          <option value="emotional-intelligence">Emotional Intelligence Test</option>
+          <option value="career-aptitude">Career Aptitude Test</option>
+          <option value="love-styles">7 Love Styles Test</option>
+          <option value="workplace">Workplace Personality Test</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>{{ 'ADMIN.TEST_EDITOR.NAME' | translate }}</label>
+        <input type="text" [(ngModel)]="newTestName" />
+      </div>
+
+      <div class="form-group">
+        <label>{{ 'ADMIN.TEST_EDITOR.DESCRIPTION' | translate }}</label>
+        <textarea [(ngModel)]="newTestDescription"></textarea>
+      </div>
+
+      <div class="form-group" *ngIf="newTestType !== 'custom'">
+        <p class="preset-info">
+          <strong>{{ 'ADMIN.TEST_EDITOR.PRESET_CONFIGURATION' | translate }}:</strong>
+          {{ 'ADMIN.TEST_EDITOR.PRESET_CONFIGURATION_DESC' | translate }}
+        </p>
+      </div>
+
+      <div class="button-group">
+        <button class="btn btn-primary" (click)="initializeNewTest()">
+          {{ 'ADMIN.TEST_EDITOR.CREATE_TEST' | translate }}
+        </button>
+        <button class="btn btn-secondary" (click)="closeCreationModal()">
+          {{ 'ADMIN.TEST_EDITOR.CANCEL' | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <button class="new-test" (click)="showTestCreationModal()">
+      {{ 'ADMIN.TEST_EDITOR.CREATE_NEW_TEST' | translate }}
+    </button>
+  </div>
+
+  <!-- Existing Test Results Section -->
   <div class="form-group mt-5">
     <label>{{ 'ADMIN.TEST_SELECT.LABEL' | translate }}</label>
     <select [(ngModel)]="selectedTestId" (change)="onTestSelect()">
@@ -34,6 +91,7 @@
     </select>
   </div>
 
+  <!-- Test Editor Modal -->
   <div *ngIf="selectedTest" class="modal-overlay">
     <div class="modal-content">
       <button class="close-modal" (click)="closeModal()">×</button>
@@ -51,12 +109,79 @@
 
       <div class="form-group">
         <label>{{ 'ADMIN.TEST_EDITOR.SCORING_TYPE' | translate }}</label>
-        <select [(ngModel)]="selectedTest.scoringType" disabled>
-          <option value="sum">Sum (Big Five)</option>
-          <option value="compare">Compare (MBTI)</option>
-          <option value="weighted">Weighted (EI Test)</option>
+        <select [(ngModel)]="selectedTest.scoringType" [disabled]="!isCustomTest">
+          <option value="sum">Sum (Big Five, Emotional Intelligence)</option>
+          <option value="compare">Compare (MBTI, DISC)</option>
+          <option value="weighted">Weighted (Enneagram, Love Styles)</option>
+          <option value="custom">Custom Scoring Function</option>
         </select>
-        <small>{{ 'ADMIN.TEST_EDITOR.SCORING_NOTE' | translate }}</small>
+        <small *ngIf="!isCustomTest">
+          {{ 'ADMIN.TEST_EDITOR.SCORING_NOTE' | translate }}
+        </small>
+      </div>
+
+      <div class="form-group" *ngIf="selectedTest.scoringType === 'custom'">
+        <label>{{ 'ADMIN.TEST_EDITOR.CUSTOM_SCORING' | translate }}</label>
+        <textarea [(ngModel)]="selectedTest.customScoring" placeholder="Enter custom scoring function"></textarea>
+        <small>{{ 'ADMIN.TEST_EDITOR.CUSTOM_SCORING_NOTE' | translate }}</small>
+      </div>
+
+      <!-- Outcomes Section -->
+      <div class="outcomes-section">
+        <h4>{{ 'ADMIN.TEST_EDITOR.OUTCOMES' | translate }}</h4>
+
+        <!-- Outcomes List -->
+        <div *ngFor="let outcome of selectedTest.outcomes; let i = index" class="outcome-item">
+          <div class="outcome-header">
+            <span
+              ><strong>{{ outcome.id }}:</strong> {{ outcome.name }}</span
+            >
+            <div>
+              <button (click)="editOutcome(i)">{{ 'ADMIN.TEST_EDITOR.EDIT_BUTTON_TEXT' | translate }}</button>
+              <button (click)="removeOutcome(i)">{{ 'ADMIN.TEST_EDITOR.DELETE_BUTTON_TEXT' | translate }}</button>
+            </div>
+          </div>
+          <div class="outcome-details">
+            <span>{{ outcome.description || 'No description' }}</span>
+          </div>
+        </div>
+
+        <!-- Outcome Editor -->
+        <div class="outcome-editor">
+          <h5>{{ editingOutcomeIndex !== null ? ('ADMIN.TEST_EDITOR.EDIT_OUTCOME' | translate) : ('ADMIN.TEST_EDITOR.ADD_OUTCOME' | translate) }}</h5>
+
+          <div class="form-group">
+            <label>{{ 'ADMIN.TEST_EDITOR.OUTCOME_ID' | translate }}</label>
+            <input type="text" [(ngModel)]="newOutcome.id" placeholder="e.g., openness, E, D" />
+          </div>
+
+          <div class="form-group">
+            <label>{{ 'ADMIN.TEST_EDITOR.OUTCOME_NAME' | translate }}</label>
+            <input type="text" [(ngModel)]="newOutcome.name" placeholder="e.g., Openness, Extraversion" />
+          </div>
+
+          <div class="form-group">
+            <label>{{ 'ADMIN.TEST_EDITOR.OUTCOME_DESCRIPTION' | translate }}</label>
+            <textarea [(ngModel)]="newOutcome.description"></textarea>
+          </div>
+
+          <!-- Translations -->
+          <div class="form-group">
+            <label>{{ 'ADMIN.TEST_EDITOR.FRENCH_TRANSLATION' | translate }}</label>
+            <input type="text" [(ngModel)]="newOutcome.translations.french" />
+          </div>
+
+          <div class="form-group">
+            <label>{{ 'ADMIN.TEST_EDITOR.SPANISH_TRANSLATION' | translate }}</label>
+            <input type="text" [(ngModel)]="newOutcome.translations.spanish" />
+          </div>
+
+          <div class="button-group">
+            <button *ngIf="editingOutcomeIndex !== null" (click)="updateOutcome()">{{ 'ADMIN.TEST_EDITOR.UPDATE_OUTCOME' | translate }}</button>
+            <button *ngIf="editingOutcomeIndex === null" (click)="addOutcome()">{{ 'ADMIN.TEST_EDITOR.ADD_OUTCOME' | translate }}</button>
+            <button *ngIf="editingOutcomeIndex !== null" (click)="cancelOutcomeEdit()">{{ 'ADMIN.TEST_EDITOR.CANCEL' | translate }}</button>
+          </div>
+        </div>
       </div>
 
       <!-- Questions Section -->
@@ -70,8 +195,8 @@
               ><strong>Q{{ i + 1 }}:</strong> {{ question.text || 'No text' }}</span
             >
             <div>
-              <button (click)="editQuestion(i)">{{ 'ADMIN.TEST_EDITOR.EDIT-BUTTON-TEXT' | translate }}</button>
-              <button (click)="removeQuestion(i)">{{ 'ADMIN.TEST_EDITOR.DELETE-BUTTON-TEXT' | translate }}</button>
+              <button (click)="editQuestion(i)">{{ 'ADMIN.TEST_EDITOR.EDIT_BUTTON_TEXT' | translate }}</button>
+              <button (click)="removeQuestion(i)">{{ 'ADMIN.TEST_EDITOR.DELETE_BUTTON_TEXT' | translate }}</button>
             </div>
           </div>
           <div class="question-details">
@@ -83,7 +208,7 @@
 
         <!-- Question Editor -->
         <div class="question-editor">
-          <h5>{{ editingQuestionIndex !== null ? 'Edit Question' : 'Add New Question' }}</h5>
+          <h5>{{ editingQuestionIndex !== null ? ('ADMIN.TEST_EDITOR.EDIT_QUESTION' | translate) : ('ADMIN.TEST_EDITOR.ADD_QUESTION' | translate) }}</h5>
 
           <div class="form-group">
             <label>{{ 'ADMIN.TEST_EDITOR.QUESTION_TEXT' | translate }}</label>
@@ -91,9 +216,9 @@
           </div>
 
           <div class="form-group">
-            <label>Target Outcome:</label>
+            <label>{{ 'ADMIN.TEST_EDITOR.TARGET_OUTCOME' | translate }}</label>
             <select [(ngModel)]="newQuestion.target">
-              <option value="">-- Select Target --</option>
+              <option value="">-- {{ 'ADMIN.TEST_EDITOR.SELECT_TARGET' | translate }} --</option>
               <option *ngFor="let outcome of selectedTest.outcomes" [value]="outcome.id">{{ outcome.name }} ({{ outcome.id }})</option>
             </select>
           </div>
@@ -122,7 +247,7 @@
           </div>
 
           <div class="button-group">
-            <button *ngIf="editingQuestionIndex !== null" (click)="updateQuestion()">{{ 'ADMIN.TEST_EDITOR.EDIT_QUESTION' | translate }}</button>
+            <button *ngIf="editingQuestionIndex !== null" (click)="updateQuestion()">{{ 'ADMIN.TEST_EDITOR.UPDATE_QUESTION' | translate }}</button>
             <button *ngIf="editingQuestionIndex === null" (click)="addQuestion()">{{ 'ADMIN.TEST_EDITOR.ADD_QUESTION' | translate }}</button>
             <button *ngIf="editingQuestionIndex !== null" (click)="cancelEdit()">{{ 'ADMIN.TEST_EDITOR.CANCEL' | translate }}</button>
           </div>

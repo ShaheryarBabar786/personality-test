@@ -218,6 +218,12 @@
       "testId": "big-five",
       "testName": "Big Five",
       "finalResult": "Ouverture: 5/10 (50%), Conscience: 5/10 (50%), Extraversion: 1/5 (20%), Agréabilité: 12/15 (80%), Névrosisme: 8/10 (80%)"
+    },
+    {
+      "timestamp": "2025-05-11T21:27:01.149Z",
+      "testId": "big-five",
+      "testName": "Big Five",
+      "finalResult": "Openness: 7/10 (70%), Conscientiousness: 5/10 (50%), Extraversion: 2/5 (40%), Agreeableness: 16/15 (107%), Neuroticism: 9/10 (90%)"
     }
   ]
 }

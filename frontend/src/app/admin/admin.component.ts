@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { LanguageService } from '../services/language.service';
 import { ResultsService } from '../services/result-service.service';
 import { TestConfigService } from '../services/test-config.service';
-import { TestConfig } from '../shared/models/test-config.model';
+import { Outcome, TestConfig } from '../shared/models/test-config.model';
 
 @Component({
   selector: 'app-admin',
@@ -17,10 +17,22 @@ export class AdminComponent {
   testData: string = '';
   testList: TestConfig[] = [];
   selectedTest: TestConfig | null = null;
+  selectedTestId: string | null = null;
+
+  // Question editing
   editingQuestionIndex: number | null = null;
   newQuestion: any = this.createEmptyQuestion();
-  textUpdates: any;
-  selectedTestId: string | null = null;
+
+  // Outcome editing
+  editingOutcomeIndex: number | null = null;
+  newOutcome: any = this.createEmptyOutcome();
+
+  // Test creation
+  showCreationModal = false;
+  newTestType = 'custom';
+  newTestName = '';
+  newTestDescription = '';
+  isCustomTest = true;
 
   constructor(
     private fb: FormBuilder,
@@ -45,11 +57,13 @@ export class AdminComponent {
     });
   }
 
+  // Core methods
   loadTests() {
     this.testConfigService.getTestList().subscribe((tests) => {
       this.testList = tests;
     });
   }
+
   onLanguageChange(language: string) {
     this.languageService.setLanguage(language);
   }
@@ -57,7 +71,6 @@ export class AdminComponent {
   loadAllTestResults(testId?: string): void {
     this.testConfigService.getAllTestResults().subscribe({
       next: (allResults) => {
-        // Filter results by testId if provided
         const filteredResults = testId ? allResults.filter((test) => test.id === testId) : allResults;
         this.formatResults(filteredResults);
       },
@@ -73,9 +86,7 @@ export class AdminComponent {
 
     allResults.forEach((testConfig) => {
       if (testConfig.results && testConfig.results.length > 0) {
-        // Show only the latest result for each test
         const latestResult = [...testConfig.results].sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime())[0];
-
         const dateOnly = latestResult.timestamp.split('T')[0];
         formattedResults += `Test Name: ${testConfig.name}\n`;
         formattedResults += `Test Date: ${dateOnly}\n`;
@@ -87,12 +98,24 @@ export class AdminComponent {
     this.testData = formattedResults || 'No test results available yet';
   }
 
+  // Test selection and editing
+  onTestSelect() {
+    if (this.selectedTestId) {
+      this.selectTest(this.selectedTestId);
+    } else {
+      this.selectedTest = null;
+    }
+  }
+
   selectTest(testId: string) {
     this.testConfigService.getTestConfig(testId).subscribe({
       next: (test) => {
         this.selectedTest = test;
+        this.isCustomTest = test.type === 'custom';
         this.editingQuestionIndex = null;
+        this.editingOutcomeIndex = null;
         this.newQuestion = this.createEmptyQuestion();
+        this.newOutcome = this.createEmptyOutcome();
       },
       error: (err) => {
         console.error('Error loading test:', err);
@@ -100,6 +123,31 @@ export class AdminComponent {
     });
   }
 
+  closeModal() {
+    this.selectedTest = null;
+    this.selectedTestId = null;
+  }
+
+  saveTest() {
+    if (this.selectedTest) {
+      const operation = this.testList.some((t) => t.id === this.selectedTest?.id)
+        ? this.testConfigService.updateTestConfig(this.selectedTest)
+        : this.testConfigService.createTestConfig(this.selectedTest);
+
+      operation.subscribe({
+        next: () => {
+          alert('Test saved successfully!');
+          this.loadTests();
+        },
+        error: (err) => {
+          console.error('Error saving test:', err);
+          alert('Error saving test');
+        },
+      });
+    }
+  }
+
+  // Question management
   createEmptyQuestion() {
     return {
       id: `q${Date.now()}`,
@@ -134,28 +182,9 @@ export class AdminComponent {
       };
     }
   }
-  onTestSelect() {
-    if (this.selectedTestId) {
-      this.selectTest(this.selectedTestId);
-    } else {
-      this.selectedTest = null;
-    }
-  }
 
-  closeModal() {
-    this.selectedTest = null;
-    this.selectedTestId = null;
-  }
-
-  // updateQuestion() {
-  //   if (this.selectedTest && this.editingQuestionIndex !== null) {
-  //     this.selectedTest.questions[this.editingQuestionIndex] = { ...this.newQuestion };
-  //     this.cancelEdit();
-  //   }
-  // }
   updateQuestion() {
     if (this.selectedTest && this.editingQuestionIndex !== null) {
-      // Format translations correctly before updating
       const formattedTranslations = {
         French: this.newQuestion.translations.french,
         Spanish: this.newQuestion.translations.spanish,
@@ -180,25 +209,234 @@ export class AdminComponent {
     }
   }
 
-  saveTest() {
+  // Outcome management
+  createEmptyOutcome() {
+    return {
+      id: '',
+      name: '',
+      description: '',
+      translations: {
+        french: '',
+        spanish: '',
+      },
+    };
+  }
+
+  addOutcome() {
     if (this.selectedTest) {
-      this.testConfigService.updateTestConfig(this.selectedTest).subscribe({
-        next: () => {
-          alert('Test updated successfully!');
-          this.loadTests();
-        },
-        error: (err) => {
-          console.error('Error saving test:', err);
-          alert('Error saving test');
-        },
-      });
+      this.selectedTest.outcomes.push({ ...this.newOutcome });
+      this.newOutcome = this.createEmptyOutcome();
     }
   }
 
-  addNewTextUpdate(): void {
-    this.textUpdates.push({ id: 'testupdate' + (this.textUpdates.length + 1), value: '' });
+  editOutcome(index: number) {
+    if (this.selectedTest) {
+      this.editingOutcomeIndex = index;
+      this.newOutcome = {
+        ...this.selectedTest.outcomes[index],
+        translations: {
+          french: this.selectedTest.outcomes[index].translations?.French || '',
+          spanish: this.selectedTest.outcomes[index].translations?.Spanish || '',
+        },
+      };
+    }
   }
 
+  updateOutcome() {
+    if (this.selectedTest && this.editingOutcomeIndex !== null) {
+      const formattedTranslations = {
+        French: this.newOutcome.translations.french,
+        Spanish: this.newOutcome.translations.spanish,
+      };
+
+      this.selectedTest.outcomes[this.editingOutcomeIndex] = {
+        ...this.newOutcome,
+        translations: formattedTranslations,
+      };
+      this.cancelOutcomeEdit();
+    }
+  }
+
+  cancelOutcomeEdit() {
+    this.editingOutcomeIndex = null;
+    this.newOutcome = this.createEmptyOutcome();
+  }
+
+  removeOutcome(index: number) {
+    if (this.selectedTest && confirm('Are you sure you want to delete this outcome?')) {
+      this.selectedTest.outcomes.splice(index, 1);
+    }
+  }
+
+  // Test creation
+  showTestCreationModal() {
+    this.showCreationModal = true;
+    this.newTestType = 'custom';
+    this.newTestName = '';
+    this.newTestDescription = '';
+  }
+
+  closeCreationModal() {
+    this.showCreationModal = false;
+  }
+
+  onTestTypeChange() {
+    const typeNames = {
+      'big-five': 'Big Five Personality Test',
+      mbti: '16 Personality Types (MBTI)',
+      enneagram: 'Enneagram Personality Test',
+      disc: 'DISC Assessment',
+      'emotional-intelligence': 'Emotional Intelligence Test',
+      'career-aptitude': 'Career Aptitude Test',
+      'love-styles': '7 Love Styles Test',
+      workplace: 'Workplace Personality Test',
+    };
+
+    if (this.newTestType !== 'custom' && !this.newTestName) {
+      this.newTestName = typeNames[this.newTestType];
+    }
+  }
+
+  initializeNewTest() {
+    const baseTest: TestConfig = {
+      id: `${this.newTestType}-${Date.now()}`,
+      name: this.newTestName,
+      type: this.newTestType,
+      scoringType: 'sum', // Default, will be overridden for specific types
+      description: this.newTestDescription,
+      questions: [],
+      outcomes: [],
+      customScoring: '',
+    };
+
+    // Set up presets based on test type
+    switch (this.newTestType) {
+      case 'big-five':
+        baseTest.scoringType = 'sum';
+        baseTest.outcomes = [
+          this.createPresetOutcome('openness', 'Openness', 'Openness to experience'),
+          this.createPresetOutcome('conscientiousness', 'Conscientiousness', 'Self-discipline and organization'),
+          this.createPresetOutcome('extraversion', 'Extraversion', 'Sociability and talkativeness'),
+          this.createPresetOutcome('agreeableness', 'Agreeableness', 'Compassion and cooperativeness'),
+          this.createPresetOutcome('neuroticism', 'Neuroticism', 'Emotional instability'),
+        ];
+        this.isCustomTest = false;
+        break;
+
+      case 'mbti':
+        baseTest.scoringType = 'compare';
+        baseTest.outcomes = [
+          this.createPresetOutcome('E', 'Extraversion', 'Outgoing, energetic'),
+          this.createPresetOutcome('I', 'Introversion', 'Reserved, thoughtful'),
+          this.createPresetOutcome('S', 'Sensing', 'Practical, detail-oriented'),
+          this.createPresetOutcome('N', 'Intuition', 'Imaginative, big-picture'),
+          this.createPresetOutcome('T', 'Thinking', 'Logical, objective'),
+          this.createPresetOutcome('F', 'Feeling', 'Empathetic, compassionate'),
+          this.createPresetOutcome('J', 'Judging', 'Structured, decisive'),
+          this.createPresetOutcome('P', 'Perceiving', 'Flexible, spontaneous'),
+        ];
+        this.isCustomTest = false;
+        break;
+
+      case 'enneagram':
+        baseTest.scoringType = 'weighted';
+        baseTest.outcomes = Array.from({ length: 9 }, (_, i) => this.createPresetOutcome(`type-${i + 1}`, `Type ${i + 1}`, 'Enneagram type description'));
+        this.isCustomTest = false;
+        break;
+
+      case 'disc':
+        baseTest.scoringType = 'compare';
+        baseTest.outcomes = [
+          this.createPresetOutcome('D', 'Dominance', 'Direct, results-oriented'),
+          this.createPresetOutcome('I', 'Influence', 'Outgoing, enthusiastic'),
+          this.createPresetOutcome('S', 'Steadiness', 'Patient, reliable'),
+          this.createPresetOutcome('C', 'Conscientiousness', 'Analytical, precise'),
+        ];
+        this.isCustomTest = false;
+        break;
+
+      case 'emotional-intelligence':
+        baseTest.scoringType = 'sum';
+        baseTest.outcomes = [
+          this.createPresetOutcome('self-awareness', 'Self-Awareness', 'Recognizing own emotions'),
+          this.createPresetOutcome('self-regulation', 'Self-Regulation', 'Managing emotions'),
+          this.createPresetOutcome('motivation', 'Motivation', 'Self-motivation'),
+          this.createPresetOutcome('empathy', 'Empathy', 'Understanding others'),
+          this.createPresetOutcome('social-skills', 'Social Skills', 'Managing relationships'),
+        ];
+        this.isCustomTest = false;
+        break;
+
+      case 'career-aptitude':
+        baseTest.scoringType = 'weighted';
+        baseTest.outcomes = [
+          this.createPresetOutcome('realistic', 'Realistic', 'Hands-on, practical'),
+          this.createPresetOutcome('investigative', 'Investigative', 'Analytical, intellectual'),
+          this.createPresetOutcome('artistic', 'Artistic', 'Creative, expressive'),
+          this.createPresetOutcome('social', 'Social', 'Helping, teaching'),
+          this.createPresetOutcome('enterprising', 'Enterprising', 'Leading, persuading'),
+          this.createPresetOutcome('conventional', 'Conventional', 'Organized, detail-oriented'),
+        ];
+        this.isCustomTest = false;
+        break;
+
+      case 'love-styles':
+        baseTest.scoringType = 'weighted';
+        baseTest.outcomes = [
+          this.createPresetOutcome('eros', 'Eros', 'Passionate, romantic love'),
+          this.createPresetOutcome('ludus', 'Ludus', 'Game-playing love'),
+          this.createPresetOutcome('storge', 'Storge', 'Friendship-based love'),
+          this.createPresetOutcome('pragma', 'Pragma', 'Practical, logical love'),
+          this.createPresetOutcome('mania', 'Mania', 'Possessive, dependent love'),
+          this.createPresetOutcome('agape', 'Agape', 'Selfless, altruistic love'),
+          this.createPresetOutcome('philia', 'Philia', 'Deep friendship'),
+        ];
+        this.isCustomTest = false;
+        break;
+
+      case 'workplace':
+        baseTest.scoringType = 'custom';
+        baseTest.customScoring = `function(outcomes) {
+        // Custom workplace test scoring logic
+        const result = outcomes.sort((a, b) => b.score - a.score)[0];
+        return {
+          outcomes: outcomes,
+          result: \`Best fit: \${result.name} (\${result.score}%)\`
+        };
+      }`;
+        baseTest.outcomes = [
+          this.createPresetOutcome('leader', 'Leader', 'Takes charge and directs others'),
+          this.createPresetOutcome('collaborator', 'Collaborator', 'Works well in teams'),
+          this.createPresetOutcome('innovator', 'Innovator', 'Creative problem-solver'),
+          this.createPresetOutcome('organizer', 'Organizer', 'Detail-oriented planner'),
+        ];
+        this.isCustomTest = true;
+        break;
+
+      default: // Custom test
+        baseTest.scoringType = 'sum';
+        this.isCustomTest = true;
+    }
+
+    this.selectedTest = baseTest;
+    this.selectedTestId = baseTest.id;
+    this.showCreationModal = false;
+  }
+
+  createPresetOutcome(id: string, name: string, description: string): Outcome {
+    return {
+      id,
+      name,
+      description,
+      translations: {
+        English: name,
+        French: '',
+        Spanish: '',
+      },
+    };
+  }
+
+  // Other methods
   goToTestRunner(): void {
     this.router.navigate(['/test']);
   }
@@ -210,9 +448,5 @@ export class AdminComponent {
 
   refreshResults() {
     this.loadAllTestResults();
-  }
-
-  saveTextUpdates(): void {
-    alert('Text updates saved!');
   }
 }

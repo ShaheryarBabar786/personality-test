@@ -77,14 +77,29 @@ export class TestRunnerComponent implements OnInit, AfterViewInit {
     });
   }
 
-  selectOption(questionIndex: number, optionValue: number) {
-    this.answers.at(questionIndex).setValue(optionValue);
+  // selectOption(questionIndex: number, optionValue: number) {
+  //   this.answers.at(questionIndex).setValue(optionValue);
 
-    if (questionIndex < this.testConfig!.questions.length - 1) {
-      this.currentQuestionIndex = questionIndex + 1;
-      this.scrollToQuestion();
-    }
+  //   if (questionIndex < this.testConfig!.questions.length - 1) {
+  //     this.currentQuestionIndex = questionIndex + 1;
+  //     this.scrollToQuestion();
+  //   }
+  // }
+
+selectOption(questionIndex: number, optionValue: number) {
+  const currentValue = this.answers.at(questionIndex).value;
+
+  if (currentValue === optionValue) {
+    this.answers.at(questionIndex).setValue(null);
+  } else {
+    this.answers.at(questionIndex).setValue(optionValue);
   }
+
+  if (questionIndex < this.testConfig!.questions.length - 1) {
+    this.currentQuestionIndex = questionIndex + 1;
+    this.scrollToQuestion();
+  }
+}
   get answers(): FormArray {
     return this.testForm.get('answers') as FormArray;
   }

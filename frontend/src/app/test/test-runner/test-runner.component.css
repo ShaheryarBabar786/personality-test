@@ -4,9 +4,27 @@
   padding: 15px 20px;
   font-family: 'Gilroy', Arial, sans-serif;
   color: #ffffff;
-
   height: 100%;
+   display: flex;
+  flex-direction: column;
+}
+.fixed-header {
+  position: sticky;
+  top: 0;
+  background: inherit;
+  z-index: 100;
+  padding: 15px 20px;
+  margin: -15px -20px 0 -20px;
+}
+
+.scrollable-content {
+
   overflow-y: auto;
+  overflow-x:hidden;
+  padding-top: 15px;
+  padding: 15px 25px 15px 20px;
+  margin-right: -10px;
+
 }
 
 .test-header {
@@ -25,7 +43,8 @@
 
 .progress-container {
   width: 100%;
-  margin: 13px auto;
+  margin: 13px auto auto auto;
+
   max-width: 600px;
 }
 
@@ -108,7 +127,7 @@
 .radio-pyramid {
   display: flex;
   justify-content: center;
-  gap: 8px;
+  gap: 7px;
   width: 100%;
   position: relative;
 }

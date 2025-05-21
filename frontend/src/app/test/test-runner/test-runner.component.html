@@ -1,15 +1,17 @@
 <div class="test-runner-container" #topContainer>
-  <div class="test-header mt-2">
-    <h1>{{ testConfig?.name }}</h1>
-  </div>
+  <div class="fixed-header">
+    <div class="test-header mt-2">
+      <h1>{{ testConfig?.name }}</h1>
+    </div>
 
-  <div class="progress-container">
-    <div class="progress-bar">
-      <div class="progress-completed" [style.width.%]="progressPercentage"></div>
+    <div class="progress-container">
+      <div class="progress-bar">
+        <div class="progress-completed" [style.width.%]="progressPercentage"></div>
+      </div>
     </div>
   </div>
-
-  <form [formGroup]="testForm">
+  <div class="scrollable-content">
+    <form [formGroup]="testForm">
     <div class="questions-container">
       <div *ngFor="let question of testConfig?.questions; let i = index" class="question-card" [class.active]="i === currentQuestionIndex" id="question-{{ i }}">
         <div class="question-text">
@@ -49,4 +51,7 @@
       <lib-primary-btn (click)="submitTest()">{{ 'TEST.SUBMIT' | translate }}</lib-primary-btn>
     </div>
   </form>
+  </div>
+
+
 </div>

@@ -193,34 +193,22 @@
   "customScoring": "",
   "results": [
     {
-      "timestamp": "2025-05-07T15:28:16.387Z",
+      "timestamp": "2025-05-23T04:36:46.398Z",
       "testId": "mbti",
       "testName": "MBTI test",
-      "finalResult": "ESFJ"
+      "finalResult": "INFP (E/I: 45%/55%; S/N: 47%/53%; T/F: 14%/86%; J/P: 30%/70%)"
     },
     {
-      "timestamp": "2025-05-07T15:28:53.969Z",
+      "timestamp": "2025-05-23T04:52:30.678Z",
       "testId": "mbti",
       "testName": "MBTI test",
-      "finalResult": "ISTJ"
+      "finalResult": "INFP (E/I: 33%/67%; S/N: 32%/68%; T/F: 30%/70%; J/P: 25%/75%)"
     },
     {
-      "timestamp": "2025-05-10T20:03:52.392Z",
+      "timestamp": "2025-05-23T04:53:07.881Z",
       "testId": "mbti",
       "testName": "MBTI test",
-      "finalResult": "ISTJ"
-    },
-    {
-      "timestamp": "2025-05-10T20:08:57.586Z",
-      "testId": "mbti",
-      "testName": "MBTI test",
-      "finalResult": "ISFJ"
-    },
-    {
-      "timestamp": "2025-05-21T09:55:15.815Z",
-      "testId": "mbti",
-      "testName": "MBTI test",
-      "finalResult": "ISTJ"
+      "finalResult": "ENFP (E/I: 83%/17%; S/N: 50%/50%; T/F: 50%/50%; J/P: 50%/50%)"
     }
   ]
 }

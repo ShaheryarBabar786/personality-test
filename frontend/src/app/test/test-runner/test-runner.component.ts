@@ -100,6 +100,7 @@ selectOption(questionIndex: number, optionValue: number) {
     this.scrollToQuestion();
   }
 }
+
   get answers(): FormArray {
     return this.testForm.get('answers') as FormArray;
   }
@@ -138,6 +139,7 @@ selectOption(questionIndex: number, optionValue: number) {
       }
     }, 50);
   }
+
   shouldHighlightDisagree(questionIndex: number): boolean {
     const answer = this.answers.at(questionIndex).value;
     return answer !== null && answer <= 3;
@@ -234,11 +236,18 @@ selectOption(questionIndex: number, optionValue: number) {
     const answers = this.answers.value.map((val: number | null) => val ?? 3);
 
     const calculatedResults = this.scoringService.calculateScore(this.testConfig, answers);
+
+
+  if (this.testConfig.scoringType === 'compare' && calculatedResults.resultWithPercentages) {
+    calculatedResults.result = `${calculatedResults.result} (${calculatedResults.resultWithPercentages})`;
+  }
+
     const resultPayload = {
       testId: this.testConfig.id,
       testName: this.testConfig.name,
       timestamp: new Date().toISOString(),
       finalResult: calculatedResults.result,
+      detailedResults: calculatedResults.detailedResult
     };
 
     // Set the current test ID before storing results

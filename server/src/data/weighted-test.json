@@ -133,11 +133,6 @@
     }
   ],
   "results": [
-    {
-      "timestamp": "2025-05-07T15:29:17.969Z",
-      "testId": "weighted-test",
-      "testName": "EI Test",
-      "finalResult": "Empathie (11%)"
-    }
+    
   ]
 }

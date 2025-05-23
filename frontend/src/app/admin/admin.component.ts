@@ -306,7 +306,42 @@ export class AdminComponent {
       description: this.newTestDescription,
       questions: [],
       outcomes: [],
-      customScoring: '',
+       customScoring: this.newTestType === 'workplace' ?
+      `function(outcomes) {
+        const maxScore = 20 * 5;
+        const threshold = 0.7 * maxScore;
+
+        outcomes.forEach(o => o.score = Math.round((o.score / maxScore) * 100));
+
+        const sorted = outcomes.sort((a, b) => b.score - a.score);
+        let result;
+
+        if (sorted[0].score >= threshold) {
+          result = sorted[0].name;
+        } else if (sorted[0].score - sorted[1].score <= 10) {
+          result = \`\${sorted[0].name}/\${sorted[1].name} Hybrid\`;
+        } else {
+          result = sorted[0].name;
+        }
+
+        return {
+          outcomes: outcomes,
+          result: result
+        };
+      }` :
+      `function(outcomes) {
+        // Basic custom scoring template
+        const total = outcomes.reduce((sum, o) => sum + o.score, 0);
+        const normalized = outcomes.map(o => ({
+          ...o,
+          percentage: Math.round((o.score / total) * 100)
+        }));
+
+        return {
+          outcomes: normalized,
+          result: normalized.map(o => \`\${o.name}: \${o.percentage}%\`).join(', ')
+        };
+      }`
     };
 
     // Set up presets based on test type

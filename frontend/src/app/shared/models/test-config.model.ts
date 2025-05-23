@@ -29,10 +29,12 @@ export interface Outcome {
 export interface TestConfig {
   id: string;
   name: string;
-  type: string;
+  description?: string;
+  type?: string; // 'custom', 'big-five', 'mbti', etc.
   scoringType: 'sum' | 'compare' | 'weighted' | 'custom';
-  description: string;
+
   questions: Question[];
   outcomes: Outcome[];
-  customScoring: string;
+  customScoring?: string; // Function as string
+  results?: any[]; // Historical results
 }

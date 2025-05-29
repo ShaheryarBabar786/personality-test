@@ -6,26 +6,26 @@ interface OutcomeResult {
   outcomes: any[];
   result: string;
   detailedResult?: any;
-  resultWithPercentages?: string; // Add this line
+  resultWithPercentages?: string;
 }
 
 @Injectable({
   providedIn: 'root',
 })
 export class ScoringService {
-  private scoringFunctions = new Map<string, (outcomes: any[]) => OutcomeResult>();
+  private scoringFunctions = new Map<string, (outcomes: any[], testConfig: TestConfig) => OutcomeResult>();
 
   constructor(private resultsService: ResultsService) {
     // Register default scoring functions
-    this.registerScoringFunction('sum', (outcomes) => this.calculateSumScore(outcomes));
+    this.registerScoringFunction('sum', (outcomes, testConfig) => this.calculateSumScore(outcomes, testConfig));
     this.registerScoringFunction('compare', (outcomes) => this.calculateCompareScore(outcomes));
     this.registerScoringFunction('weighted', (outcomes) => this.calculateWeightedResult(outcomes));
   }
 
   calculateScore(testConfig: TestConfig, answers: any[]): any {
-    const outcomes = testConfig.outcomes.map(o => ({
+    const outcomes = testConfig.outcomes.map((o) => ({
       ...o,
-      score: 0
+      score: 0,
     }));
 
     testConfig.questions.forEach((question, index) => {
@@ -33,7 +33,7 @@ export class ScoringService {
       if (answer === null || answer === undefined) return;
 
       const score = question.isReversed ? 6 - answer : answer;
-      const outcome = outcomes.find(o => o.id === question.target);
+      const outcome = outcomes.find((o) => o.id === question.target);
       if (outcome) {
         outcome.score += score * (question.weight || 1);
       }
@@ -42,7 +42,7 @@ export class ScoringService {
     let result: OutcomeResult;
     switch (testConfig.scoringType) {
       case 'sum':
-        result = this.calculateSumScore(outcomes);
+        result = this.calculateSumScore(outcomes, testConfig);
         break;
       case 'compare':
         result = this.calculateCompareScore(outcomes);
@@ -70,17 +70,23 @@ export class ScoringService {
     return fullResult;
   }
 
-  private calculateSumScore(outcomes: any[]): OutcomeResult {
+  private calculateSumScore(outcomes: any[], testConfig: TestConfig): OutcomeResult {
+    // First group questions by their target outcome
+    const questionsByOutcome: Record<string, any[]> = {};
+    outcomes.forEach((o) => {
+      questionsByOutcome[o.id] = testConfig.questions.filter((q) => q.target === o.id);
+    });
+
     const outcomesWithPercentages = outcomes.map((o) => {
-      const maxPossible = outcomes
-        .filter(out => out.id === o.id)
-        .reduce((sum, out) => sum + (out.maxPossible || 0), 0);
+      const maxPossible = questionsByOutcome[o.id].reduce((sum, question) => {
+        return sum + 7 * (question.weight || 1);
+      }, 0);
 
       const percentage = maxPossible > 0 ? Math.round((o.score / maxPossible) * 100) : 0;
       return {
         ...o,
         percentage: percentage,
-        maxPossible: maxPossible
+        maxPossible: maxPossible,
       };
     });
 
@@ -90,78 +96,48 @@ export class ScoringService {
     };
   }
 
-  // private calculateCompareScore(outcomes: any[]): OutcomeResult {
-  //   const dichotomies = [
-  //     ['E', 'I'],
-  //     ['S', 'N'],
-  //     ['T', 'F'],
-  //     ['J', 'P'],
-  //   ];
-
-  //   const type = dichotomies.map(([a, b]) => {
-  //     const aScore = outcomes.find(o => o.id === a)?.score || 0;
-  //     const bScore = outcomes.find(o => o.id === b)?.score || 0;
-  //     return aScore > bScore ? a : b;
-  //   }).join('');
-
-  //   const detailedResult = dichotomies.map(([a, b]) => {
-  //     const aOutcome = outcomes.find(o => o.id === a) || { score: 0 };
-  //     const bOutcome = outcomes.find(o => o.id === b) || { score: 0 };
-  //     const total = aOutcome.score + bOutcome.score || 1;
-  //     return {
-  //       dichotomy: `${a}/${b}`,
-  //       [a]: Math.round((aOutcome.score / total) * 100),
-  //       [b]: Math.round((bOutcome.score / total) * 100),
-  //     };
-  //   });
-
-  //   return {
-  //     outcomes,
-  //     result: type,
-  //     detailedResult
-  //   };
-  // }
   private calculateCompareScore(outcomes: any[]): OutcomeResult {
-  const dichotomies = [
-    ['E', 'I'],
-    ['S', 'N'],
-    ['T', 'F'],
-    ['J', 'P']
-  ];
+    const dichotomies = [
+      ['E', 'I'],
+      ['S', 'N'],
+      ['T', 'F'],
+      ['J', 'P'],
+    ];
 
+    const detailedResults = dichotomies.map(([a, b]) => {
+      const aOutcome = outcomes.find((o) => o.id === a) || { score: 0 };
+      const bOutcome = outcomes.find((o) => o.id === b) || { score: 0 };
+      const total = aOutcome.score + bOutcome.score || 1;
 
-  const detailedResults = dichotomies.map(([a, b]) => {
-    const aOutcome = outcomes.find(o => o.id === a) || { score: 0 };
-    const bOutcome = outcomes.find(o => o.id === b) || { score: 0 };
-    const total = aOutcome.score + bOutcome.score || 1;
+      return {
+        dichotomy: `${a}/${b}`,
+        [a]: Math.round((aOutcome.score / total) * 100),
+        [b]: Math.round((bOutcome.score / total) * 100),
+        winner: aOutcome.score > bOutcome.score ? a : b,
+      };
+    });
+
+    const type = detailedResults.map((d) => d.winner).join('');
+
+    const resultWithPercentages = detailedResults
+      .map((d) => {
+        const firstLetter = Object.keys(d)[1];
+        return `${d.dichotomy}: ${d[firstLetter]}%/${d[Object.keys(d)[2]]}%`;
+      })
+      .join('; ');
 
     return {
-      dichotomy: `${a}/${b}`,
-      [a]: Math.round((aOutcome.score / total) * 100),
-      [b]: Math.round((bOutcome.score / total) * 100),
-      winner: aOutcome.score > bOutcome.score ? a : b
+      outcomes,
+      result: type,
+      detailedResult: detailedResults,
+      resultWithPercentages,
     };
-  });
-
-  const type = detailedResults.map(d => d.winner).join('');
-
-  const resultWithPercentages = detailedResults.map(d => {
-    const firstLetter = Object.keys(d)[1];
-    return `${d.dichotomy}: ${d[firstLetter]}%/${d[Object.keys(d)[2]]}%`;
-  }).join('; ');
-
-  return {
-    outcomes,
-    result: type,
-    detailedResult: detailedResults,
-    resultWithPercentages
-  };
-}
+  }
 
   private calculateWeightedResult(outcomes: any[]): OutcomeResult {
-    const normalizedOutcomes = outcomes.map(o => ({
+    const normalizedOutcomes = outcomes.map((o) => ({
       ...o,
-      normalizedScore: o.score
+      normalizedScore: o.score,
     }));
 
     const sorted = [...normalizedOutcomes].sort((a, b) => b.normalizedScore - a.normalizedScore);
@@ -176,17 +152,35 @@ export class ScoringService {
     };
   }
 
+  // private executeCustomScoring(config: TestConfig, outcomes: any[]): OutcomeResult {
+  //   if (!config.customScoring) {
+  //     return { outcomes, result: 'No custom scoring function provided' };
+  //   }
+
+  //   if (this.scoringFunctions.has(config.customScoring)) {
+  //     return this.scoringFunctions.get(config.customScoring)!(outcomes);
+  //   }
+
+  //   try {
+  //     const customFn = new Function('outcomes', `return (${config.customScoring})(outcomes);`);
+  //     return customFn(outcomes);
+  //   } catch (e) {
+  //     console.error('Custom scoring error:', e);
+  //     return { outcomes, result: 'Error in custom scoring' };
+  //   }
+  // }
   private executeCustomScoring(config: TestConfig, outcomes: any[]): OutcomeResult {
     if (!config.customScoring) {
       return { outcomes, result: 'No custom scoring function provided' };
     }
 
-    if (this.scoringFunctions.has(config.customScoring)) {
-      return this.scoringFunctions.get(config.customScoring)!(outcomes);
-    }
-
     try {
-      const customFn = new Function('outcomes', `return (${config.customScoring})(outcomes);`);
+      // Remove the function wrapper if present
+      let customFnStr = config.customScoring.trim();
+      if (customFnStr.startsWith('function')) {
+        customFnStr = `(${customFnStr})`;
+      }
+      const customFn = new Function(`return ${customFnStr}`)();
       return customFn(outcomes);
     } catch (e) {
       console.error('Custom scoring error:', e);
@@ -194,7 +188,7 @@ export class ScoringService {
     }
   }
 
-  registerScoringFunction(name: string, fn: (outcomes: any[]) => OutcomeResult) {
+  registerScoringFunction(name: string, fn: (outcomes: any[], testConfig?: TestConfig) => OutcomeResult) {
     this.scoringFunctions.set(name, fn);
   }
 

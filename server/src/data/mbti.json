@@ -209,6 +209,12 @@
       "testId": "mbti",
       "testName": "MBTI test",
       "finalResult": "ENFP (E/I: 83%/17%; S/N: 50%/50%; T/F: 50%/50%; J/P: 50%/50%)"
+    },
+    {
+      "timestamp": "2025-05-29T14:39:17.633Z",
+      "testId": "mbti",
+      "testName": "MBTI test",
+      "finalResult": "ISFP (E/I: 40%/60%; S/N: 57%/43%; T/F: 50%/50%; J/P: 25%/75%)"
     }
   ]
 }

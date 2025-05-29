@@ -120,11 +120,11 @@
         </small>
       </div>
 
-
-<div class="form-group" *ngIf="selectedTest.scoringType === 'custom'">
-  <label>{{ 'ADMIN.TEST_EDITOR.CUSTOM_SCORING' | translate }}</label>
-  <textarea [(ngModel)]="selectedTest.customScoring"
-            placeholder="function(outcomes) {
+      <div class="form-group" *ngIf="selectedTest.scoringType === 'custom'">
+        <label>{{ 'ADMIN.TEST_EDITOR.CUSTOM_SCORING' | translate }}</label>
+        <textarea
+          [(ngModel)]="selectedTest.customScoring"
+          placeholder="function(outcomes) {
   // Your custom scoring logic here
   // Must return { outcomes: Outcome[], result: string }
   const total = outcomes.reduce((sum, o) => sum + o.score, 0);
@@ -137,9 +137,11 @@
     outcomes: normalized,
     result: normalized.map(o => `${o.name}: ${o.percentage}%`).join(', ')
   };
-}"></textarea>
-  <small>{{ 'ADMIN.TEST_EDITOR.CUSTOM_SCORING_NOTE' | translate }}</small>
-</div>
+}"
+          rows="10"
+        ></textarea>
+        <small>{{ 'ADMIN.TEST_EDITOR.CUSTOM_SCORING_NOTE' | translate }}</small>
+      </div>
 
       <!-- Outcomes Section -->
       <div class="outcomes-section">

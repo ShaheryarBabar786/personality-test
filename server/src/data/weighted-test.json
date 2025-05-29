@@ -133,6 +133,11 @@
     }
   ],
   "results": [
-    
+    {
+      "timestamp": "2025-05-29T14:39:37.683Z",
+      "testId": "weighted-test",
+      "testName": "EI Test",
+      "finalResult": "Self-Control (9)"
+    }
   ]
 }

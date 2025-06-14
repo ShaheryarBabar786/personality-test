@@ -20,6 +20,7 @@ export class ScoringService {
     this.registerScoringFunction('sum', (outcomes, testConfig) => this.calculateSumScore(outcomes, testConfig));
     this.registerScoringFunction('compare', (outcomes) => this.calculateCompareScore(outcomes));
     this.registerScoringFunction('weighted', (outcomes) => this.calculateWeightedResult(outcomes));
+    this.registerScoringFunction('workplace-scoring', (outcomes) => this.workplaceScoring(outcomes));
   }
 
   calculateScore(testConfig: TestConfig, answers: any[]): any {
@@ -93,6 +94,7 @@ export class ScoringService {
     return {
       outcomes: outcomesWithPercentages,
       result: outcomesWithPercentages.map((o) => `${o.name}: ${o.score}/${o.maxPossible} (${o.percentage}%)`).join(', '),
+      resultWithPercentages: outcomesWithPercentages.map((o) => `${o.name}: ${o.percentage}%`).join(', '),
     };
   }
 
@@ -135,9 +137,10 @@ export class ScoringService {
   }
 
   private calculateWeightedResult(outcomes: any[]): OutcomeResult {
+    const total = outcomes.reduce((sum, o) => sum + o.score, 0) || 1;
     const normalizedOutcomes = outcomes.map((o) => ({
       ...o,
-      normalizedScore: o.score,
+      normalizedScore: Math.round((o.score / total) * 100),
     }));
 
     const sorted = [...normalizedOutcomes].sort((a, b) => b.normalizedScore - a.normalizedScore);
@@ -151,36 +154,40 @@ export class ScoringService {
       })),
     };
   }
+  private workplaceScoring(outcomes: any[]): OutcomeResult {
+    const maxScore = 20 * 5; // Assuming 20 questions max
+    const threshold = 0.7 * maxScore;
 
-  // private executeCustomScoring(config: TestConfig, outcomes: any[]): OutcomeResult {
-  //   if (!config.customScoring) {
-  //     return { outcomes, result: 'No custom scoring function provided' };
-  //   }
+    outcomes.forEach((o) => (o.score = Math.round((o.score / maxScore) * 100)));
 
-  //   if (this.scoringFunctions.has(config.customScoring)) {
-  //     return this.scoringFunctions.get(config.customScoring)!(outcomes);
-  //   }
+    const sorted = [...outcomes].sort((a, b) => b.score - a.score);
+    let result;
 
-  //   try {
-  //     const customFn = new Function('outcomes', `return (${config.customScoring})(outcomes);`);
-  //     return customFn(outcomes);
-  //   } catch (e) {
-  //     console.error('Custom scoring error:', e);
-  //     return { outcomes, result: 'Error in custom scoring' };
-  //   }
-  // }
+    if (sorted[0].score >= threshold) {
+      result = sorted[0].name;
+    } else if (sorted[0].score - sorted[1].score <= 10) {
+      result = `${sorted[0].name}/${sorted[1].name} Hybrid`;
+    } else {
+      result = sorted[0].name;
+    }
+
+    return {
+      outcomes: outcomes,
+      result: result,
+      detailedResult: sorted,
+    };
+  }
+
   private executeCustomScoring(config: TestConfig, outcomes: any[]): OutcomeResult {
     if (!config.customScoring) {
       return { outcomes, result: 'No custom scoring function provided' };
     }
+    if (this.scoringFunctions.has(config.customScoring)) {
+      return this.scoringFunctions.get(config.customScoring)(outcomes, config);
+    }
 
     try {
-      // Remove the function wrapper if present
-      let customFnStr = config.customScoring.trim();
-      if (customFnStr.startsWith('function')) {
-        customFnStr = `(${customFnStr})`;
-      }
-      const customFn = new Function(`return ${customFnStr}`)();
+      const customFn = new Function(`return ${config.customScoring}`)();
       return customFn(outcomes);
     } catch (e) {
       console.error('Custom scoring error:', e);

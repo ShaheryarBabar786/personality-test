@@ -306,42 +306,7 @@ export class AdminComponent {
       description: this.newTestDescription,
       questions: [],
       outcomes: [],
-       customScoring: this.newTestType === 'workplace' ?
-      `function(outcomes) {
-        const maxScore = 20 * 5;
-        const threshold = 0.7 * maxScore;
-
-        outcomes.forEach(o => o.score = Math.round((o.score / maxScore) * 100));
-
-        const sorted = outcomes.sort((a, b) => b.score - a.score);
-        let result;
-
-        if (sorted[0].score >= threshold) {
-          result = sorted[0].name;
-        } else if (sorted[0].score - sorted[1].score <= 10) {
-          result = \`\${sorted[0].name}/\${sorted[1].name} Hybrid\`;
-        } else {
-          result = sorted[0].name;
-        }
-
-        return {
-          outcomes: outcomes,
-          result: result
-        };
-      }` :
-      `function(outcomes) {
-        // Basic custom scoring template
-        const total = outcomes.reduce((sum, o) => sum + o.score, 0);
-        const normalized = outcomes.map(o => ({
-          ...o,
-          percentage: Math.round((o.score / total) * 100)
-        }));
-
-        return {
-          outcomes: normalized,
-          result: normalized.map(o => \`\${o.name}: \${o.percentage}%\`).join(', ')
-        };
-      }`
+      customScoring: this.getDefaultCustomScoring(this.newTestType),
     };
 
     // Set up presets based on test type
@@ -431,14 +396,7 @@ export class AdminComponent {
 
       case 'workplace':
         baseTest.scoringType = 'custom';
-        baseTest.customScoring = `function(outcomes) {
-        // Custom workplace test scoring logic
-        const result = outcomes.sort((a, b) => b.score - a.score)[0];
-        return {
-          outcomes: outcomes,
-          result: \`Best fit: \${result.name} (\${result.score}%)\`
-        };
-      }`;
+        baseTest.customScoring = 'workplace-scoring';
         baseTest.outcomes = [
           this.createPresetOutcome('leader', 'Leader', 'Takes charge and directs others'),
           this.createPresetOutcome('collaborator', 'Collaborator', 'Works well in teams'),
@@ -448,7 +406,7 @@ export class AdminComponent {
         this.isCustomTest = true;
         break;
 
-      default: // Custom test
+      default:
         baseTest.scoringType = 'sum';
         this.isCustomTest = true;
     }
@@ -456,6 +414,47 @@ export class AdminComponent {
     this.selectedTest = baseTest;
     this.selectedTestId = baseTest.id;
     this.showCreationModal = false;
+  }
+
+  private getDefaultCustomScoring(testType: string): string {
+    switch (testType) {
+      case 'workplace':
+        return `function(outcomes) {
+        const maxScore = 20 * 5;
+        const threshold = 0.7 * maxScore;
+
+        outcomes.forEach(o => o.score = Math.round((o.score / maxScore) * 100));
+
+        const sorted = outcomes.sort((a, b) => b.score - a.score);
+        let result;
+
+        if (sorted[0].score >= threshold) {
+          result = sorted[0].name;
+        } else if (sorted[0].score - sorted[1].score <= 10) {
+          result = \`\${sorted[0].name}/\${sorted[1].name} Hybrid\`;
+        } else {
+          result = sorted[0].name;
+        }
+
+        return {
+          outcomes: outcomes,
+          result: result
+        };
+      }`;
+      default:
+        return `function(outcomes) {
+        const total = outcomes.reduce((sum, o) => sum + o.score, 0);
+        const normalized = outcomes.map(o => ({
+          ...o,
+          percentage: Math.round((o.score / total) * 100)
+        }));
+
+        return {
+          outcomes: normalized,
+          result: normalized.map(o => \`\${o.name}: \${o.percentage}%\`).join(', ')
+        };
+      }`;
+    }
   }
 
   createPresetOutcome(id: string, name: string, description: string): Outcome {

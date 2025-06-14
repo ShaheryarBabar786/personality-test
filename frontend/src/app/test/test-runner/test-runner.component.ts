@@ -86,20 +86,20 @@ export class TestRunnerComponent implements OnInit, AfterViewInit {
   //   }
   // }
 
-selectOption(questionIndex: number, optionValue: number) {
-  const currentValue = this.answers.at(questionIndex).value;
+  selectOption(questionIndex: number, optionValue: number) {
+    const currentValue = this.answers.at(questionIndex).value;
 
-  if (currentValue === optionValue) {
-    this.answers.at(questionIndex).setValue(null);
-  } else {
-    this.answers.at(questionIndex).setValue(optionValue);
-  }
+    if (currentValue === optionValue) {
+      this.answers.at(questionIndex).setValue(null);
+    } else {
+      this.answers.at(questionIndex).setValue(optionValue);
+    }
 
-  if (questionIndex < this.testConfig!.questions.length - 1) {
-    this.currentQuestionIndex = questionIndex + 1;
-    this.scrollToQuestion();
+    if (questionIndex < this.testConfig!.questions.length - 1) {
+      this.currentQuestionIndex = questionIndex + 1;
+      this.scrollToQuestion();
+    }
   }
-}
 
   get answers(): FormArray {
     return this.testForm.get('answers') as FormArray;
@@ -194,39 +194,6 @@ selectOption(questionIndex: number, optionValue: number) {
     });
   }
 
-  // submitTest() {
-  //   if (!this.testConfig) {
-  //     console.error('Test config not loaded or form incomplete');
-  //     return;
-  //   }
-
-  //   const answers = this.answers.value.map((val: number | null) => val ?? 3);
-
-  //   const calculatedResults = this.scoringService.calculateScore(this.testConfig, answers);
-  //   const resultPayload = {
-  //     testId: this.testConfig.id,
-  //     testName: this.testConfig.name,
-  //     timestamp: new Date().toISOString(),
-  //     finalResult: calculatedResults.result,
-  //   };
-
-  //   this.testConfigService.storeTestResults(resultPayload).subscribe({
-  //     next: () => {
-  //       console.log('Results saved successfully');
-  //       this.closeModal();
-  //       this.router.navigate(['/'], {
-  //         state: { testResults: resultPayload },
-  //       });
-  //     },
-  //     error: (err) => {
-  //       console.error('Failed to save results:', err);
-  //       this.closeModal();
-  //       this.router.navigate(['/'], {
-  //         state: { testResults: resultPayload },
-  //       });
-  //     },
-  //   });
-  // }
   submitTest() {
     if (!this.testConfig) {
       console.error('Test config not loaded or form incomplete');
@@ -237,20 +204,19 @@ selectOption(questionIndex: number, optionValue: number) {
 
     const calculatedResults = this.scoringService.calculateScore(this.testConfig, answers);
 
-
-  if (this.testConfig.scoringType === 'compare' && calculatedResults.resultWithPercentages) {
-    calculatedResults.result = `${calculatedResults.result} (${calculatedResults.resultWithPercentages})`;
-  }
+    let finalResult = calculatedResults.result;
+    if (this.testConfig.scoringType === 'compare' && calculatedResults.resultWithPercentages) {
+      finalResult = `${calculatedResults.result} (${calculatedResults.resultWithPercentages})`;
+    }
 
     const resultPayload = {
       testId: this.testConfig.id,
       testName: this.testConfig.name,
       timestamp: new Date().toISOString(),
       finalResult: calculatedResults.result,
-      detailedResults: calculatedResults.detailedResult
+      detailedResults: calculatedResults.detailedResult,
     };
 
-    // Set the current test ID before storing results
     this.testConfigService.setCurrentTestId(this.testConfig.id);
 
     this.testConfigService.storeTestResults(resultPayload).subscribe({

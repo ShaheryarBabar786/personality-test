@@ -81,7 +81,7 @@
     opacity 0.3s ease,
     transform 0.3s ease;
 }
-
+/* active styling */
 .question-card.active {
   opacity: 1;
   transform: scale(1.02);

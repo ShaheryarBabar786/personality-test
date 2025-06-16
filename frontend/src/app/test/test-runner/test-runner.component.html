@@ -12,46 +12,44 @@
   </div>
   <div class="scrollable-content">
     <form [formGroup]="testForm">
-    <div class="questions-container">
-      <div *ngFor="let question of testConfig?.questions; let i = index" class="question-card" [class.active]="i === currentQuestionIndex" id="question-{{ i }}">
-        <div class="question-text">
-          <p *ngFor="let line of question.text.split('\n')">{{ line }}</p>
-        </div>
+      <div class="questions-container">
+        <div *ngFor="let question of testConfig?.questions; let i = index" class="question-card" [class.active]="i === currentQuestionIndex" id="question-{{ i }}">
+          <div class="question-text">
+            <p *ngFor="let line of question.text.split('\n')">{{ line }}</p>
+          </div>
 
-        <div class="options-container">
-          <div class="options-row">
-            <div class="label-container">
-              <span class="option-label" [class.highlight]="shouldHighlightDisagree(i)">{{ 'TEST.OPTIONS.DISAGREE' | translate }}</span>
-            </div>
+          <div class="options-container">
+            <div class="options-row">
+              <div class="label-container">
+                <span class="option-label" [class.highlight]="shouldHighlightDisagree(i)">{{ 'TEST.OPTIONS.DISAGREE' | translate }}</span>
+              </div>
 
-            <div class="radio-pyramid">
-              <div
-                *ngFor="let option of [1, 2, 3, 4, 5, 6, 7]"
-                class="radio-option"
-                [class.size-1]="option === 1 || option === 7"
-                [class.size-2]="option === 2 || option === 6"
-                [class.size-3]="option === 3 || option === 5"
-                [class.size-4]="option === 4"
-              >
-                <lib-radio-button [radioButtonState]="answers.at(i).value === option" (click)="selectOption(i, option)"> </lib-radio-button>
+              <div class="radio-pyramid">
+                <div
+                  *ngFor="let option of [1, 2, 3, 4, 5, 6, 7]"
+                  class="radio-option"
+                  [class.size-1]="option === 1 || option === 7"
+                  [class.size-2]="option === 2 || option === 6"
+                  [class.size-3]="option === 3 || option === 5"
+                  [class.size-4]="option === 4"
+                >
+                  <lib-radio-button [radioButtonState]="answers.at(i).value === option" (click)="selectOption(i, option)"> </lib-radio-button>
+                </div>
+              </div>
+
+              <div class="label-container">
+                <span class="option-label" [class.highlight]="shouldHighlightAgree(i)">{{ 'TEST.OPTIONS.AGREE' | translate }}</span>
               </div>
             </div>
-
-            <div class="label-container">
-              <span class="option-label" [class.highlight]="shouldHighlightAgree(i)">{{ 'TEST.OPTIONS.AGREE' | translate }}</span>
-            </div>
           </div>
+
+          <lib-section-separator *ngIf="i < testConfig.questions.length - 1"></lib-section-separator>
         </div>
-
-        <lib-section-separator *ngIf="i < testConfig.questions.length - 1"></lib-section-separator>
       </div>
-    </div>
 
-    <div class="navigation-buttons">
-      <lib-primary-btn (click)="submitTest()">{{ 'TEST.SUBMIT' | translate }}</lib-primary-btn>
-    </div>
-  </form>
+      <div class="navigation-buttons">
+        <lib-primary-btn (click)="submitTest()">{{ 'TEST.SUBMIT' | translate }}</lib-primary-btn>
+      </div>
+    </form>
   </div>
-
-
 </div>

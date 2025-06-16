@@ -77,15 +77,6 @@ export class TestRunnerComponent implements OnInit, AfterViewInit {
     });
   }
 
-  // selectOption(questionIndex: number, optionValue: number) {
-  //   this.answers.at(questionIndex).setValue(optionValue);
-
-  //   if (questionIndex < this.testConfig!.questions.length - 1) {
-  //     this.currentQuestionIndex = questionIndex + 1;
-  //     this.scrollToQuestion();
-  //   }
-  // }
-
   selectOption(questionIndex: number, optionValue: number) {
     const currentValue = this.answers.at(questionIndex).value;
 
@@ -93,11 +84,11 @@ export class TestRunnerComponent implements OnInit, AfterViewInit {
       this.answers.at(questionIndex).setValue(null);
     } else {
       this.answers.at(questionIndex).setValue(optionValue);
-    }
 
-    if (questionIndex < this.testConfig!.questions.length - 1) {
-      this.currentQuestionIndex = questionIndex + 1;
-      this.scrollToQuestion();
+      if (questionIndex < this.testConfig!.questions.length - 1) {
+        this.currentQuestionIndex = questionIndex + 1;
+        this.scrollToQuestion();
+      }
     }
   }
 
@@ -130,13 +121,24 @@ export class TestRunnerComponent implements OnInit, AfterViewInit {
   scrollToQuestion() {
     setTimeout(() => {
       const element = document.getElementById(`question-${this.currentQuestionIndex}`);
-      if (element) {
-        element.scrollIntoView({
-          behavior: 'smooth',
-          block: 'center',
-          inline: 'nearest',
-        });
+      if (!element) return;
+
+      const container = this.topContainer.nativeElement.querySelector('.scrollable-content');
+      const elementRect = element.getBoundingClientRect();
+      const containerRect = container.getBoundingClientRect();
+
+      let scrollPosition = elementRect.top - containerRect.top + container.scrollTop;
+
+      if (this.currentQuestionIndex === 0) {
+        scrollPosition -= 30;
+      } else if (this.currentQuestionIndex === this.testConfig!.questions.length - 1) {
+        scrollPosition += 0;
       }
+
+      container.scrollTo({
+        top: scrollPosition,
+        behavior: 'smooth',
+      });
     }, 50);
   }
 

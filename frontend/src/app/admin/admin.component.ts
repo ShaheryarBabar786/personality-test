@@ -18,6 +18,7 @@ export class AdminComponent {
   testList: TestConfig[] = [];
   selectedTest: TestConfig | null = null;
   selectedTestId: string | null = null;
+  latestTestResult: string = '';
 
   // Question editing
   editingQuestionIndex: number | null = null;
@@ -71,8 +72,35 @@ export class AdminComponent {
   loadAllTestResults(testId?: string): void {
     this.testConfigService.getAllTestResults().subscribe({
       next: (allResults) => {
-        const filteredResults = testId ? allResults.filter((test) => test.id === testId) : allResults;
-        this.formatResults(filteredResults);
+        let allTestResults: any[] = [];
+
+        allResults.forEach((testConfig) => {
+          if (testConfig.results) {
+            testConfig.results.forEach((result) => {
+              allTestResults.push({
+                testConfig,
+                result,
+              });
+            });
+          }
+        });
+
+        if (testId) {
+          allTestResults = allTestResults.filter((item) => item.testConfig.id === testId);
+        }
+
+        // Find the single most recent result
+        if (allTestResults.length > 0) {
+          const mostRecent = allTestResults.reduce((latest, current) => {
+            const latestTime = new Date(latest.result.timestamp).getTime();
+            const currentTime = new Date(current.result.timestamp).getTime();
+            return currentTime > latestTime ? current : latest;
+          });
+
+          this.formatLatestResult(mostRecent.testConfig, mostRecent.result);
+        } else {
+          this.testData = 'No test results available yet';
+        }
       },
       error: (err) => {
         console.error('Error loading test results:', err);
@@ -81,21 +109,17 @@ export class AdminComponent {
     });
   }
 
-  formatResults(allResults: any[]): void {
-    let formattedResults = '';
+  private formatLatestResult(testConfig: any, result: any): void {
+    const dateOnly = result.timestamp.split('T')[0];
+    let formattedResult = `Test Name: ${testConfig.name}\n`;
+    formattedResult += `Test Date: ${dateOnly}\n`;
+    formattedResult += `Test Result: ${result.finalResult}\n`;
 
-    allResults.forEach((testConfig) => {
-      if (testConfig.results && testConfig.results.length > 0) {
-        const latestResult = [...testConfig.results].sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime())[0];
-        const dateOnly = latestResult.timestamp.split('T')[0];
-        formattedResults += `Test Name: ${testConfig.name}\n`;
-        formattedResults += `Test Date: ${dateOnly}\n`;
-        formattedResults += `Test Result: ${latestResult.finalResult}\n`;
-        formattedResults += '---------------------------------\n';
-      }
-    });
+    if (result.resultWithPercentages) {
+      formattedResult += `Percentages: ${result.resultWithPercentages}\n`;
+    }
 
-    this.testData = formattedResults || 'No test results available yet';
+    this.testData = formattedResult;
   }
 
   // Test selection and editing
@@ -481,6 +505,6 @@ export class AdminComponent {
   }
 
   refreshResults() {
-    this.loadAllTestResults();
+    this.loadAllTestResults(this.selectedTestId || undefined);
   }
 }

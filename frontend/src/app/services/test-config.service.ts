@@ -27,8 +27,21 @@ export class TestConfigService {
       }),
     );
   }
-  storeTestResults(results: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/results`, results);
+  // storeTestResults(results: any): Observable<any> {
+  //   return this.http.post(`${this.apiUrl}/results`, results);
+  // }
+  storeTestResults(results: { testId: string; testName: string; timestamp: string; finalResult: string; detailedResults?: any; resultWithPercentages?: string }): Observable<any> {
+    // Ensure we're only sending the required fields
+    const payload = {
+      testId: results.testId,
+      testName: results.testName,
+      timestamp: results.timestamp,
+      finalResult: results.finalResult,
+      ...(results.detailedResults && { detailedResults: results.detailedResults }),
+      ...(results.resultWithPercentages && { resultWithPercentages: results.resultWithPercentages }),
+    };
+
+    return this.http.post(`${this.apiUrl}/results`, payload);
   }
 
   createTestConfig(test: TestConfig): Observable<any> {

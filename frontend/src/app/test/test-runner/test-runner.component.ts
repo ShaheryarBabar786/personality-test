@@ -203,38 +203,26 @@ export class TestRunnerComponent implements OnInit, AfterViewInit {
     }
 
     const answers = this.answers.value.map((val: number | null) => val ?? 3);
-
     const calculatedResults = this.scoringService.calculateScore(this.testConfig, answers);
 
-    let finalResult = calculatedResults.result;
-    if (this.testConfig.scoringType === 'compare' && calculatedResults.resultWithPercentages) {
-      finalResult = `${calculatedResults.result} (${calculatedResults.resultWithPercentages})`;
-    }
-
+    // Ensure required fields are populated
     const resultPayload = {
       testId: this.testConfig.id,
       testName: this.testConfig.name,
       timestamp: new Date().toISOString(),
-      finalResult: calculatedResults.result,
+      finalResult: calculatedResults.finalResult, // Fallback if undefined
       detailedResults: calculatedResults.detailedResult,
+      resultWithPercentages: calculatedResults.resultWithPercentages,
     };
-
-    this.testConfigService.setCurrentTestId(this.testConfig.id);
 
     this.testConfigService.storeTestResults(resultPayload).subscribe({
       next: () => {
-        console.log('Results saved successfully');
         this.closeModal();
-        this.router.navigate(['/'], {
-          state: { testResults: resultPayload },
-        });
+        this.router.navigate(['/'], { state: { testResults: resultPayload } });
       },
       error: (err) => {
-        console.error('Failed to save results:', err);
-        this.closeModal();
-        this.router.navigate(['/'], {
-          state: { testResults: resultPayload },
-        });
+        console.error('Failed to save results:', err, 'Payload:', resultPayload);
+        // Optionally show a user-friendly error message
       },
     });
   }

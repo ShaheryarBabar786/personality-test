@@ -30,16 +30,6 @@
   ],
   "outcomes": [
     {
-      "id": "openness",
-      "name": "Openness",
-      "description": "Openness to experience",
-      "translations": {
-        "English": "Openness",
-        "French": "",
-        "Spanish": ""
-      }
-    },
-    {
       "id": "conscientiousness",
       "name": "Conscientiousness",
       "description": "Self-discipline and organization",
@@ -75,6 +65,15 @@
       "description": "Emotional instability",
       "translations": {
         "English": "Neuroticism",
+        "French": "",
+        "Spanish": ""
+      }
+    },
+    {
+      "id": "New outcome",
+      "name": "outcome",
+      "description": "description",
+      "translations": {
         "French": "",
         "Spanish": ""
       }
@@ -117,6 +116,24 @@
       "testId": "big-five-1749945138316",
       "testName": "Big Five Personality Test",
       "finalResult": "Openness: -1/7 (-14%), Conscientiousness: -1/7 (-14%), Extraversion: 0/0 (0%), Agreeableness: 0/0 (0%), Neuroticism: 0/0 (0%)"
+    },
+    {
+      "timestamp": "2025-06-20T20:35:31.103Z",
+      "testId": "big-five-1749945138316",
+      "testName": "Big Five Personality Test",
+      "finalResult": "Conscientiousness: -1/7 (-14%), Extraversion: 0/0 (0%), Agreeableness: 0/0 (0%), Neuroticism: 0/0 (0%), outcome: 0/0 (0%)"
+    },
+    {
+      "timestamp": "2025-07-12T01:14:56.517Z",
+      "testId": "big-five-1749945138316",
+      "testName": "Big Five Personality Test",
+      "finalResult": "Conscientiousness: 20%, Extraversion: 0%, Agreeableness: 0%, Neuroticism: 0%, outcome: 0%"
+    },
+    {
+      "timestamp": "2025-07-12T01:21:41.118Z",
+      "testId": "big-five-1749945138316",
+      "testName": "Big Five Personality Test",
+      "finalResult": "Conscientiousness: -20%, Extraversion: 0%, Agreeableness: 0%, Neuroticism: 0%, outcome: 0%"
     }
   ]
 }

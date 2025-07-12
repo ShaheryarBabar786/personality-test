@@ -1,0 +1,96 @@
+{
+  "id": "big-five-1752283236918",
+  "name": "Big Five Personality Test",
+  "type": "big-five",
+  "scoringType": "sum",
+  "description": "weios",
+  "questions": [
+    {
+      "id": "q1752283211376",
+      "text": "dilchows",
+      "target": "extraversion",
+      "isReversed": true,
+      "weight": 1,
+      "translations": {
+        "french": "d;o",
+        "spanish": "cdslk"
+      }
+    }
+  ],
+  "outcomes": [
+    {
+      "id": "openness",
+      "name": "Openness",
+      "description": "Openness to experience",
+      "translations": {
+        "English": "Openness",
+        "French": "",
+        "Spanish": ""
+      }
+    },
+    {
+      "id": "conscientiousness",
+      "name": "Conscientiousness",
+      "description": "Self-discipline and organization",
+      "translations": {
+        "English": "Conscientiousness",
+        "French": "",
+        "Spanish": ""
+      }
+    },
+    {
+      "id": "extraversion",
+      "name": "Extraversion",
+      "description": "Sociability and talkativeness",
+      "translations": {
+        "English": "Extraversion",
+        "French": "",
+        "Spanish": ""
+      }
+    },
+    {
+      "id": "agreeableness",
+      "name": "Agreeableness",
+      "description": "Compassion and cooperativeness",
+      "translations": {
+        "English": "Agreeableness",
+        "French": "",
+        "Spanish": ""
+      }
+    },
+    {
+      "id": "neuroticism",
+      "name": "Neuroticism",
+      "description": "Emotional instability",
+      "translations": {
+        "English": "Neuroticism",
+        "French": "",
+        "Spanish": ""
+      }
+    },
+    {
+      "id": "opennedd",
+      "name": "extraveruo",
+      "description": "",
+      "translations": {
+        "french": "",
+        "spanish": ""
+      }
+    }
+  ],
+  "customScoring": "function(outcomes) {\n        const total = outcomes.reduce((sum, o) => sum + o.score, 0);\n        const normalized = outcomes.map(o => ({\n          ...o,\n          percentage: Math.round((o.score / total) * 100)\n        }));\n\n        return {\n          outcomes: normalized,\n          result: normalized.map(o => `${o.name}: ${o.percentage}%`).join(', ')\n        };\n      }",
+  "results": [
+    {
+      "timestamp": "2025-07-12T01:21:50.438Z",
+      "testId": "big-five-1752283236918",
+      "testName": "Big Five Personality Test",
+      "finalResult": "Openness: 0%, Conscientiousness: 0%, Extraversion: 60%, Agreeableness: 0%, Neuroticism: 0%, extraveruo: 0%"
+    },
+    {
+      "timestamp": "2025-07-12T01:21:59.514Z",
+      "testId": "big-five-1752283236918",
+      "testName": "Big Five Personality Test",
+      "finalResult": "Openness: 0%, Conscientiousness: 0%, Extraversion: -20%, Agreeableness: 0%, Neuroticism: 0%, extraveruo: 0%"
+    }
+  ]
+}

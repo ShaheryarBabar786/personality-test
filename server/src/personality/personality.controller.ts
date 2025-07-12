@@ -54,7 +54,11 @@ async storeResults(@Body() body: {
   finalResult: string
 }) {
   if (!body.testId || !body.testName || !body.timestamp || !body.finalResult) {
-    throw new BadRequestException('Missing required fields');
+    throw new BadRequestException({
+      message: 'Missing required fields',
+      required: ['testId', 'testName', 'timestamp', 'finalResult'],
+      received: Object.keys(body)
+    });
   }
   return this.personalityService.storeTestResults(body);
 }

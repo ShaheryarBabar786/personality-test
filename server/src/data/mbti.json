@@ -193,40 +193,91 @@
   "customScoring": "",
   "results": [
     {
-      "timestamp": "2025-05-23T04:36:46.398Z",
+      "timestamp": "2025-07-12T00:16:30.250Z",
       "testId": "mbti",
       "testName": "MBTI test",
-      "finalResult": "INFP (E/I: 45%/55%; S/N: 47%/53%; T/F: 14%/86%; J/P: 30%/70%)"
+      "finalResult": "undefined (E/I: 40%/60%; S/N: 83%/17%; T/F: 50%/50%; J/P: 100%/0%)",
+      "resultWithPercentages": "E/I: 40%/60%; S/N: 83%/17%; T/F: 50%/50%; J/P: 100%/0%"
     },
     {
-      "timestamp": "2025-05-23T04:52:30.678Z",
+      "timestamp": "2025-07-12T00:26:45.820Z",
       "testId": "mbti",
       "testName": "MBTI test",
-      "finalResult": "INFP (E/I: 33%/67%; S/N: 32%/68%; T/F: 30%/70%; J/P: 25%/75%)"
+      "finalResult": "undefined (E/I: 50%/50%; S/N: 50%/50%; T/F: 25%/75%; J/P: 0%/100%)",
+      "resultWithPercentages": "E/I: 50%/50%; S/N: 50%/50%; T/F: 25%/75%; J/P: 0%/100%"
     },
     {
-      "timestamp": "2025-05-23T04:53:07.881Z",
+      "timestamp": "2025-07-12T00:30:02.895Z",
       "testId": "mbti",
       "testName": "MBTI test",
-      "finalResult": "ENFP (E/I: 83%/17%; S/N: 50%/50%; T/F: 50%/50%; J/P: 50%/50%)"
+      "finalResult": "Unknown (E/I: 0%/100%; S/N: 75%/25%; T/F: 0%/100%; J/P: 0%/100%)",
+      "resultWithPercentages": "E/I: 0%/100%; S/N: 75%/25%; T/F: 0%/100%; J/P: 0%/100%"
     },
     {
-      "timestamp": "2025-05-29T14:39:17.633Z",
+      "timestamp": "2025-07-12T00:44:16.720Z",
       "testId": "mbti",
       "testName": "MBTI test",
-      "finalResult": "ISFP (E/I: 40%/60%; S/N: 57%/43%; T/F: 50%/50%; J/P: 25%/75%)"
+      "finalResult": "Unknown"
     },
     {
-      "timestamp": "2025-06-14T23:54:19.270Z",
+      "timestamp": "2025-07-12T00:47:42.399Z",
       "testId": "mbti",
       "testName": "MBTI test",
-      "finalResult": "INFP"
+      "finalResult": "Unknown"
     },
     {
-      "timestamp": "2025-06-16T20:57:15.911Z",
+      "timestamp": "2025-07-12T00:52:05.530Z",
       "testId": "mbti",
       "testName": "MBTI test",
-      "finalResult": "INFP"
+      "finalResult": "Unknown"
+    },
+    {
+      "timestamp": "2025-07-12T00:53:41.579Z",
+      "testId": "mbti",
+      "testName": "MBTI test",
+      "finalResult": "INTJ"
+    },
+    {
+      "timestamp": "2025-07-12T00:57:19.885Z",
+      "testId": "mbti",
+      "testName": "MBTI test",
+      "finalResult": "INFP",
+      "resultWithPercentages": "E/I: 50%/50%; S/N: 33%/67%; T/F: 50%/50%; J/P: 0%/100%"
+    },
+    {
+      "timestamp": "2025-07-12T01:00:00.855Z",
+      "testId": "mbti",
+      "testName": "MBTI test",
+      "finalResult": "ESTJ",
+      "resultWithPercentages": "E/I: 67%/33%; S/N: 100%/0%; T/F: 60%/40%; J/P: 100%/0%"
+    },
+    {
+      "timestamp": "2025-07-12T01:05:25.086Z",
+      "testId": "mbti",
+      "testName": "MBTI test",
+      "finalResult": "ISFP",
+      "resultWithPercentages": "E/I: 0%/100%; S/N: 70%/30%; T/F: 0%/100%; J/P: 50%/50%"
+    },
+    {
+      "timestamp": "2025-07-12T01:14:02.534Z",
+      "testId": "mbti",
+      "testName": "MBTI test",
+      "finalResult": "INFJ",
+      "resultWithPercentages": "E/I: 0%/100%; S/N: 33%/67%; T/F: 0%/100%; J/P: 100%/0%"
+    },
+    {
+      "timestamp": "2025-07-12T01:19:46.785Z",
+      "testId": "mbti",
+      "testName": "MBTI test",
+      "finalResult": "ISFP",
+      "resultWithPercentages": "E/I: 33%/67%; S/N: 75%/25%; T/F: 50%/50%; J/P: 50%/50%"
+    },
+    {
+      "timestamp": "2025-07-12T01:29:25.778Z",
+      "testId": "mbti",
+      "testName": "MBTI test",
+      "finalResult": "ENFJ",
+      "resultWithPercentages": "E/I: 100%/0%; S/N: 0%/100%; T/F: 33%/67%; J/P: 67%/33%"
     }
   ]
 }

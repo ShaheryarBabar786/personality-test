@@ -123,6 +123,7 @@ export class PersonalityService {
     testName: string,
     timestamp: string,
     finalResult: string
+    resultWithPercentages?: string
   }) {
     const testId = resultData.testId;
     const filePath = path.join(this.dataDir, `${testId}.json`);
@@ -138,7 +139,8 @@ export class PersonalityService {
         timestamp: resultData.timestamp,
         testId: resultData.testId,
         testName: resultData.testName,
-        finalResult: resultData.finalResult
+        finalResult: resultData.finalResult,
+        resultWithPercentages: resultData.resultWithPercentages
       });
      
       fs.writeFileSync(filePath, JSON.stringify(testConfig, null, 2));

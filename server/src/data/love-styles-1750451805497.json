@@ -1,0 +1,110 @@
+{
+  "id": "love-styles-1750451805497",
+  "name": "7 Love Styles Test",
+  "type": "love-styles",
+  "scoringType": "weighted",
+  "description": "new description",
+  "questions": [
+    {
+      "id": "q1750451785474",
+      "text": "new question",
+      "target": "pragma",
+      "isReversed": true,
+      "weight": 1.2,
+      "translations": {
+        "french": "french",
+        "spanish": "spanish"
+      }
+    }
+  ],
+  "outcomes": [
+    {
+      "id": "eros",
+      "name": "Eros",
+      "description": "Passionate, romantic love",
+      "translations": {
+        "English": "Eros",
+        "French": "",
+        "Spanish": ""
+      }
+    },
+    {
+      "id": "ludus",
+      "name": "Ludus",
+      "description": "Game-playing love",
+      "translations": {
+        "English": "Ludus",
+        "French": "",
+        "Spanish": ""
+      }
+    },
+    {
+      "id": "storge",
+      "name": "Storge",
+      "description": "Friendship-based love",
+      "translations": {
+        "English": "Storge",
+        "French": "",
+        "Spanish": ""
+      }
+    },
+    {
+      "id": "pragma",
+      "name": "Pragma",
+      "description": "Practical, logical love",
+      "translations": {
+        "English": "Pragma",
+        "French": "",
+        "Spanish": ""
+      }
+    },
+    {
+      "id": "mania",
+      "name": "Mania",
+      "description": "Possessive, dependent love",
+      "translations": {
+        "English": "Mania",
+        "French": "",
+        "Spanish": ""
+      }
+    },
+    {
+      "id": "agape",
+      "name": "Agape",
+      "description": "Selfless, altruistic love",
+      "translations": {
+        "English": "Agape",
+        "French": "",
+        "Spanish": ""
+      }
+    },
+    {
+      "id": "philia",
+      "name": "Philia",
+      "description": "Deep friendship",
+      "translations": {
+        "English": "Philia",
+        "French": "",
+        "Spanish": ""
+      }
+    },
+    {
+      "id": "new outcome",
+      "name": "new outcome",
+      "description": "new outcome",
+      "translations": {
+        "french": "french",
+        "spanish": "spanish"
+      }
+    }
+  ],
+  "customScoring": "function(outcomes) {\n        const total = outcomes.reduce((sum, o) => sum + o.score, 0);\n        const normalized = outcomes.map(o => ({\n          ...o,\n          percentage: Math.round((o.score / total) * 100)\n        }));\n\n        return {\n          outcomes: normalized,\n          result: normalized.map(o => `${o.name}: ${o.percentage}%`).join(', ')\n        };\n      }",
+  "results": [
+    {
+      "timestamp": "2025-06-20T20:38:15.629Z",
+      "testId": "love-styles-1750451805497",
+      "testName": "7 Love Styles Test",
+      "finalResult": "Pragma (100)"
+    }
+  ]
+}

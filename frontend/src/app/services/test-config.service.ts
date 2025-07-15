@@ -1,7 +1,7 @@
 // test-config.service.ts
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { TestConfig } from '../shared/models/test-config.model';
 
@@ -20,12 +20,14 @@ export class TestConfigService {
   getTestConfig(testId: string, language?: string): Observable<any> {
     const params = language ? { lang: language } : {};
 
-    return this.http.get<any>(`${this.apiUrl}/${testId}`, { params }).pipe(
-      tap({
-        next: (res) => console.log('Data received'),
-        error: (err) => console.error('Error fetching test:', err),
-      }),
-    );
+    return this.http
+      .get<any>(`${this.apiUrl}/${testId}`, { params })
+      .pipe
+      // tap({
+      //   next: (res) => console.log('.'),
+      //   error: (err) => console.error('Error fetching test:', err),
+      // }),
+      ();
   }
   // storeTestResults(results: any): Observable<any> {
   //   return this.http.post(`${this.apiUrl}/results`, results);

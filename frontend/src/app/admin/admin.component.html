@@ -50,6 +50,26 @@
       </div>
 
       <div class="form-group">
+        <label>{{ 'ADMIN.TEST_EDITOR.SCORING_LOGIC' | translate }}</label>
+
+        <!-- Show preset logic for predefined tests -->
+        <pre *ngIf="newTestType !== 'custom'" class="scoring-logic">
+        {{ getPresetScoringLogic() }}
+      </pre
+        >
+
+        <!-- Show editable field for custom tests -->
+        <textarea *ngIf="newTestType === 'custom'" [(ngModel)]="newTestCustomScoring" placeholder="Enter custom scoring function" rows="10" class="scoring-logic"> </textarea>
+
+        <div *ngIf="newTestType !== 'custom'" class="preset-actions">
+          <button class="btn btn-sm btn-outline-secondary" (click)="copyScoringLogic()">
+            {{ 'ADMIN.BUTTONS.COPY_LOGIC' | translate }}
+          </button>
+          <small>{{ 'ADMIN.TEST_EDITOR.PRESET_LOGIC_NOTE' | translate }}</small>
+        </div>
+      </div>
+
+      <div class="form-group">
         <label>{{ 'ADMIN.TEST_EDITOR.NAME' | translate }}</label>
         <input type="text" [(ngModel)]="newTestName" />
       </div>
@@ -105,6 +125,24 @@
       <div class="form-group">
         <label>{{ 'ADMIN.TEST_EDITOR.DESCRIPTION' | translate }}</label>
         <textarea [(ngModel)]="selectedTest.description"></textarea>
+      </div>
+
+      <div class="form-group">
+        <label>{{ 'ADMIN.TEST_EDITOR.SCORING_LOGIC' | translate }}</label>
+
+        <pre *ngIf="!isCustomTest" class="scoring-logic">
+        {{ getPresetScoringLogic(selectedTest.type) }}
+      </pre
+        >
+
+        <textarea *ngIf="isCustomTest" [(ngModel)]="selectedTest.customScoring" rows="10" class="scoring-logic"> </textarea>
+
+        <div *ngIf="!isCustomTest" class="preset-actions">
+          <button class="btn btn-sm btn-outline-secondary" (click)="convertToCustom()">
+            {{ 'ADMIN.BUTTONS.CONVERT_TO_CUSTOM' | translate }}
+          </button>
+          <small>{{ 'ADMIN.TEST_EDITOR.PRESET_LOGIC_NOTE' | translate }}</small>
+        </div>
       </div>
 
       <div class="form-group">

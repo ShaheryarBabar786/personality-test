@@ -23,6 +23,213 @@ export class ScoringService {
     this.registerScoringFunction('workplace-scoring', (outcomes) => this.workplaceScoring(outcomes));
   }
 
+  getPresetScoringLogic(type: string): string {
+    switch (type) {
+      case 'mbti':
+        return `function(outcomes, testConfig, answers) {
+  // MBTI Scoring Logic
+  const dichotomies = [
+    ['E', 'I'],
+    ['S', 'N'],
+    ['T', 'F'],
+    ['J', 'P']
+  ];
+
+  const outcomeScores = outcomes.map(o => ({...o, score: 0}));
+
+  // Calculate scores for each question
+  testConfig.questions.forEach((question, index) => {
+    const answer = answers[index];
+    if (answer === null || answer === undefined) return;
+
+    const dichotomy = dichotomies.find(d => d.includes(question.target));
+    if (!dichotomy) return;
+
+    const [first, second] = dichotomy;
+    const isFirst = question.target === first;
+    let points = answer;
+
+    if (question.isReversed) {
+      points = 6 - answer;
+    }
+
+    if (points > 3) {
+      const outcome = outcomeScores.find(o => o.id === (isFirst ? first : second));
+      if (outcome) outcome.score += points - 3;
+    } else if (points < 3) {
+      const outcome = outcomeScores.find(o => o.id === (isFirst ? second : first));
+      if (outcome) outcome.score += 3 - points;
+    }
+  });
+
+  // Calculate final percentages
+  const detailedResults = dichotomies.map(([a, b]) => {
+    const aScore = outcomeScores.find(o => o.id === a)?.score || 0;
+    const bScore = outcomeScores.find(o => o.id === b)?.score || 0;
+    const total = aScore + bScore || 1;
+
+    return {
+      dichotomy: \`\${a}/\${b}\`,
+      [a]: Math.round((aScore / total) * 100),
+      [b]: Math.round((bScore / total) * 100),
+      winner: aScore > bScore ? a : b,
+    };
+  });
+
+  const type = detailedResults.map(d => d.winner).join('');
+  const percentageString = detailedResults
+    .map(d => {
+      const letters = d.dichotomy.split('/');
+      return \`\${letters[0]}/\${letters[1]}: \${d[letters[0]]}%/\${d[letters[1]]}%\`;
+    })
+    .join('; ');
+
+  return {
+    outcomes: outcomeScores,
+    result: type,
+    detailedResult: detailedResults,
+    resultWithPercentages: percentageString
+  };
+}`;
+
+      case 'big-five':
+        return `function(outcomes, testConfig) {
+  // Big Five Scoring Logic
+  const questionsByOutcome = {};
+  outcomes.forEach(o => {
+    questionsByOutcome[o.id] = testConfig.questions.filter(q => q.target === o.id);
+  });
+
+  const outcomesWithPercentages = outcomes.map(o => {
+    const questions = questionsByOutcome[o.id] || [];
+    const maxPossible = questions.length * 5;
+    const percentage = maxPossible > 0 ? Math.round((o.score / maxPossible) * 100) : 0;
+
+    return {
+      ...o,
+      percentage,
+      maxPossible
+    };
+  });
+
+  return {
+    outcomes: outcomesWithPercentages,
+    result: outcomesWithPercentages.map(o => \`\${o.name}: \${o.percentage}%\`).join(', '),
+    detailedResult: outcomesWithPercentages
+  };
+}`;
+
+      case 'enneagram':
+        return `function(outcomes, testConfig) {
+  // Enneagram Scoring Logic
+  const totalWeight = testConfig.questions.reduce((sum, q) => sum + (q.weight || 1), 0);
+  const maxPossibleScore = totalWeight * 5;
+
+  const outcomesWithPercentages = outcomes.map(o => ({
+    ...o,
+    percentage: Math.round((o.score / maxPossibleScore) * 100),
+  }));
+
+  const sorted = [...outcomesWithPercentages].sort((a, b) => b.percentage - a.percentage);
+
+  return {
+    outcomes: sorted,
+    result: \`\${sorted[0].name} (\${sorted[0].percentage}%)\`,
+    detailedResult: sorted
+  };
+}`;
+
+      case 'disc':
+        return `function(outcomes, testConfig, answers) {
+  // DISC Scoring Logic
+  const outcomeScores = outcomes.map(o => ({...o, score: 0}));
+
+  testConfig.questions.forEach((question, index) => {
+    const answer = answers[index];
+    if (answer === null || answer === undefined) return;
+
+    let points = answer;
+    if (question.isReversed) {
+      points = 6 - answer;
+    }
+
+    const outcome = outcomeScores.find(o => o.id === question.target);
+    if (outcome) outcome.score += points;
+  });
+
+  // Normalize scores to percentages
+  const maxScore = Math.max(...outcomeScores.map(o => o.score), 1);
+  outcomeScores.forEach(o => {
+    o.percentage = Math.round((o.score / maxScore) * 100);
+  });
+
+  const sorted = [...outcomeScores].sort((a, b) => b.percentage - a.percentage);
+  const primary = sorted[0];
+  const secondary = sorted[1];
+
+  let result = primary.id;
+  if (primary.percentage - secondary.percentage < 15) {
+    result += \`/\${secondary.id}\`;
+  }
+
+  return {
+    outcomes: outcomeScores,
+    result: result,
+    detailedResult: sorted,
+    resultWithPercentages: sorted.map(o => \`\${o.id}: \${o.percentage}%\`).join(', ')
+  };
+}`;
+
+      case 'emotional-intelligence':
+        return `function(outcomes, testConfig) {
+  // Emotional Intelligence Scoring
+  const questionsByOutcome = {};
+  outcomes.forEach(o => {
+    questionsByOutcome[o.id] = testConfig.questions.filter(q => q.target === o.id);
+  });
+
+  const outcomesWithPercentages = outcomes.map(o => {
+    const questions = questionsByOutcome[o.id] || [];
+    const maxPossible = questions.length * 5;
+    const percentage = maxPossible > 0 ? Math.round((o.score / maxPossible) * 100) : 0;
+
+    return {
+      ...o,
+      percentage,
+      maxPossible
+    };
+  });
+
+  // Calculate overall EQ score (average of all dimensions)
+  const eqScore = Math.round(outcomesWithPercentages.reduce((sum, o) => sum + o.percentage, 0) / outcomes.length);
+
+  return {
+    outcomes: outcomesWithPercentages,
+    result: \`Overall EQ: \${eqScore}\`,
+    detailedResult: {
+      dimensions: outcomesWithPercentages,
+      overallScore: eqScore
+    }
+  };
+}`;
+
+      default:
+        return `function(outcomes) {
+  // Default Custom Scoring
+  const total = outcomes.reduce((sum, o) => sum + o.score, 0);
+  const normalized = outcomes.map(o => ({
+    ...o,
+    percentage: Math.round((o.score / total) * 100)
+  }));
+
+  return {
+    outcomes: normalized,
+    result: normalized.map(o => \`\${o.name}: \${o.percentage}%\`).join(', ')
+  };
+}`;
+    }
+  }
+
   calculateScore(testConfig: TestConfig, answers: any[]): any {
     const outcomes = testConfig.outcomes.map((o) => ({
       ...o,

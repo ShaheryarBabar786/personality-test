@@ -51,11 +51,16 @@
       "OUTCOME_DESCRIPTION": "Outcome Description",
       "ADD_OUTCOME": "Add Outcome",
       "UPDATE_OUTCOME": "Update Outcome",
-      "EDIT_OUTCOME": "Edit Outcome"
+      "EDIT_OUTCOME": "Edit Outcome",
+      "SCORING_LOGIC": "Scoring Logic",
+      "PRESET_LOGIC_NOTE": "This is a preset scoring logic. To modify it, duplicate the test first.",
+      "DUPLICATE_TEST": "Duplicate Test"
     },
     "BUTTONS": {
       "TEST_RUNNER": "Go to Test Runner",
-      "ADMIN": "Go to Admin Screen"
+      "ADMIN": "Go to Admin Screen",
+      "COPY_LOGIC": "Copy Logic",
+      "CONVERT_TO_CUSTOM": "Convert to Custom"
     }
   },
   "TEST": {

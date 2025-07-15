@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LanguageService } from '../services/language.service';
 import { ResultsService } from '../services/result-service.service';
+import { ScoringService } from '../services/scoring.service';
 import { TestConfigService } from '../services/test-config.service';
 import { Outcome, TestConfig } from '../shared/models/test-config.model';
 
@@ -19,6 +20,8 @@ export class AdminComponent {
   selectedTest: TestConfig | null = null;
   selectedTestId: string | null = null;
   latestTestResult: string = '';
+  newTestCustomScoring: string = '';
+  copiedToClipboard: boolean = false;
 
   // Question editing
   editingQuestionIndex: number | null = null;
@@ -41,6 +44,7 @@ export class AdminComponent {
     private resultsService: ResultsService,
     private testConfigService: TestConfigService,
     public languageService: LanguageService,
+    public scoringService: ScoringService,
   ) {
     this.adminForm = this.fb.group({
       language: [this.languageService.getCurrentLanguage()],
@@ -303,6 +307,27 @@ export class AdminComponent {
   closeCreationModal() {
     this.showCreationModal = false;
   }
+  duplicateTest() {
+    if (!this.selectedTest) return;
+
+    const confirmDuplicate = confirm(`Are you sure you want to duplicate "${this.selectedTest.name}"?`);
+    if (!confirmDuplicate) return;
+
+    // Create a copy of the test with a new ID and "Copy of" prefix
+    const duplicatedTest: TestConfig = {
+      ...JSON.parse(JSON.stringify(this.selectedTest)),
+      id: `${this.selectedTest.id}-copy-${Date.now()}`,
+      name: `Copy of ${this.selectedTest.name}`,
+      type: 'custom', // Always set to custom when duplicating
+    };
+
+    // Set as custom test
+    this.isCustomTest = true;
+
+    // Replace the selected test with the duplicated one
+    this.selectedTest = duplicatedTest;
+    this.selectedTestId = duplicatedTest.id;
+  }
 
   onTestTypeChange() {
     const typeNames = {
@@ -320,17 +345,57 @@ export class AdminComponent {
       this.newTestName = typeNames[this.newTestType];
     }
   }
+  getPresetScoringLogic(type?: string): string {
+    return this.scoringService.getPresetScoringLogic(type || this.newTestType);
+  }
+
+  copyScoringLogic() {
+    const logic = this.getPresetScoringLogic();
+    navigator.clipboard.writeText(logic).then(() => {
+      this.copiedToClipboard = true;
+      setTimeout(() => (this.copiedToClipboard = false), 2000);
+    });
+  }
+
+  convertToCustom() {
+    if (!this.selectedTest) return;
+
+    if (confirm('Convert this preset test to a custom test? You can then modify the scoring logic.')) {
+      this.selectedTest.type = 'custom';
+      this.selectedTest.customScoring = this.getPresetScoringLogic(this.selectedTest.type);
+      this.isCustomTest = true;
+      this.selectedTest.id = `${this.selectedTest.id}-custom-${Date.now()}`;
+    }
+  }
+  private getDefaultScoringType(testType: string): 'custom' | 'sum' | 'compare' | 'weighted' {
+    switch (testType) {
+      case 'mbti':
+      case 'disc':
+        return 'compare';
+      case 'big-five':
+      case 'emotional-intelligence':
+        return 'sum';
+      case 'enneagram':
+      case 'career-aptitude':
+      case 'love-styles':
+        return 'weighted';
+      case 'workplace':
+        return 'custom';
+      default:
+        return 'sum'; // Default for custom tests
+    }
+  }
 
   initializeNewTest() {
     const baseTest: TestConfig = {
       id: `${this.newTestType}-${Date.now()}`,
       name: this.newTestName,
       type: this.newTestType,
-      scoringType: 'sum', // Default, will be overridden for specific types
+      scoringType: this.getDefaultScoringType(this.newTestType),
       description: this.newTestDescription,
       questions: [],
       outcomes: [],
-      customScoring: this.getDefaultCustomScoring(this.newTestType),
+      customScoring: this.newTestType === 'custom' ? this.newTestCustomScoring : this.getPresetScoringLogic(),
     };
 
     // Set up presets based on test type

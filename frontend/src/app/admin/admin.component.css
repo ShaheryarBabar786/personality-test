@@ -116,6 +116,7 @@ textarea {
   border-radius: 4px;
   cursor: pointer;
   font-size: 14px;
+  background: #161fa3;
 }
 
 .btn-primary {
@@ -158,6 +159,142 @@ textarea {
   font-size: 1rem;
   padding: 2px 8px;
   color: #ffffff;
+}
+
+textarea.scoring-logic {
+  width: 100%;
+  min-height: 200px;
+}
+
+.preset-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 8px;
+}
+/* Scoring Logic Styles */
+.scoring-logic {
+  font-family: 'Courier New', monospace;
+
+  padding: 12px;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+  white-space: pre-wrap;
+  word-break: break-word;
+  line-height: 1.5;
+  margin-bottom: 10px;
+  width: 100%;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+textarea.scoring-logic {
+  min-height: 200px;
+  resize: vertical;
+}
+
+.preset-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.preset-actions small {
+  color: #6c757d;
+  font-size: 0.875rem;
+}
+
+.copyScoring {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.875rem;
+  background-color: black;
+  border: 1px solid #ddd;
+  transition: all 0.2s;
+}
+
+.copyScoring:hover {
+  background-color: #e9ecef;
+  border-color: #ced4da;
+}
+
+/* Modal specific styles */
+.modal-content .scoring-logic {
+  border: 1px solid #ced4da;
+}
+
+/* .modal-content textarea.scoring-logic {
+  background-color: #fff;
+} */
+
+/* Test type specific colors */
+.scoring-logic[data-test-type='mbti'],
+.scoring-logic[data-test-type='disc'] {
+  border-left: 4px solid #4e79a7;
+}
+
+.scoring-logic[data-test-type='big-five'],
+.scoring-logic[data-test-type='emotional-intelligence'] {
+  border-left: 4px solid #59a14f;
+}
+
+.scoring-logic[data-test-type='enneagram'],
+.scoring-logic[data-test-type='career-aptitude'],
+.scoring-logic[data-test-type='love-styles'] {
+  border-left: 4px solid #f28e2b;
+}
+
+.scoring-logic[data-test-type='workplace'] {
+  border-left: 4px solid #e15759;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .scoring-logic {
+    font-size: 0.875rem;
+    padding: 8px;
+    max-height: 200px;
+  }
+
+  textarea.scoring-logic {
+    min-height: 150px;
+  }
+}
+
+/* Animation for copy feedback */
+@keyframes fadeCopyFeedback {
+  0% {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  20% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  80% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+}
+
+.copy-feedback {
+  position: absolute;
+  right: 20px;
+  background: #28a745;
+  color: black;
+  padding: 2px 8px;
+  border-radius: 3px;
+  font-size: 0.75rem;
+  animation: fadeCopyFeedback 2s ease-in-out;
+  opacity: 0;
+}
+
+.preset-actions small {
+  color: #6c757d;
 }
 
 /* Modal styles */

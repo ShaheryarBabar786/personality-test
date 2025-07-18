@@ -246,7 +246,7 @@
   }
   .navigation-buttons {
     position: relative;
-    top: 15px;
+    top: -100px;
   }
 }
 

@@ -278,6 +278,13 @@
       "testName": "MBTI test",
       "finalResult": "ENFJ",
       "resultWithPercentages": "E/I: 100%/0%; S/N: 0%/100%; T/F: 33%/67%; J/P: 67%/33%"
+    },
+    {
+      "timestamp": "2025-07-15T22:01:02.444Z",
+      "testId": "mbti",
+      "testName": "MBTI test",
+      "finalResult": "ISFJ",
+      "resultWithPercentages": "E/I: 0%/100%; S/N: 100%/0%; T/F: 50%/50%; J/P: 100%/0%"
     }
   ]
 }

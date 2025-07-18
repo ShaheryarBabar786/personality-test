@@ -105,6 +105,18 @@
       "testId": "love-styles-1750451805497",
       "testName": "7 Love Styles Test",
       "finalResult": "Pragma (100)"
+    },
+    {
+      "timestamp": "2025-07-15T21:40:34.388Z",
+      "testId": "love-styles-1750451805497",
+      "testName": "7 Love Styles Test",
+      "finalResult": "Pragma (100%)"
+    },
+    {
+      "timestamp": "2025-07-18T10:21:51.045Z",
+      "testId": "love-styles-1750451805497",
+      "testName": "7 Love Styles Test",
+      "finalResult": "Pragma (80%)"
     }
   ]
 }

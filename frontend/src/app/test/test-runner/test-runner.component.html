@@ -12,6 +12,7 @@
   </div>
   <div class="scrollable-content">
     <form [formGroup]="testForm">
+      <div class="scroll-padding" style="height: 30px"></div>
       <div class="questions-container">
         <div *ngFor="let question of testConfig?.questions; let i = index" class="question-card" [class.active]="i === currentQuestionIndex" id="question-{{ i }}">
           <div class="question-text">
@@ -46,6 +47,7 @@
           <lib-section-separator *ngIf="i < testConfig.questions.length - 1"></lib-section-separator>
         </div>
       </div>
+      <div class="scroll-padding" style="height: 30px"></div>
 
       <div class="navigation-buttons">
         <lib-primary-btn (click)="submitTest()">{{ 'TEST.SUBMIT' | translate }}</lib-primary-btn>

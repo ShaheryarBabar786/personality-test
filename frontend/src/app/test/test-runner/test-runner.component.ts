@@ -1,5 +1,5 @@
 // test-runner.component.ts
-import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, HostListener, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
@@ -53,6 +53,7 @@ export class TestRunnerComponent implements OnInit, AfterViewInit {
     });
   }
   ngAfterViewInit() {
+    this.setMobileSpacing();
     this.scrollToQuestion();
     this.scrollToTop();
   }
@@ -85,9 +86,15 @@ export class TestRunnerComponent implements OnInit, AfterViewInit {
     } else {
       this.answers.at(questionIndex).setValue(optionValue);
 
+      this.currentQuestionIndex = questionIndex;
+
+      this.scrollToQuestion();
+
       if (questionIndex < this.testConfig!.questions.length - 1) {
-        this.currentQuestionIndex = questionIndex + 1;
-        this.scrollToQuestion();
+        setTimeout(() => {
+          this.currentQuestionIndex = questionIndex + 1;
+          this.scrollToQuestion();
+        }, 300);
       }
     }
   }
@@ -118,27 +125,64 @@ export class TestRunnerComponent implements OnInit, AfterViewInit {
     }
   }
 
+  getMobileSpacing() {
+    const viewportHeight = window.innerHeight;
+
+    if (viewportHeight >= 800) {
+      return {
+        firstQuestionMargin: 80,
+        lastQuestionMargin: 220,
+        headerOffset: 15,
+        buttonsOffset: -100,
+      };
+    } else {
+      return {
+        firstQuestionMargin: 40,
+        lastQuestionMargin: 195,
+        headerOffset: 10,
+        buttonsOffset: -80,
+      };
+    }
+  }
+  setMobileSpacing() {
+    if (window.innerWidth >= 768) return;
+
+    const spacing = this.getMobileSpacing();
+    const container = this.topContainer.nativeElement;
+
+    container.style.setProperty('--first-question-margin', `${spacing.firstQuestionMargin}px`);
+    container.style.setProperty('--last-question-margin', `${spacing.lastQuestionMargin}px`);
+    container.style.setProperty('--header-offset', `${spacing.headerOffset}px`);
+    container.style.setProperty('--buttons-offset', `${spacing.buttonsOffset}px`);
+  }
+
   scrollToQuestion() {
     setTimeout(() => {
       const element = document.getElementById(`question-${this.currentQuestionIndex}`);
-      if (!element) return;
+      if (!element || !this.topContainer?.nativeElement) return;
 
       const container = this.topContainer.nativeElement.querySelector('.scrollable-content');
-      const elementRect = element.getBoundingClientRect();
-      const containerRect = container.getBoundingClientRect();
+      const headerHeight = this.topContainer.nativeElement.querySelector('.fixed-header').offsetHeight;
+      const isMobile = window.innerWidth < 768;
 
-      let scrollPosition = elementRect.top - containerRect.top + container.scrollTop;
+      if (isMobile && this.currentQuestionIndex === this.testConfig!.questions.length - 1) {
+        const scrollTo = element.offsetTop - headerHeight + 20;
+        const maxScroll = container.scrollHeight - container.clientHeight;
+        container.scrollTo({
+          top: Math.min(scrollTo, maxScroll),
+          behavior: 'smooth',
+        });
+      } else {
+        const elementRect = element.getBoundingClientRect();
+        const containerRect = container.getBoundingClientRect();
+        const idealPosition = containerRect.height / 2 - elementRect.height / 2 - headerHeight;
+        const currentPosition = elementRect.top - containerRect.top + container.scrollTop;
 
-      if (this.currentQuestionIndex === 0) {
-        scrollPosition -= 30;
-      } else if (this.currentQuestionIndex === this.testConfig!.questions.length - 1) {
-        scrollPosition += 0;
+        container.scrollTo({
+          top: currentPosition - idealPosition,
+          behavior: 'smooth',
+        });
       }
-
-      container.scrollTo({
-        top: scrollPosition,
-        behavior: 'smooth',
-      });
     }, 50);
   }
 
@@ -205,12 +249,11 @@ export class TestRunnerComponent implements OnInit, AfterViewInit {
     const answers = this.answers.value.map((val: number | null) => val ?? 3);
     const calculatedResults = this.scoringService.calculateScore(this.testConfig, answers);
 
-    // Ensure required fields are populated
     const resultPayload = {
       testId: this.testConfig.id,
       testName: this.testConfig.name,
       timestamp: new Date().toISOString(),
-      finalResult: calculatedResults.finalResult, // Fallback if undefined
+      finalResult: calculatedResults.finalResult,
       detailedResults: calculatedResults.detailedResult,
       resultWithPercentages: calculatedResults.resultWithPercentages,
     };
@@ -222,12 +265,15 @@ export class TestRunnerComponent implements OnInit, AfterViewInit {
       },
       error: (err) => {
         console.error('Failed to save results:', err, 'Payload:', resultPayload);
-        // Optionally show a user-friendly error message
       },
     });
   }
 
   closeModal() {
     this.close.emit();
+  }
+  @HostListener('window:resize')
+  onResize() {
+    this.setMobileSpacing();
   }
 }

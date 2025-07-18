@@ -20,9 +20,8 @@
 .scrollable-content {
   overflow-y: auto;
   overflow-x: hidden;
-  padding-top: 15px;
-  padding: 15px 25px 15px 20px;
-  margin-right: -10px;
+  padding: 0;
+  height: calc(100% - 60px);
 }
 
 .test-header {
@@ -76,16 +75,18 @@
   width: 100%;
 }
 .question-card {
+  padding: 15px 0;
   opacity: 0.7;
-  transition:
-    opacity 0.3s ease,
-    transform 0.3s ease;
+  transition: all 0.3s ease;
 }
 
 .question-card.active {
   opacity: 1;
-  transform: scale(1.02);
 }
+.scroll-padding {
+  height: 30px !important;
+}
+
 .question-card.active .question-text {
   color: #ffffff;
 }
@@ -125,9 +126,11 @@
 .radio-pyramid {
   display: flex;
   justify-content: center;
-  gap: 7px;
+  gap: 6px;
   width: 100%;
   position: relative;
+  margin: 0 auto;
+  max-width: 500px;
 }
 .radio-option {
   display: flex;
@@ -174,7 +177,6 @@
 .navigation-buttons {
   display: flex;
   justify-content: space-between;
-  margin-top: 40px;
   justify-content: center;
 }
 
@@ -210,9 +212,21 @@
     max-width: 500px;
     margin: 0 auto;
   }
+  .navigation-buttons {
+    position: relative;
+    top: -100px;
+  }
+  .questions-container > :first-child {
+    margin-top: 50px !important;
+  }
+
+  .questions-container > :last-child {
+    margin-bottom: 220px !important;
+  }
 
   .label-container:first-child {
     left: 20%;
+
     right: auto;
     transform: translateX(-50%);
   }
@@ -229,6 +243,10 @@
 
   .option-label {
     font-size: 11px;
+  }
+  .navigation-buttons {
+    position: relative;
+    top: 15px;
   }
 }
 
@@ -247,4 +265,24 @@
 .radio-option.size-1 lib-radio-button {
   width: 28px;
   height: 28px;
+}
+
+@media (max-width: 767px) {
+  .questions-container > :first-child {
+    margin-top: var(--first-question-margin, 60px) !important;
+  }
+
+  .questions-container > :last-child {
+    margin-bottom: var(--last-question-margin, 200px) !important;
+  }
+
+  .fixed-header {
+    position: relative;
+    top: var(--header-offset, 12px);
+  }
+
+  .navigation-buttons {
+    position: relative;
+    top: var(--buttons-offset, -90px);
+  }
 }

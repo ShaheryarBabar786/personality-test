@@ -62,7 +62,7 @@
         <textarea *ngIf="newTestType === 'custom'" [(ngModel)]="newTestCustomScoring" placeholder="Enter custom scoring function" rows="10" class="scoring-logic"> </textarea>
 
         <div *ngIf="newTestType !== 'custom'" class="preset-actions">
-          <button class="btn btn-sm btn-outline-secondary" (click)="copyScoringLogic()">
+          <button class="btn btn-sm btn-outline-secondary copyScoring" (click)="copyScoringLogic()">
             {{ 'ADMIN.BUTTONS.COPY_LOGIC' | translate }}
           </button>
           <small>{{ 'ADMIN.TEST_EDITOR.PRESET_LOGIC_NOTE' | translate }}</small>

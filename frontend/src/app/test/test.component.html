@@ -1,4 +1,4 @@
-<div class="visualization-container centered-container mt-5">
+<div class="visualization-container centered-container mt-5" [class.blur-effect]="modalOpen">
   <div class="header">
     <h1>{{ 'TEST.TITLE' | translate }}</h1>
   </div>
@@ -35,12 +35,11 @@
   <div class="action-section mt-5">
     <lib-primary-btn [hoverOutline]="false" (click)="goToAdmin()"> admin </lib-primary-btn>
   </div>
+</div>
+<div *ngIf="modalOpen" class="modal-backdrop" (click)="closeModal()"></div>
 
-  <div *ngIf="modalOpen" class="modal-backdrop" (click)="closeModal()"></div>
-
-  <div *ngIf="modalOpen" class="modal-content" #modalContent>
-    <div class="modal-body">
-      <app-test-runner [testId]="selectedTestId" (close)="closeModal()"></app-test-runner>
-    </div>
+<div *ngIf="modalOpen" class="modal-content" #modalContent>
+  <div class="modal-body">
+    <app-test-runner [testId]="selectedTestId" (close)="closeModal()"></app-test-runner>
   </div>
 </div>

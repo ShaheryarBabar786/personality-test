@@ -75,7 +75,7 @@
   width: 100%;
 }
 .question-card {
-  padding: 15px 0;
+  /* padding: 15px 0; */
   opacity: 0.7;
   transition: all 0.3s ease;
 }
@@ -217,7 +217,7 @@
     top: -100px;
   }
   .questions-container > :first-child {
-    margin-top: 50px !important;
+    margin-top: 10px !important;
   }
 
   .questions-container > :last-child {
@@ -269,11 +269,11 @@
 
 @media (max-width: 767px) {
   .questions-container > :first-child {
-    margin-top: var(--first-question-margin, 60px) !important;
+    margin-top: var(--first-question-margin, 10px) !important;
   }
 
   .questions-container > :last-child {
-    margin-bottom: var(--last-question-margin, 200px) !important;
+    margin-bottom: var(--last-question-margin, 120px) !important;
   }
 
   .fixed-header {

@@ -54,8 +54,14 @@ export class TestRunnerComponent implements OnInit, AfterViewInit {
   }
   ngAfterViewInit() {
     this.setMobileSpacing();
-    this.scrollToQuestion();
-    this.scrollToTop();
+
+    // Wait for next tick to ensure DOM is ready
+    setTimeout(() => {
+      const container = this.topContainer?.nativeElement?.querySelector('.scrollable-content');
+      if (container) {
+        container.scrollTop = 0;
+      }
+    });
   }
 
   loadTestConfig(testId: string) {

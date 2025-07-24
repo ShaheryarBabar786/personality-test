@@ -236,6 +236,12 @@
       "testId": "big-five",
       "testName": "Big Five",
       "finalResult": "Openness: 90%, Conscientiousness: 40%, Extraversion: 60%, Agreeableness: 80%, Neuroticism: 60%"
+    },
+    {
+      "timestamp": "2025-07-18T13:56:21.397Z",
+      "testId": "big-five",
+      "testName": "Big Five",
+      "finalResult": "Openness: 60%, Conscientiousness: 60%, Extraversion: -20%, Agreeableness: 87%, Neuroticism: 60%"
     }
   ]
 }

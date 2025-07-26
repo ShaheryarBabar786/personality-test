@@ -133,33 +133,86 @@ export class TestRunnerComponent implements OnInit, AfterViewInit {
 
   getMobileSpacing() {
     const viewportHeight = window.innerHeight;
+    const viewportWidth = window.innerWidth;
+    const isMobileDevice = this.isRealMobileDevice();
 
-    if (viewportHeight >= 800) {
+    const defaultSpacing = {
+      firstQuestionMargin: 0,
+      lastQuestionMargin: 140,
+      headerOffset: 10,
+      buttonsOffset: -80,
+      radioPyramidGap: 6,
+    };
+    const isExactly100PercentZoom = this.isExactly100PercentZoom();
+
+    if (isExactly100PercentZoom && !this.isDeviceEmulationMode()) {
+      return defaultSpacing;
+    }
+    if (!isMobileDevice && viewportWidth >= 768) {
+      return defaultSpacing;
+    }
+
+    const aspectRatio = viewportWidth / viewportHeight;
+
+    if (aspectRatio < 0.48) {
       return {
-        firstQuestionMargin: 80,
-        lastQuestionMargin: 220,
+        firstQuestionMargin: 120,
+        lastQuestionMargin: 280,
         headerOffset: 15,
         buttonsOffset: -100,
+        radioPyramidGap: 4,
+      };
+    } else if (aspectRatio <= 0.55) {
+      return {
+        firstQuestionMargin: 60,
+        lastQuestionMargin: 220,
+        headerOffset: 12,
+        buttonsOffset: -90,
+        radioPyramidGap: 5,
       };
     } else {
+      // return defaultSpacing;
+
       return {
-        firstQuestionMargin: 40,
-        lastQuestionMargin: 195,
-        headerOffset: 10,
-        buttonsOffset: -80,
+        ...defaultSpacing,
+        radioPyramidGap: viewportWidth <= 320 ? 3 : 6, // Very small devices get 3px, others get 6px
       };
     }
   }
-  setMobileSpacing() {
-    if (window.innerWidth >= 768) return;
 
+  private isRealMobileDevice(): boolean {
+    return (
+      /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ||
+      (window.innerWidth <= 768 && window.matchMedia('(orientation: portrait)').matches)
+    );
+  }
+  private isExactly100PercentZoom(): boolean {
+    try {
+      if (window.outerWidth && window.innerWidth) {
+        const zoomRatio = window.outerWidth / window.innerWidth;
+        return Math.abs(zoomRatio - 1) < 0.001;
+      }
+    } catch (e) {
+      console.warn('Zoom detection failed', e);
+    }
+    return false;
+  }
+
+  private isDeviceEmulationMode(): boolean {
+    return window.outerWidth !== window.innerWidth || navigator.userAgent.includes('Mobile') || window.innerWidth < 400;
+  }
+
+  setMobileSpacing() {
     const spacing = this.getMobileSpacing();
-    const container = this.topContainer.nativeElement;
+    const container = this.topContainer?.nativeElement;
+
+    if (!container) return;
 
     container.style.setProperty('--first-question-margin', `${spacing.firstQuestionMargin}px`);
     container.style.setProperty('--last-question-margin', `${spacing.lastQuestionMargin}px`);
     container.style.setProperty('--header-offset', `${spacing.headerOffset}px`);
     container.style.setProperty('--buttons-offset', `${spacing.buttonsOffset}px`);
+    container.style.setProperty('--radio-pyramid-gap', `${spacing.radioPyramidGap}px`);
   }
 
   scrollToQuestion() {

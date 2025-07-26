@@ -126,7 +126,7 @@
 .radio-pyramid {
   display: flex;
   justify-content: center;
-  gap: 6px;
+  gap: var(--radio-pyramid-gap, 6px);
   width: 100%;
   position: relative;
   margin: 0 auto;
@@ -269,11 +269,11 @@
 
 @media (max-width: 767px) {
   .questions-container > :first-child {
-    margin-top: var(--first-question-margin, 10px) !important;
+    margin-top: var(--first-question-margin, 0px) !important;
   }
 
   .questions-container > :last-child {
-    margin-bottom: var(--last-question-margin, 120px) !important;
+    margin-bottom: var(--last-question-margin, 140px) !important;
   }
 
   .fixed-header {

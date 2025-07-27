@@ -13,27 +13,23 @@ A comprehensive personality test administration system with support for multiple
 git clone git@github.com:ShaheryarBabar786/personality-test.git
 
 1. Set up Frontend
-bash
-cd frontend
-npm install
+- cd frontend
+- npm install
 2. Set up Server
-bash
-cd server
-npm install
+- cd server
+- npm install
 
 
 ##  🖥️ Running the Application
 ### Frontend (Angular)
-bash
-cd frontend
-npm run start
-Access at: http://localhost:4200
+- cd frontend
+- npm run start
+- Access at: http://localhost:4200
 
 ### Backend (Node.js)
-bash
-cd server
-npm run start
-API will run at: http://localhost:3000
+- cd server
+- npm run start
+- API will run at: http://localhost:3000
 
 ## 🛠️ Test Creation Guide
 There are two ways to create new personality tests:
@@ -72,13 +68,3 @@ There are two ways to create new personality tests:
 "Create an MBTI test with 20 questions (5 per dichotomy), French/Spanish translations, and exactly 6 reversed questions"
 "Generate Big Five test with 30 questions (6 per trait), workplace-focused"
 
-
-## 📋 Supported Test Types
-
-| Test Type            | Traits/Scales        | Questions | Scoring Method |
-|----------------------|----------------------|-----------|----------------|
-| Big Five             | OCEAN Model          | 25–35     | Sum            |
-| MBTI                 | Dichotomies          | 20–28     | Comparison     |
-| Enneagram            | 9 Types              | 36–45     | Weighted       |
-| DISC                 | 4 Factors            | 24–32     | Comparison     |
-| Emotional Intelligence | Components         | 25–35     | Sum            |

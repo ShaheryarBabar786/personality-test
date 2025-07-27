@@ -37,6 +37,33 @@ export class AdminComponent {
   newTestName = '';
   newTestDescription = '';
   isCustomTest = true;
+  creationMethod: 'manual' | 'json' = 'manual';
+  jsonInput: string = '';
+  jsonParseError: string | null = null;
+  jsonExample = `{
+  "name": "Big Five Personality Test",
+  "description": "Standard Big Five personality assessment",
+  "type": "big-five",
+  "questions": [
+    {
+      "text": "I am the life of the party",
+      "target": "extraversion",
+      "isReversed": false
+    },
+    {
+      "text": "I am always prepared",
+      "target": "conscientiousness",
+      "isReversed": false
+    }
+  ],
+  "outcomes": [
+    {
+      "id": "openness",
+      "name": "Openness",
+      "description": "Openness to experience"
+    }
+  ]
+}`;
 
   constructor(
     private fb: FormBuilder,
@@ -385,21 +412,83 @@ export class AdminComponent {
         return 'sum'; // Default for custom tests
     }
   }
+  parseJsonInput(): void {
+    try {
+      const parsedData = JSON.parse(this.jsonInput);
+      this.jsonParseError = null;
+
+      // Validate basic structure
+      if (!parsedData.name || !parsedData.type) {
+        throw new Error('Test must have name and type');
+      }
+
+      // Map to our test structure
+      this.newTestName = parsedData.name;
+      this.newTestType = parsedData.type;
+      this.newTestDescription = parsedData.description || '';
+
+      // If it's a preset type, initialize with that
+      if (parsedData.type !== 'custom') {
+        this.onTestTypeChange();
+      }
+
+      alert('JSON parsed successfully! Click "Create Test" to proceed.');
+    } catch (e) {
+      this.jsonParseError = 'Invalid JSON: ' + (e instanceof Error ? e.message : String(e));
+      alert(this.jsonParseError);
+    }
+  }
 
   initializeNewTest() {
-    const baseTest: TestConfig = {
-      id: `${this.newTestType}-${Date.now()}`,
-      name: this.newTestName,
-      type: this.newTestType,
-      scoringType: this.getDefaultScoringType(this.newTestType),
-      description: this.newTestDescription,
-      questions: [],
-      outcomes: [],
-      customScoring: this.newTestType === 'custom' ? this.newTestCustomScoring : this.getPresetScoringLogic(),
-    };
+    try {
+      let baseTest: TestConfig;
 
-    // Set up presets based on test type
-    switch (this.newTestType) {
+      if (this.creationMethod === 'json' && this.jsonInput) {
+        // Create from JSON input
+        const parsedData = JSON.parse(this.jsonInput);
+
+        baseTest = {
+          id: `${parsedData.type}-${Date.now()}`,
+          name: parsedData.name,
+          type: parsedData.type,
+          scoringType: this.getDefaultScoringType(parsedData.type),
+          description: parsedData.description || '',
+          questions: parsedData.questions || [],
+          outcomes: parsedData.outcomes || [],
+          customScoring: parsedData.customScoring || this.getDefaultCustomScoring(parsedData.type),
+        };
+
+        // Set up presets if needed
+        if (parsedData.type !== 'custom') {
+          this.setupPresetTest(baseTest, parsedData.type);
+        }
+      } else {
+        // Original manual creation logic
+        baseTest = {
+          id: `${this.newTestType}-${Date.now()}`,
+          name: this.newTestName,
+          type: this.newTestType,
+          scoringType: this.getDefaultScoringType(this.newTestType),
+          description: this.newTestDescription,
+          questions: [],
+          outcomes: [],
+          customScoring: this.newTestType === 'custom' ? this.newTestCustomScoring : this.getPresetScoringLogic(),
+        };
+
+        // Set up presets based on test type
+        this.setupPresetTest(baseTest, this.newTestType);
+      }
+
+      this.selectedTest = baseTest;
+      this.selectedTestId = baseTest.id;
+      this.showCreationModal = false;
+    } catch (e) {
+      console.error('Error initializing test:', e);
+      alert('Error creating test: ' + (e instanceof Error ? e.message : String(e)));
+    }
+  }
+  private setupPresetTest(baseTest: TestConfig, testType: string): void {
+    switch (testType) {
       case 'big-five':
         baseTest.scoringType = 'sum';
         baseTest.outcomes = [
@@ -499,10 +588,6 @@ export class AdminComponent {
         baseTest.scoringType = 'sum';
         this.isCustomTest = true;
     }
-
-    this.selectedTest = baseTest;
-    this.selectedTestId = baseTest.id;
-    this.showCreationModal = false;
   }
 
   private getDefaultCustomScoring(testType: string): string {

@@ -1,0 +1,321 @@
+{
+  "id": "mbti-1753573164403",
+  "name": "16 Personality Types (MBTI)",
+  "type": "mbti",
+  "scoringType": "compare",
+  "description": "A comprehensive MBTI test assessing personality preferences across four dichotomies: Extraversion/Introversion, Sensing/Intuition, Thinking/Feeling, Judging/Perceiving.",
+  "questions": [
+    {
+      "id": "q1",
+      "text": "I enjoy social gatherings and meeting new people.",
+      "target": "E",
+      "isReversed": false,
+      "weight": 1,
+      "translations": {
+        "french": "J'apprécie les rassemblements sociaux et rencontrer de nouvelles personnes.",
+        "spanish": "Disfruto de las reuniones sociales y de conocer gente nueva."
+      }
+    },
+    {
+      "id": "q2",
+      "text": "I often feel drained after spending time with groups.",
+      "target": "I",
+      "isReversed": true,
+      "weight": 1,
+      "translations": {
+        "french": "Je me sens souvent épuisé après avoir passé du temps en groupe.",
+        "spanish": "A menudo me siento agotado después de pasar tiempo en grupos."
+      }
+    },
+    {
+      "id": "q3",
+      "text": "I prefer deep, one-on-one conversations over group discussions.",
+      "target": "I",
+      "isReversed": false,
+      "weight": 1,
+      "translations": {
+        "french": "Je préfère les conversations profondes en tête-à-tête aux discussions de groupe.",
+        "spanish": "Prefiero conversaciones profundas uno a uno sobre discusiones en grupo."
+      }
+    },
+    {
+      "id": "q4",
+      "text": "I feel energized when engaging in large social events.",
+      "target": "E",
+      "isReversed": true,
+      "weight": 1,
+      "translations": {
+        "french": "Je me sens énergisé lors de grands événements sociaux.",
+        "spanish": "Me siento lleno de energía en grandes eventos sociales."
+      }
+    },
+    {
+      "id": "q5",
+      "text": "I enjoy being the center of attention.",
+      "target": "E",
+      "isReversed": false,
+      "weight": 1,
+      "translations": {
+        "french": "J'aime être le centre de l'attention.",
+        "spanish": "Me gusta ser el centro de atención."
+      }
+    },
+    {
+      "id": "q6",
+      "text": "I trust facts and details more than abstract theories.",
+      "target": "S",
+      "isReversed": false,
+      "weight": 1,
+      "translations": {
+        "french": "Je fais plus confiance aux faits et aux détails qu'aux théories abstraites.",
+        "spanish": "Confío más en los hechos y detalles que en las teorías abstractas."
+      }
+    },
+    {
+      "id": "q7",
+      "text": "I often rely on intuition rather than concrete data.",
+      "target": "N",
+      "isReversed": true,
+      "weight": 1,
+      "translations": {
+        "french": "Je me fie souvent à mon intuition plutôt qu'aux données concrètes.",
+        "spanish": "A menudo confío en mi intuición más que en los datos concretos."
+      }
+    },
+    {
+      "id": "q8",
+      "text": "I notice small details others often overlook.",
+      "target": "S",
+      "isReversed": false,
+      "weight": 1,
+      "translations": {
+        "french": "Je remarque de petits détails que d'autres ignorent souvent.",
+        "spanish": "Noto pequeños detalles que otros suelen pasar por alto."
+      }
+    },
+    {
+      "id": "q9",
+      "text": "I am drawn to big-picture ideas and concepts.",
+      "target": "N",
+      "isReversed": false,
+      "weight": 1,
+      "translations": {
+        "french": "Je suis attiré par les idées et concepts globaux.",
+        "spanish": "Me atraen las ideas y conceptos de gran alcance."
+      }
+    },
+    {
+      "id": "q10",
+      "text": "I find abstract theories difficult to relate to.",
+      "target": "S",
+      "isReversed": true,
+      "weight": 1,
+      "translations": {
+        "french": "J'ai du mal à m'identifier aux théories abstraites.",
+        "spanish": "Me cuesta relacionarme con teorías abstractas."
+      }
+    },
+    {
+      "id": "q11",
+      "text": "I prefer making decisions based on logic rather than emotions.",
+      "target": "T",
+      "isReversed": false,
+      "weight": 1,
+      "translations": {
+        "french": "Je préfère prendre des décisions basées sur la logique plutôt que sur les émotions.",
+        "spanish": "Prefiero tomar decisiones basadas en la lógica más que en las emociones."
+      }
+    },
+    {
+      "id": "q12",
+      "text": "I tend to prioritize harmony over conflict, even at the cost of logic.",
+      "target": "F",
+      "isReversed": false,
+      "weight": 1,
+      "translations": {
+        "french": "J'ai tendance à privilégier l'harmonie au détriment de la logique.",
+        "spanish": "Tiendo a priorizar la armonía sobre el conflicto, incluso a costa de la lógica."
+      }
+    },
+    {
+      "id": "q13",
+      "text": "I find it hard to stay objective when emotions are involved.",
+      "target": "F",
+      "isReversed": true,
+      "weight": 1,
+      "translations": {
+        "french": "J'ai du mal à rester objectif lorsque des émotions sont en jeu.",
+        "spanish": "Me resulta difícil mantenerme objetivo cuando hay emociones implicadas."
+      }
+    },
+    {
+      "id": "q14",
+      "text": "I value fairness and logic over feelings when resolving conflicts.",
+      "target": "T",
+      "isReversed": false,
+      "weight": 1,
+      "translations": {
+        "french": "Je privilégie l'équité et la logique aux sentiments lors de conflits.",
+        "spanish": "Valoro la justicia y la lógica sobre los sentimientos al resolver conflictos."
+      }
+    },
+    {
+      "id": "q15",
+      "text": "I am more empathetic than analytical in most situations.",
+      "target": "F",
+      "isReversed": false,
+      "weight": 1,
+      "translations": {
+        "french": "Je suis plus empathique qu'analytique dans la plupart des situations.",
+        "spanish": "Soy más empático que analítico en la mayoría de las situaciones."
+      }
+    },
+    {
+      "id": "q16",
+      "text": "I prefer structured plans over spontaneous actions.",
+      "target": "J",
+      "isReversed": false,
+      "weight": 1,
+      "translations": {
+        "french": "Je préfère les plans structurés aux actions spontanées.",
+        "spanish": "Prefiero planes estructurados sobre acciones espontáneas."
+      }
+    },
+    {
+      "id": "q17",
+      "text": "I often delay decisions to explore more options.",
+      "target": "P",
+      "isReversed": false,
+      "weight": 1,
+      "translations": {
+        "french": "Je retarde souvent les décisions pour explorer davantage d'options.",
+        "spanish": "A menudo retraso las decisiones para explorar más opciones."
+      }
+    },
+    {
+      "id": "q18",
+      "text": "I feel anxious when plans change unexpectedly.",
+      "target": "J",
+      "isReversed": true,
+      "weight": 1,
+      "translations": {
+        "french": "Je me sens anxieux lorsque les plans changent de manière inattendue.",
+        "spanish": "Me siento ansioso cuando los planes cambian inesperadamente."
+      }
+    },
+    {
+      "id": "q19",
+      "text": "I enjoy keeping my schedule flexible and open-ended.",
+      "target": "P",
+      "isReversed": false,
+      "weight": 1,
+      "translations": {
+        "french": "J'aime garder mon emploi du temps flexible et ouvert.",
+        "spanish": "Disfruto mantener mi horario flexible y abierto."
+      }
+    },
+    {
+      "id": "q20",
+      "text": "I get satisfaction from completing tasks well before deadlines.",
+      "target": "J",
+      "isReversed": false,
+      "weight": 1,
+      "translations": {
+        "french": "J'éprouve de la satisfaction à terminer les tâches bien avant les délais.",
+        "spanish": "Siento satisfacción al completar tareas mucho antes de los plazos."
+      }
+    }
+  ],
+  "outcomes": [
+    {
+      "id": "E",
+      "name": "Extraversion",
+      "description": "Outgoing, energetic",
+      "translations": {
+        "English": "Extraversion",
+        "French": "",
+        "Spanish": ""
+      }
+    },
+    {
+      "id": "I",
+      "name": "Introversion",
+      "description": "Reserved, thoughtful",
+      "translations": {
+        "English": "Introversion",
+        "French": "",
+        "Spanish": ""
+      }
+    },
+    {
+      "id": "S",
+      "name": "Sensing",
+      "description": "Practical, detail-oriented",
+      "translations": {
+        "English": "Sensing",
+        "French": "",
+        "Spanish": ""
+      }
+    },
+    {
+      "id": "N",
+      "name": "Intuition",
+      "description": "Imaginative, big-picture",
+      "translations": {
+        "English": "Intuition",
+        "French": "",
+        "Spanish": ""
+      }
+    },
+    {
+      "id": "T",
+      "name": "Thinking",
+      "description": "Logical, objective",
+      "translations": {
+        "English": "Thinking",
+        "French": "",
+        "Spanish": ""
+      }
+    },
+    {
+      "id": "F",
+      "name": "Feeling",
+      "description": "Empathetic, compassionate",
+      "translations": {
+        "English": "Feeling",
+        "French": "",
+        "Spanish": ""
+      }
+    },
+    {
+      "id": "J",
+      "name": "Judging",
+      "description": "Structured, decisive",
+      "translations": {
+        "English": "Judging",
+        "French": "",
+        "Spanish": ""
+      }
+    },
+    {
+      "id": "P",
+      "name": "Perceiving",
+      "description": "Flexible, spontaneous",
+      "translations": {
+        "English": "Perceiving",
+        "French": "",
+        "Spanish": ""
+      }
+    }
+  ],
+  "customScoring": "function(outcomes, testConfig, answers) {\\n  const dichotomies = [['E','I'],['S','N'],['T','F'],['J','P']];\\n  const outcomeScores = outcomes.map(o => ({...o, score: 0}));\\n\\n  testConfig.questions.forEach((question, index) => {\\n    const answer = answers[index];\\n    if (!answer) return;\\n    const dichotomy = dichotomies.find(d => d.includes(question.target));\\n    if (!dichotomy) return;\\n    const [first, second] = dichotomy;\\n    const isFirst = question.target === first;\\n    let points = question.isReversed ? 6 - answer : answer;\\n    if (points > 3) {\\n      const outcome = outcomeScores.find(o => o.id === (isFirst ? first : second));\\n      if (outcome) outcome.score += points - 3;\\n    } else if (points < 3) {\\n      const outcome = outcomeScores.find(o => o.id === (isFirst ? second : first));\\n      if (outcome) outcome.score += 3 - points;\\n    }\\n  });\\n\\n  const detailedResults = dichotomies.map(([a,b]) => {\\n    const aScore = outcomeScores.find(o => o.id === a)?.score || 0;\\n    const bScore = outcomeScores.find(o => o.id === b)?.score || 0;\\n    const total = aScore + bScore || 1;\\n    return {\\n      dichotomy: `${a}/${b}`,\\n      [a]: Math.round((aScore / total) * 100),\\n      [b]: Math.round((bScore / total) * 100),\\n      winner: aScore > bScore ? a : b\\n    };\\n  });\\n\\n  return {\\n    outcomes: outcomeScores,\\n    result: detailedResults.map(d => d.winner).join(''),\\n    detailedResult: detailedResults,\\n    resultWithPercentages: detailedResults.map(d => \\n      `${d.dichotomy}: ${d[d.dichotomy.split('/')[0]]}%/${d[d.dichotomy.split('/')[1]]}%`\\n    ).join('; ')\\n  };\\n}",
+  "results": [
+    {
+      "timestamp": "2025-07-26T23:39:56.162Z",
+      "testId": "mbti-1753573164403",
+      "testName": "16 Personality Types (MBTI)",
+      "finalResult": "INTP",
+      "resultWithPercentages": "E/I: 40%/60%; S/N: 40%/60%; T/F: 63%/38%; J/P: 38%/62%"
+    }
+  ]
+}

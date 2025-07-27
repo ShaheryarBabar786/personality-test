@@ -54,7 +54,13 @@
       "EDIT_OUTCOME": "Edit Outcome",
       "SCORING_LOGIC": "Scoring Logic",
       "PRESET_LOGIC_NOTE": "This is a preset scoring logic. To modify it, duplicate the test first.",
-      "DUPLICATE_TEST": "Duplicate Test"
+      "DUPLICATE_TEST": "Duplicate Test",
+      "CREATION_METHOD": "How do you want to create the test?",
+      "CREATE_MANUALLY": "Create manually",
+      "IMPORT_JSON": "Import from JSON",
+      "PASTE_JSON": "Paste JSON configuration",
+      "PARSE_JSON": "Validate JSON",
+      "EXAMPLE_JSON": "Example JSON format"
     },
     "BUTTONS": {
       "TEST_RUNNER": "Go to Test Runner",

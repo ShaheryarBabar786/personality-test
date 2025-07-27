@@ -49,6 +49,32 @@
         </select>
       </div>
 
+      <!-- Inside the test creation modal -->
+      <div class="form-group">
+        <label>{{ 'ADMIN.TEST_EDITOR.CREATION_METHOD' | translate }}</label>
+        <div class="creation-method-options">
+          <label>
+            <input type="radio" name="creationMethod" [(ngModel)]="creationMethod" value="manual" checked />
+            {{ 'ADMIN.TEST_EDITOR.CREATE_MANUALLY' | translate }}
+          </label>
+          <label>
+            <input type="radio" name="creationMethod" [(ngModel)]="creationMethod" value="json" />
+            {{ 'ADMIN.TEST_EDITOR.IMPORT_JSON' | translate }}
+          </label>
+        </div>
+      </div>
+
+      <!-- Add this section below the creation method options -->
+      <div *ngIf="creationMethod === 'json'" class="form-group">
+        <label>{{ 'ADMIN.TEST_EDITOR.PASTE_JSON' | translate }}</label>
+        <textarea [(ngModel)]="jsonInput" placeholder="Paste JSON here (example below)" rows="10" class="json-import-area"></textarea>
+        <!-- <small class="json-example">
+          {{ 'ADMIN.TEST_EDITOR.EXAMPLE_JSON' | translate }}:
+          <pre>{{ jsonExample }}</pre>
+        </small> -->
+        <button class="btn btn-primary" (click)="parseJsonInput()">{{ 'ADMIN.TEST_EDITOR.PARSE_JSON' | translate }}</button>
+      </div>
+
       <div class="form-group">
         <label>{{ 'ADMIN.TEST_EDITOR.SCORING_LOGIC' | translate }}</label>
 

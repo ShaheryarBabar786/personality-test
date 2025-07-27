@@ -1,19 +1,30 @@
 {
-  "id": "big-five-1752283236918",
+  "id": "big-five-1753572950326",
   "name": "Big Five Personality Test",
   "type": "big-five",
   "scoringType": "sum",
-  "description": "weios",
+  "description": "New big 5 test",
   "questions": [
     {
-      "id": "q1752283211376",
-      "text": "dilchows",
-      "target": "extraversion",
+      "id": "q1753572770082",
+      "text": "Question 1",
+      "target": "openness",
+      "isReversed": false,
+      "weight": 1,
+      "translations": {
+        "french": "French Translation",
+        "spanish": "Spanish Translation"
+      }
+    },
+    {
+      "id": "q1753572995393",
+      "text": "Question 2",
+      "target": "conscientiousness",
       "isReversed": true,
       "weight": 1,
       "translations": {
-        "french": "d;o",
-        "spanish": "cdslk"
+        "french": "French Translation",
+        "spanish": "Spanish Translation"
       }
     }
   ],
@@ -67,30 +78,7 @@
         "French": "",
         "Spanish": ""
       }
-    },
-    {
-      "id": "opennedd",
-      "name": "extraveruo",
-      "description": "",
-      "translations": {
-        "french": "",
-        "spanish": ""
-      }
     }
   ],
-  "customScoring": "function(outcomes) {\n        const total = outcomes.reduce((sum, o) => sum + o.score, 0);\n        const normalized = outcomes.map(o => ({\n          ...o,\n          percentage: Math.round((o.score / total) * 100)\n        }));\n\n        return {\n          outcomes: normalized,\n          result: normalized.map(o => `${o.name}: ${o.percentage}%`).join(', ')\n        };\n      }",
-  "results": [
-    {
-      "timestamp": "2025-07-12T01:21:50.438Z",
-      "testId": "big-five-1752283236918",
-      "testName": "Big Five Personality Test",
-      "finalResult": "Openness: 0%, Conscientiousness: 0%, Extraversion: 60%, Agreeableness: 0%, Neuroticism: 0%, extraveruo: 0%"
-    },
-    {
-      "timestamp": "2025-07-12T01:21:59.514Z",
-      "testId": "big-five-1752283236918",
-      "testName": "Big Five Personality Test",
-      "finalResult": "Openness: 0%, Conscientiousness: 0%, Extraversion: -20%, Agreeableness: 0%, Neuroticism: 0%, extraveruo: 0%"
-    }
-  ]
+  "customScoring": "function(outcomes, testConfig) {\n  // Big Five Scoring Logic\n  const questionsByOutcome = {};\n  outcomes.forEach(o => {\n    questionsByOutcome[o.id] = testConfig.questions.filter(q => q.target === o.id);\n  });\n\n  const outcomesWithPercentages = outcomes.map(o => {\n    const questions = questionsByOutcome[o.id] || [];\n    const maxPossible = questions.length * 5;\n    const percentage = maxPossible > 0 ? Math.round((o.score / maxPossible) * 100) : 0;\n\n    return {\n      ...o,\n      percentage,\n      maxPossible\n    };\n  });\n\n  return {\n    outcomes: outcomesWithPercentages,\n    result: outcomesWithPercentages.map(o => `${o.name}: ${o.percentage}%`).join(', '),\n    detailedResult: outcomesWithPercentages\n  };\n}"
 }

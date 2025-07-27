@@ -13,27 +13,23 @@ A comprehensive personality test administration system with support for multiple
 git clone git@github.com:ShaheryarBabar786/personality-test.git
 
 1. Set up Frontend
-bash
-cd frontend
-npm install
+- cd frontend
+- npm install
 2. Set up Server
-bash
-cd server
-npm install
+- cd server
+- npm install
 
 
 ##  🖥️ Running the Application
 ### Frontend (Angular)
-bash
-cd frontend
-npm run start
-Access at: http://localhost:4200
+- cd frontend
+- npm run start
+- Access at: http://localhost:4200
 
 ### Backend (Node.js)
-bash
-cd server
-npm run start
-API will run at: http://localhost:3000
+- cd server
+- npm run start
+- API will run at: http://localhost:3000
 
 ## 🛠️ Test Creation Guide
 There are two ways to create new personality tests:

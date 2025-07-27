@@ -72,13 +72,3 @@ There are two ways to create new personality tests:
 "Create an MBTI test with 20 questions (5 per dichotomy), French/Spanish translations, and exactly 6 reversed questions"
 "Generate Big Five test with 30 questions (6 per trait), workplace-focused"
 
-
-## 📋 Supported Test Types
-
-| Test Type            | Traits/Scales        | Questions | Scoring Method |
-|----------------------|----------------------|-----------|----------------|
-| Big Five             | OCEAN Model          | 25–35     | Sum            |
-| MBTI                 | Dichotomies          | 20–28     | Comparison     |
-| Enneagram            | 9 Types              | 36–45     | Weighted       |
-| DISC                 | 4 Factors            | 24–32     | Comparison     |
-| Emotional Intelligence | Components         | 25–35     | Sum            |

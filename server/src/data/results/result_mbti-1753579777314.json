@@ -1,0 +1,16 @@
+[
+  {
+    "timestamp": "2025-07-27T01:30:42.583Z",
+    "testId": "mbti-1753579777314",
+    "testName": "16 Personality Types (MBTI)",
+    "finalResult": "ESFP",
+    "resultWithPercentages": "E/I: 75%/25%; S/N: 73%/27%; T/F: 36%/64%; J/P: 36%/64%"
+  },
+  {
+    "timestamp": "2025-07-27T01:31:42.645Z",
+    "testId": "mbti-1753579777314",
+    "testName": "16 Personality Types (MBTI)",
+    "finalResult": "ESTP",
+    "resultWithPercentages": "E/I: 56%/44%; S/N: 56%/44%; T/F: 67%/33%; J/P: 25%/75%"
+  }
+]

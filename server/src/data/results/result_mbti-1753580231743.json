@@ -1,0 +1,16 @@
+[
+  {
+    "timestamp": "2025-07-27T01:37:52.009Z",
+    "testId": "mbti-1753580231743",
+    "testName": "MBTI Personality Test",
+    "finalResult": "ESTP",
+    "resultWithPercentages": "E/I: 56%/44%; S/N: 100%/0%; T/F: 100%/0%; J/P: 0%/100%"
+  },
+  {
+    "timestamp": "2025-07-27T01:38:29.864Z",
+    "testId": "mbti-1753580231743",
+    "testName": "MBTI Personality Test",
+    "finalResult": "ENFP",
+    "resultWithPercentages": "E/I: 67%/33%; S/N: 0%/100%; T/F: 0%/100%; J/P: 50%/50%"
+  }
+]

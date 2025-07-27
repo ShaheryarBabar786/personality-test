@@ -7,9 +7,27 @@ import { TestConfig } from 'src/interface/types/test-config.interface';
 @Injectable()
 export class PersonalityService {
   private readonly dataDir = path.join(process.cwd(), 'src', 'data');
+  private readonly testsDir = path.join(this.dataDir, 'tests');
+  private readonly resultsDir = path.join(this.dataDir, 'results');
+
+  constructor() {
+    [this.dataDir, this.testsDir, this.resultsDir].forEach(dir => {
+      if (!fs.existsSync(dir)) {
+        fs.mkdirSync(dir, { recursive: true });
+      }
+    });
+  }
+
+  private getTestFilePath(id: string): string {
+    return path.join(this.testsDir, `${id}.json`);
+  }
+
+  private getResultFilePath(testId: string): string {
+    return path.join(this.resultsDir, `result_${testId}.json`);
+  }
 
   private async readTestConfig(id: string): Promise<any> {
-    const filePath = path.join(this.dataDir, `${id}.json`);
+    const filePath = this.getTestFilePath(id);
     if (!fs.existsSync(filePath)) return null;
     
     try {
@@ -22,22 +40,35 @@ export class PersonalityService {
   }
 
   private async writeTestConfig(id: string, config: any): Promise<void> {
-    const filePath = path.join(this.dataDir, `${id}.json`);
+    const filePath = this.getTestFilePath(id);
     fs.writeFileSync(filePath, JSON.stringify(config, null, 2));
+  }
+
+  private async readResultsFile(testId: string): Promise<any[]> {
+    const filePath = this.getResultFilePath(testId);
+    if (!fs.existsSync(filePath)) return [];
+    
+    try {
+      const data = fs.readFileSync(filePath, 'utf8');
+      return JSON.parse(data);
+    } catch (error) {
+      console.error(`Error reading results file ${filePath}:`, error);
+      return [];
+    }
+  }
+
+  private async writeResultsFile(testId: string, results: any[]): Promise<void> {
+    const filePath = this.getResultFilePath(testId);
+    fs.writeFileSync(filePath, JSON.stringify(results, null, 2));
   }
 
   async getAllTests() {
     try {
-      if (!fs.existsSync(this.dataDir)) {
-        fs.mkdirSync(this.dataDir, { recursive: true });
-        return [];
-      }
-
-      const files = fs.readdirSync(this.dataDir)
+      const files = fs.readdirSync(this.testsDir)
         .filter(file => file.endsWith('.json'));
 
       return files.map(file => {
-        const filePath = path.join(this.dataDir, file);
+        const filePath = path.join(this.testsDir, file);
         try {
           const data = fs.readFileSync(filePath, 'utf8');
           return JSON.parse(data);
@@ -122,29 +153,24 @@ export class PersonalityService {
     testId: string,
     testName: string,
     timestamp: string,
-    finalResult: string
+    finalResult: string,
     resultWithPercentages?: string
   }) {
     const testId = resultData.testId;
-    const filePath = path.join(this.dataDir, `${testId}.json`);
-  
+    
     try {
-      const testConfig = fs.existsSync(filePath)
-        ? JSON.parse(fs.readFileSync(filePath, 'utf8'))
-        : { id: testId, results: [] };
+      const existingResults = await this.readResultsFile(testId);
       
-      if (!testConfig.results) testConfig.results = [];
-     
-      testConfig.results.push({
+      existingResults.push({
         timestamp: resultData.timestamp,
         testId: resultData.testId,
         testName: resultData.testName,
         finalResult: resultData.finalResult,
         resultWithPercentages: resultData.resultWithPercentages
       });
-     
-      fs.writeFileSync(filePath, JSON.stringify(testConfig, null, 2));
-  
+      
+      await this.writeResultsFile(testId, existingResults);
+
       return { 
         success: true,
         savedAt: resultData.timestamp,
@@ -156,34 +182,24 @@ export class PersonalityService {
     }
   }
 
-async getAllTestsWithResults() {
-  try {
-    if (!fs.existsSync(this.dataDir)) {
-      fs.mkdirSync(this.dataDir, { recursive: true });
-      return [];
+  async getAllTestsWithResults() {
+    try {
+      const tests = await this.getAllTests();
+      
+      const testsWithResults = await Promise.all(tests.map(async test => {
+        const results = await this.readResultsFile(test.id);
+        return {
+          ...test,
+          results: results
+        };
+      }));
+
+      return testsWithResults;
+    } catch (error) {
+      console.error('getAllTestsWithResults error:', error);
+      throw error;
     }
-
-    const files = fs.readdirSync(this.dataDir)
-      .filter(file => file.endsWith('.json'));
-
-    const allTests = await Promise.all(files.map(async file => {
-      const filePath = path.join(this.dataDir, file);
-      try {
-        const data = fs.readFileSync(filePath, 'utf8');
-        return JSON.parse(data);
-      } catch (error) {
-        console.error(`Failed to parse ${file}:`, error.message);
-        return null;
-      }
-    }));
-
-    return allTests.filter(test => test !== null);
-  } catch (error) {
-    console.error('getAllTestsWithResults error:', error);
-    throw error;
   }
-}
-
   private calculateSumScore(testConfig: any, answers: any[]): any {
     const outcomes = testConfig.outcomes.map(outcome => ({
       ...outcome,

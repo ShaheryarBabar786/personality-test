@@ -1,0 +1,312 @@
+{
+  "id": "mbti-1753579777314",
+  "name": "16 Personality Types (MBTI)",
+  "type": "mbti",
+  "scoringType": "compare",
+  "description": "This test measures your personality across four dichotomies: Extraversion/Introversion, Sensing/Intuition, Thinking/Feeling, and Judging/Perceiving.",
+  "questions": [
+    {
+      "id": "q1",
+      "text": "You usually stay calm, even under a lot of pressure",
+      "target": "E",
+      "isReversed": true,
+      "weight": 1,
+      "translations": {
+        "french": "Vous restez généralement calme, même sous forte pression",
+        "spanish": "Normalmente mantienes la calma, incluso bajo mucha presión"
+      }
+    },
+    {
+      "id": "q2",
+      "text": "You enjoy vibrant social events with many people",
+      "target": "E",
+      "isReversed": false,
+      "weight": 1,
+      "translations": {
+        "french": "Vous aimez les événements sociaux animés avec beaucoup de monde",
+        "spanish": "Disfrutas de eventos sociales vibrantes con mucha gente"
+      }
+    },
+    {
+      "id": "q3",
+      "text": "You prefer one-on-one conversations to group activities",
+      "target": "I",
+      "isReversed": false,
+      "weight": 1,
+      "translations": {
+        "french": "Vous préférez les conversations en tête-à-tête aux activités de groupe",
+        "spanish": "Prefieres las conversaciones uno a uno a las actividades grupales"
+      }
+    },
+    {
+      "id": "q4",
+      "text": "You rarely feel drained after social interactions",
+      "target": "I",
+      "isReversed": true,
+      "weight": 1,
+      "translations": {
+        "french": "Vous vous sentez rarement épuisé après des interactions sociales",
+        "spanish": "Rara vez te sientes agotado después de interacciones sociales"
+      }
+    },
+    {
+      "id": "q5",
+      "text": "You often take initiative in social situations",
+      "target": "E",
+      "isReversed": false,
+      "weight": 1,
+      "translations": {
+        "french": "Vous prenez souvent l'initiative dans les situations sociales",
+        "spanish": "A menudo tomas la iniciativa en situaciones sociales"
+      }
+    },
+    {
+      "id": "q6",
+      "text": "You focus on facts rather than theories",
+      "target": "S",
+      "isReversed": false,
+      "weight": 1,
+      "translations": {
+        "french": "Vous vous concentrez sur les faits plutôt que sur les théories",
+        "spanish": "Te enfocas en hechos más que en teorías"
+      }
+    },
+    {
+      "id": "q7",
+      "text": "You enjoy thinking about abstract concepts",
+      "target": "N",
+      "isReversed": false,
+      "weight": 1,
+      "translations": {
+        "french": "Vous aimez réfléchir à des concepts abstraits",
+        "spanish": "Disfrutas pensando en conceptos abstractos"
+      }
+    },
+    {
+      "id": "q8",
+      "text": "You rarely get lost in your imagination",
+      "target": "N",
+      "isReversed": true,
+      "weight": 1,
+      "translations": {
+        "french": "Vous vous perdez rarement dans votre imagination",
+        "spanish": "Rara vez te pierdes en tu imaginación"
+      }
+    },
+    {
+      "id": "q9",
+      "text": "You prefer practical solutions over innovative ones",
+      "target": "S",
+      "isReversed": false,
+      "weight": 1,
+      "translations": {
+        "french": "Vous préférez les solutions pratiques aux solutions innovantes",
+        "spanish": "Prefieres soluciones prácticas sobre innovadoras"
+      }
+    },
+    {
+      "id": "q10",
+      "text": "You often think about the future possibilities",
+      "target": "N",
+      "isReversed": false,
+      "weight": 1,
+      "translations": {
+        "french": "Vous pensez souvent aux possibilités futures",
+        "spanish": "A menudo piensas en las posibilidades futuras"
+      }
+    },
+    {
+      "id": "q11",
+      "text": "You make decisions based on logic rather than feelings",
+      "target": "T",
+      "isReversed": false,
+      "weight": 1,
+      "translations": {
+        "french": "Vous prenez des décisions basées sur la logique plutôt que sur les sentiments",
+        "spanish": "Tomas decisiones basadas en la lógica más que en los sentimientos"
+      }
+    },
+    {
+      "id": "q12",
+      "text": "You consider people's feelings more important than the truth",
+      "target": "F",
+      "isReversed": false,
+      "weight": 1,
+      "translations": {
+        "french": "Vous considérez les sentiments des gens plus importants que la vérité",
+        "spanish": "Consideras los sentimientos de las personas más importantes que la verdad"
+      }
+    },
+    {
+      "id": "q13",
+      "text": "You rarely let emotions cloud your judgment",
+      "target": "T",
+      "isReversed": true,
+      "weight": 1,
+      "translations": {
+        "french": "Vous laissez rarement les émotions brouiller votre jugement",
+        "spanish": "Rara vez dejas que las emociones nublen tu juicio"
+      }
+    },
+    {
+      "id": "q14",
+      "text": "You value harmony more than being right",
+      "target": "F",
+      "isReversed": false,
+      "weight": 1,
+      "translations": {
+        "french": "Vous valorisez l'harmonie plus que d'avoir raison",
+        "spanish": "Valoras la armonía más que tener la razón"
+      }
+    },
+    {
+      "id": "q15",
+      "text": "You prefer objective standards to personal values",
+      "target": "T",
+      "isReversed": false,
+      "weight": 1,
+      "translations": {
+        "french": "Vous préférez les normes objectives aux valeurs personnelles",
+        "spanish": "Prefieres estándares objetivos a valores personales"
+      }
+    },
+    {
+      "id": "q16",
+      "text": "You like to have a detailed plan before starting a project",
+      "target": "J",
+      "isReversed": false,
+      "weight": 1,
+      "translations": {
+        "french": "Vous aimez avoir un plan détaillé avant de commencer un projet",
+        "spanish": "Te gusta tener un plan detallado antes de comenzar un proyecto"
+      }
+    },
+    {
+      "id": "q17",
+      "text": "You prefer to keep your options open rather than make plans",
+      "target": "P",
+      "isReversed": false,
+      "weight": 1,
+      "translations": {
+        "french": "Vous préférez garder vos options ouvertes plutôt que de faire des plans",
+        "spanish": "Prefieres mantener tus opciones abiertas en lugar de hacer planes"
+      }
+    },
+    {
+      "id": "q18",
+      "text": "You rarely procrastinate on important tasks",
+      "target": "J",
+      "isReversed": true,
+      "weight": 1,
+      "translations": {
+        "french": "Vous remettez rarement à plus tard les tâches importantes",
+        "spanish": "Rara vez pospones tareas importantes"
+      }
+    },
+    {
+      "id": "q19",
+      "text": "You enjoy spontaneous decisions more than scheduled ones",
+      "target": "P",
+      "isReversed": false,
+      "weight": 1,
+      "translations": {
+        "french": "Vous appréciez les décisions spontanées plus que celles planifiées",
+        "spanish": "Disfrutas más de las decisiones espontáneas que de las programadas"
+      }
+    },
+    {
+      "id": "q20",
+      "text": "You find strict deadlines motivating rather than stressful",
+      "target": "J",
+      "isReversed": true,
+      "weight": 1,
+      "translations": {
+        "french": "Vous trouvez les délais stricts motivants plutôt que stressants",
+        "spanish": "Encuentras los plazos estrictos motivadores en lugar de estresantes"
+      }
+    }
+  ],
+  "outcomes": [
+    {
+      "id": "E",
+      "name": "Extraversion",
+      "description": "Outgoing, energetic",
+      "translations": {
+        "English": "Extraversion",
+        "French": "",
+        "Spanish": ""
+      }
+    },
+    {
+      "id": "I",
+      "name": "Introversion",
+      "description": "Reserved, thoughtful",
+      "translations": {
+        "English": "Introversion",
+        "French": "",
+        "Spanish": ""
+      }
+    },
+    {
+      "id": "S",
+      "name": "Sensing",
+      "description": "Practical, detail-oriented",
+      "translations": {
+        "English": "Sensing",
+        "French": "",
+        "Spanish": ""
+      }
+    },
+    {
+      "id": "N",
+      "name": "Intuition",
+      "description": "Imaginative, big-picture",
+      "translations": {
+        "English": "Intuition",
+        "French": "",
+        "Spanish": ""
+      }
+    },
+    {
+      "id": "T",
+      "name": "Thinking",
+      "description": "Logical, objective",
+      "translations": {
+        "English": "Thinking",
+        "French": "",
+        "Spanish": ""
+      }
+    },
+    {
+      "id": "F",
+      "name": "Feeling",
+      "description": "Empathetic, compassionate",
+      "translations": {
+        "English": "Feeling",
+        "French": "",
+        "Spanish": ""
+      }
+    },
+    {
+      "id": "J",
+      "name": "Judging",
+      "description": "Structured, decisive",
+      "translations": {
+        "English": "Judging",
+        "French": "",
+        "Spanish": ""
+      }
+    },
+    {
+      "id": "P",
+      "name": "Perceiving",
+      "description": "Flexible, spontaneous",
+      "translations": {
+        "English": "Perceiving",
+        "French": "",
+        "Spanish": ""
+      }
+    }
+  ],
+  "customScoring": "function(outcomes, testConfig, answers) {\n  const dichotomies = [['E','I'],['S','N'],['T','F'],['J','P']];\n  const outcomeScores = outcomes.map(o => ({...o, score: 0}));\n\n  testConfig.questions.forEach((question, index) => {\n    const answer = answers[index];\n    if (!answer) return;\n    \n    const dichotomy = dichotomies.find(d => d.includes(question.target));\n    if (!dichotomy) return;\n\n    const [first, second] = dichotomy;\n    const isFirst = question.target === first;\n    let points = question.isReversed ? 6 - answer : answer;\n\n    if (points > 3) {\n      const outcome = outcomeScores.find(o => o.id === (isFirst ? first : second));\n      if (outcome) outcome.score += points - 3;\n    } else if (points < 3) {\n      const outcome = outcomeScores.find(o => o.id === (isFirst ? second : first));\n      if (outcome) outcome.score += 3 - points;\n    }\n  });\n\n  const detailedResults = dichotomies.map(([a,b]) => {\n    const aScore = outcomeScores.find(o => o.id === a)?.score || 0;\n    const bScore = outcomeScores.find(o => o.id === b)?.score || 0;\n    const total = aScore + bScore || 1;\n    return {\n      dichotomy: `${a}/${b}`,\n      [a]: Math.round((aScore / total) * 100),\n      [b]: Math.round((bScore / total) * 100),\n      winner: aScore > bScore ? a : b\n    };\n  });\n\n  return {\n    outcomes: outcomeScores,\n    result: detailedResults.map(d => d.winner).join(''),\n    detailedResult: detailedResults,\n    resultWithPercentages: detailedResults.map(d => \n      `${d.dichotomy}: ${d[d.dichotomy.split('/')[0]]}%/${d[d.dichotomy.split('/')[1]]}%`\n    ).join('; ')\n  };\n}"
+}

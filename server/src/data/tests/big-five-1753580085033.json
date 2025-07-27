@@ -1,30 +1,63 @@
 {
-  "id": "big-five-1753572950326",
+  "id": "big-five-1753580085033",
   "name": "Big Five Personality Test",
   "type": "big-five",
   "scoringType": "sum",
-  "description": "New big 5 test",
+  "description": "This test measures your personality across five fundamental traits: Openness, Conscientiousness, Extraversion, Agreeableness, and Neuroticism.",
   "questions": [
     {
-      "id": "q1753572770082",
-      "text": "Question 1",
+      "id": "q1",
+      "text": "I enjoy trying new and unusual foods",
       "target": "openness",
       "isReversed": false,
       "weight": 1,
       "translations": {
-        "french": "French Translation",
-        "spanish": "Spanish Translation"
+        "french": "J'aime essayer de nouveaux aliments inhabituels",
+        "spanish": "Disfruto probando comidas nuevas e inusuales"
       }
     },
     {
-      "id": "q1753572995393",
-      "text": "Question 2",
+      "id": "q2",
+      "text": "I often forget to put things back in their proper place",
       "target": "conscientiousness",
       "isReversed": true,
       "weight": 1,
       "translations": {
-        "french": "French Translation",
-        "spanish": "Spanish Translation"
+        "french": "J'oublie souvent de remettre les choses à leur place",
+        "spanish": "A menudo olvido poner las cosas en su lugar"
+      }
+    },
+    {
+      "id": "q3",
+      "text": "I feel comfortable around people",
+      "target": "extraversion",
+      "isReversed": false,
+      "weight": 1,
+      "translations": {
+        "french": "Je me sens à l'aise avec les gens",
+        "spanish": "Me siento cómodo alrededor de la gente"
+      }
+    },
+    {
+      "id": "q4",
+      "text": "I sympathize with others' feelings",
+      "target": "agreeableness",
+      "isReversed": false,
+      "weight": 1,
+      "translations": {
+        "french": "Je compatis avec les sentiments des autres",
+        "spanish": "Simpatizo con los sentimientos de los demás"
+      }
+    },
+    {
+      "id": "q5",
+      "text": "I get irritated easily",
+      "target": "neuroticism",
+      "isReversed": false,
+      "weight": 1,
+      "translations": {
+        "french": "Je m'irrite facilement",
+        "spanish": "Me irrito fácilmente"
       }
     }
   ],
